@@ -1,0 +1,114 @@
+<div style="width: 100%" *ngIf="frmGroup">
+    <!-- Main -->
+    <div class="flex-auto m-7 body-color">
+        <!-- body Card -->
+        <mat-card class="tab-color -mt-4">
+            <!-- form div -->
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <!-- heading -->
+                <div class="heading">
+                    {{'title' | translate}}
+                </div>
+                <!-- // heading -->
+
+                <form [formGroup]="frmGroup" class="p-8">
+                    <!-- row 1 -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                           fxFlex.xs="100%">{{ 'reportFormat' | translate }}<strong class="required">*</strong>
+                                </mat-label>
+                                <mat-radio-group class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                fxFlex.sm="60%"
+                                fxFlex.xs="100%" formControlName="reportFormat" (change)="selectReportFormateChange()">
+                                    <mat-radio-button [ngStyle]="{'margin-right': '15px', 'padding-bottom': '15px'}" value="pdf">PDF</mat-radio-button>
+                                    <mat-radio-button [ngStyle]="{'margin-right': '15px'}" value="xlsx">XLSX</mat-radio-button>
+                                    <!-- <mat-radio-button  value="rtf">RTF</mat-radio-button> -->
+                                </mat-radio-group>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- // row 1 -->
+
+
+                    <!-- row 2 -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                        fxFlex.xs="100%">{{ 'module' | translate }}<strong class="required">*</strong>
+                                </mat-label>
+                                <mat-select-search class="fuse-mat-dense flex-auto" fxFlex="75%" fxFlex.xs="50%" fxFlex.sm="50%"
+                                    [formGroup]="frmGroup"
+                                    [controlName]="'module'"
+                                    [data]="moduleDropdownList"
+                                    (selectionChange)="selectModuleChange()">
+                                </mat-select-search>
+                            </div>
+                        </div>
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
+                                        fxFlex.xs="100%">{{ 'reportMaster' | translate }}<strong class="required">*</strong>
+                                </mat-label>
+                                <mat-select-search class="fuse-mat-dense flex-auto" fxFlex="75%" fxFlex.xs="50%" fxFlex.sm="50%"
+                                    [formGroup]="frmGroup"
+                                    [controlName]="'reportMaster'"
+                                    [data]="reportMasterDropdownList"
+                                    (selectionChange)="selectReportChange()">
+                                </mat-select-search>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- // row 2 -->
+
+                    <!-- params -->
+                    <div style="width: 100%; height: auto; float: left;">
+<!--                        <div [innerHTML]="htmlParamsBody"></div>-->
+                        <div id="htmlParamsBody"></div>
+                    </div>
+
+
+                    <!-- button -->
+                    <div  style="width: 100%; height: auto; float: left; padding-top: 20px;">
+
+                        <button (click)="refresh()" [disabled]="!frmGroup.valid" class="px-8 mr-2" mat-flat-button color="accent"
+                            type="button">
+                            {{'reset' | translate}}
+                        </button>
+                        <button (click)="printReport()" [disabled]="!frmGroup.valid || searchLoader" class="px-8"
+                                mat-flat-button color="primary" type="button" *ngIf= "isPdfButton">
+                            {{'print' | translate}}
+                            <mat-progress-spinner
+                                *ngIf="searchLoader"
+                                [diameter]="24"
+                                [mode]="'indeterminate'">
+                            </mat-progress-spinner>
+                        </button>
+                        <button (click)="downloadReport()" [disabled]="!frmGroup.valid" class="px-8"
+                                mat-flat-button color="primary" type="button" *ngIf= "isDownloadButton">
+                            {{'download' | translate}}
+                        </button>
+                    </div>
+                    <!-- button -->
+                </form>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            </div>
+            <!-- // form div -->
+
+
+        </mat-card>
+
+
+        <!-- // body Card -->
+    </div>
+    <!-- // Main -->
+</div>
+

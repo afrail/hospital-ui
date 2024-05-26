@@ -1,0 +1,400 @@
+<div style="width: 100%; float: left">
+    <div class="w-full max-w-screen-xl mx-auto">
+        <div style="padding: 10px; margin: 10px;">
+            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-8 w-full min-w-0">
+
+                <!-- Total Employee -->
+                <div class="flex flex-col flex-auto p-6 shadow rounded-2xl overflow-hidden"
+                     style="background-image: linear-gradient(to right, rgba(0, 106, 77, 1), rgba(0, 200, 20, .3)); color: white;">
+                    <div class="flex items-start justify-between">
+                        <div class="text-lg font-medium tracking-tight leading-6 truncate">Total Employee</div>
+                    </div>
+                    <div class="flex flex-col items-center mt-2">
+                        <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none"
+                             id="itemZero">{{data.item.zero }}</div>
+                    </div>
+                </div>
+                <!-- Total Army -->
+                <div class="flex flex-col flex-auto p-6 shadow rounded-2xl overflow-hidden"
+                     style=" background-color: red; background-image: linear-gradient(to right, rgba(0, 106, 77, 1), rgba(0, 200, 20, .3)); color: white;">
+                    <div class="flex items-start justify-between">
+                        <div class="text-lg font-medium tracking-tight leading-6 truncate">Total Army</div>
+                    </div>
+                    <div class="flex flex-col items-center mt-2">
+                        <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none"
+                             id="itemDanger">{{data.item.danger }}</div>
+                    </div>
+                </div>
+                <!-- Total Civil -->
+                <div class="flex flex-col flex-auto p-6 shadow rounded-2xl overflow-hidden"
+                     style="background-image: linear-gradient(to right, rgba(255,172,0,1), rgba(255,165,0,.25)); color: white;">
+                    <div class="flex items-start justify-between">
+                        <div class="text-lg font-medium tracking-tight leading-6 truncate">Total Civil</div>
+                    </div>
+                    <div class="flex flex-col items-center mt-2">
+                        <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none"
+                             id="itemWarning">{{data.item.warning }}</div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full min-w-0">
+                <!-- Employee summary -->
+                <div
+                    class="sm:col-span-2 md:col-span-4 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                    <div class="flex flex-col sm:flex-row items-start justify-between"
+                         style="background-image: linear-gradient(to right, rgba(0,173,255,1), rgba(0,173,255,.05));">
+                        <div class="text-lg font-medium tracking-tight leading-6 truncate"
+                             style="color: #EEF2FF; padding: 7px;">Employee Attendance Summary
+                        </div>
+                        <div class="mt-3 sm:mt-0 sm:ml-2">
+                            <mat-button-toggle-group
+                                value="thisweek"
+                                #githubIssues2WeekSelector="matButtonToggleGroup">
+                                <mat-button-toggle value="lastweek">Yesterday</mat-button-toggle>
+                                <mat-button-toggle value="thisweek">Today</mat-button-toggle>
+                            </mat-button-toggle-group>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col flex-auto" style="background-color: aliceblue;">
+                        <apx-chart
+                            class="flex-auto w-full h-80"
+                            [chart]="chartGithubIssues2.chart"
+                            [colors]="chartGithubIssues2.colors"
+                            [grid]="chartGithubIssues2.grid"
+                            [labels]="chartGithubIssues2.labels"
+                            [legend]="chartGithubIssues2.legend"
+                            [plotOptions]="chartGithubIssues2.plotOptions"
+                            [series]="chartGithubIssues2.series[githubIssues2WeekSelector.value]"
+                            [states]="chartGithubIssues2.states"
+                            [stroke]="chartGithubIssues2.stroke"
+                            [tooltip]="chartGithubIssues2.tooltip"
+                            [xaxis]="chartGithubIssues2.xaxis"
+                            [yaxis]="chartGithubIssues2.yaxis">
+                        </apx-chart>
+                    </div>
+                </div>
+
+
+                <!-- Attandence Summary -->
+                <div
+                    class="sm:col-span-2 md:col-span-4 lg:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                    <div class="flex flex-col sm:flex-row items-start justify-between"
+                         style="background-image: linear-gradient(to right, rgba(13,148,136,1), rgba(13,148,136,.10));">
+                        <div class="text-lg font-medium tracking-tight leading-6 truncate"
+                             style="color: #EEF2FF; padding: 7px;">Attendance Percentage
+                        </div>
+                        <div class="mt-3 sm:mt-0 sm:ml-2">
+                            <mat-button-toggle-group
+                                value="thisweek"
+                                #chartGenderWeekSelector="matButtonToggleGroup">
+                                <mat-button-toggle value="lastweek">{{data.gender.no[0]}}</mat-button-toggle>
+                                <mat-button-toggle value="thisweek">{{data.gender.no[1]}}</mat-button-toggle>
+                            </mat-button-toggle-group>
+                        </div>
+                    </div>
+                    <div class="flex flex-col flex-auto mt-6 h-44" style="background-color: #daffff;">
+                        <apx-chart
+                            class="flex flex-auto items-center justify-center w-full h-full"
+                            [chart]="chartGender.chart"
+                            [colors]="chartGender.colors"
+                            [labels]="chartGender.labels"
+                            [plotOptions]="chartGender.plotOptions"
+                            [series]="chartGender.series[chartGenderWeekSelector.value]"
+                            [states]="chartGender.states"
+                            [tooltip]="chartGender.tooltip"></apx-chart>
+                    </div>
+                    <div class="mt-8">
+                        <div class="-my-3 divide-y">
+                            <ng-container
+                                *ngFor="let dataset of data.gender.series[chartGenderWeekSelector.value]; let i = index">
+                                <div class="grid grid-cols-3 py-3">
+                                    <div class="flex items-center">
+                                        <div
+                                            class="flex-0 w-2 h-2 rounded-full"
+                                            [style.backgroundColor]="chartGender.colors[i]"></div>
+                                        <div class="ml-3 truncate">{{data.gender.labels[i]}}</div>
+                                    </div>
+                                    <!--                                        <div class="font-medium text-right">{{data.gender.uniqueVisitors * dataset / 100 | number:'1.0-0'}}</div>-->
+                                    <div class="text-right text-secondary">{{dataset}}%</div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notice board-->
+                <div
+                    class="sm:col-span-2 md:col-span-4 lg:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                    <div class="flex flex-col sm:flex-row items-start justify-between"
+                         style="background-image: linear-gradient(to right, rgba(76,1,6,1), rgba(76,1,6,.35)); height: 41px;">
+                        <div class="text-lg font-medium tracking-tight leading-6 truncate"
+                             style="color: #EEF2FF; padding: 7px;">Notice Board
+                        </div>
+                    </div>
+                    <div class="flex flex-col mt-2 divide-y inset-0 flex flex-col overflow-x-auto"  style="height: 220px;">
+
+                        <ng-container  *ngFor="let scheduleItem of data.schedule, even as isEven; trackBy: trackByFn" >
+                            <div class="flex flex-row items-center justify-between py-4 px-0.5 " [ngStyle]="{ background: isEven ? '#83dccc' : '#21dc5a' }" style="border-radius: 8px;margin: 4px; "
+                                 (click)="printNotice(scheduleItem.file)">
+
+                                <div class="flex flex-col font-medium" style="margin-left: 10px">
+
+                                    <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" >
+                                        <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center" >
+
+                                            <!-- notice title-->
+                                            <mat-label style="cursor: pointer;">{{scheduleItem.title}}</mat-label>
+
+                                            <!-- notice date-->
+                                            <ng-container *ngIf="scheduleItem.date">
+                                                <div class="flex items-center" style="padding-left: 20px;">
+                                                    <mat-icon
+                                                        class="icon-size-5 text-hint"
+                                                        [svgIcon]="'heroicons_solid:clock'"></mat-icon>
+                                                    <div
+                                                        class="ml-1.5 text-md ">{{scheduleItem.date | date: validationMsg.PIPE_DATE_FORMAT}}</div>
+                                                </div>
+                                            </ng-container>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <!-- Github production summary -->
+                <div
+                    class="sm:col-span-2 md:col-span-4 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                    <div class="flex flex-col sm:flex-row items-start justify-between"
+                         style="background-image: linear-gradient(to right, rgba(43,87,154,1), rgba(43,87,154,.35));">
+                        <div class="text-lg font-medium tracking-tight leading-6 truncate"
+                             style="color: #EEF2FF; padding: 7px;">Production Summary
+                        </div>
+                        <div class="mt-3 sm:mt-0 sm:ml-2">
+                            <mat-button-toggle-group
+                                value="thisweek"
+                                #githubIssuesWeekSelector="matButtonToggleGroup">
+                                <mat-button-toggle value="lastweek" (click)="changeIssueLastWeek()">Last Week
+                                </mat-button-toggle>
+                                <mat-button-toggle value="thisweek" (click)="changeIssueThisWeek()">This Week
+                                </mat-button-toggle>
+                            </mat-button-toggle-group>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 grid-flow-row gap-6 w-full mt-8 sm:mt-4">
+                        <!-- Product -->
+                        <div class="flex flex-col flex-auto" style="background-color: azure;">
+                            <div class="font-medium text-secondary">Product</div>
+                            <div class="flex flex-col flex-auto">
+                                <apx-chart
+                                    class="flex-auto w-full h-80"
+                                    [chart]="chartGithubIssues.chart"
+                                    [colors]="chartGithubIssues.colors"
+                                    [grid]="chartGithubIssues.grid"
+                                    [labels]="chartGithubIssues.labels"
+                                    [legend]="chartGithubIssues.legend"
+                                    [plotOptions]="chartGithubIssues.plotOptions"
+                                    [series]="chartGithubIssues.series[githubIssuesWeekSelector.value]"
+                                    [states]="chartGithubIssues.states"
+                                    [stroke]="chartGithubIssues.stroke"
+                                    [tooltip]="chartGithubIssues.tooltip"
+                                    [xaxis]="chartGithubIssues.xaxis"
+                                    [yaxis]="chartGithubIssues.yaxis"></apx-chart>
+                            </div>
+                        </div>
+
+                        <!-- Overview -->
+                        <div class="flex flex-col" style="background-color: cornsilk;">
+                            <div class="font-medium text-secondary">Overview</div>
+                            <div class="flex-auto grid grid-cols-4 gap-4 mt-6">
+                                <!-- Fixed -->
+                                <div
+                                    class="col-span-2 sm:col-span-1 flex flex-col items-center justify-center py-8 px-1 rounded-2xl "
+                                    style="background-color: #54b09d; color: white">
+                                    <div class="text-5xl font-semibold leading-none tracking-tight" id="prodCutting">
+                                        {{data.githubIssues.overview[githubIssuesWeekSelector.value]['fixed']}}
+                                    </div>
+                                    <div class="mt-1 text-sm font-medium text-center">R1</div>
+                                </div>
+                                <!-- Won't fix -->
+                                <div
+                                    class="col-span-2 sm:col-span-1 flex flex-col items-center justify-center py-8 px-1 rounded-2xl "
+                                    style="background-color: #ca5b53; color: white">
+                                    <div class="text-5xl font-semibold leading-none tracking-tight" id="prodSkiving">
+                                        {{data.githubIssues.overview[githubIssuesWeekSelector.value]['wontfix']}}
+                                    </div>
+                                    <div class="mt-1 text-sm font-medium text-center">R2</div>
+                                </div>
+                                <!-- Re-opened -->
+                                <div
+                                    class="col-span-2 sm:col-span-1 flex flex-col items-center justify-center py-8 px-1 rounded-2xl "
+                                    style="background-color: #31ef9a; color: white">
+                                    <div class="text-5xl font-semibold leading-none tracking-tight" id="prodSewing">
+                                        {{data.githubIssues.overview[githubIssuesWeekSelector.value]['reopened']}}
+                                    </div>
+                                    <div class="mt-1 text-sm font-medium text-center">R3</div>
+                                </div>
+                                <!-- Needs triage -->
+                                <div
+                                    class="col-span-2 sm:col-span-1 flex flex-col items-center justify-center py-8 px-1 rounded-2xl "
+                                    style="background-color: #5d48b0; color: white">
+                                    <div class="text-5xl font-semibold leading-none tracking-tight" id="prodLasting">
+                                        {{data.githubIssues.overview[githubIssuesWeekSelector.value]['needstriage']}}
+                                    </div>
+                                    <div class="mt-1 text-sm font-medium text-center">R4</div>
+                                </div>
+
+                                <!-- New Order -->
+                                <div
+                                    class="col-span-2 flex flex-col items-center justify-center py-8 px-1 rounded-2xl bg-indigo-50 text-indigo-800 dark:bg-white dark:bg-opacity-5 dark:text-indigo-400">
+                                    <div class="text-5xl sm:text-7xl font-semibold leading-none tracking-tight"
+                                         id="prodRunningOrder">
+                                        {{data.githubIssues.overview[githubIssuesWeekSelector.value]['newissues']}}
+                                    </div>
+                                    <div class="mt-1 text-sm sm:text-lg font-medium">Total Target</div>
+                                </div>
+                                <!-- Closed -->
+                                <div
+                                    class="col-span-2 flex flex-col items-center justify-center py-8 px-1 rounded-2xl bg-green-50 text-green-800 dark:bg-white dark:bg-opacity-5 dark:text-green-500">
+                                    <div class="text-5xl sm:text-7xl font-semibold leading-none tracking-tight"
+                                         id="prodClosedOrder">
+                                        {{data.githubIssues.overview[githubIssuesWeekSelector.value]['closedissues']}}
+                                    </div>
+                                    <div class="mt-1 text-sm sm:text-lg font-medium">Total Production</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Visitor this week-->
+                <div class="sm:col-span-2 md:col-span-4 lg:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                    <div class="flex flex-col sm:flex-row items-start justify-between"
+                         style="background-image: linear-gradient(to right, rgba(82,180,18,1), rgba(82,180,18,.25)); height: 41px;">
+                        <div class="text-lg font-medium tracking-tight leading-6 truncate"
+                             style="color: #EEF2FF; padding: 7px;">Visitor
+                        </div>
+                        <div class="mt-3 sm:mt-0 sm:ml-2">
+                            <mat-button-toggle-group
+                                value="thisweek"
+                                #githubIssuesWeekSelector6="matButtonToggleGroup">
+                                <mat-button-toggle value="lastweek">Last Week
+                                </mat-button-toggle>
+                                <mat-button-toggle value="thisweek">This Week
+                                </mat-button-toggle>
+                            </mat-button-toggle-group>
+                        </div>
+                    </div>
+                    <div class="flex flex-col flex-auto mt-6 h-44 overflow-x-auto" [style]="githubIssuesWeekSelector6.value === 'lastweek' ? {'display': 'none !important'} : {'display': 'block !important'}">
+                        <canvas id="visitorChart"></canvas>
+                    </div>
+                    <div class="flex flex-col flex-auto mt-6 h-44 overflow-x-auto" [style]="githubIssuesWeekSelector6.value === 'thisweek' ? {'display': 'none !important'} : {'display': 'block !important'}">
+                        <canvas id="visitorChartLastWeek"></canvas>
+                    </div>
+                </div>
+
+                <!-- ERP Activities data entry-->
+                <div
+                    class="sm:col-span-2 md:col-span-4 lg:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                    <div class="flex flex-col sm:flex-row items-start justify-between"
+                         style="background-image: linear-gradient(to right, rgba(126,16,238,1), rgba(126,16,238,.05)); height: 41px;">
+                        <div class="text-lg font-medium tracking-tight leading-6 truncate"
+                             style="color: #EEF2FF; padding: 7px;">ERP Activities (Data Entry)
+                        </div>
+                        <div class="mt-3 sm:mt-0 sm:ml-2">
+                            <mat-button-toggle-group
+                                value="thisweek"
+                                #githubIssuesWeekSelector7="matButtonToggleGroup">
+                                <mat-button-toggle value="lastweek">Last Week
+                                </mat-button-toggle>
+                                <mat-button-toggle value="thisweek">This Week
+                                </mat-button-toggle>
+                            </mat-button-toggle-group>
+                        </div>
+                    </div>
+                    <div class="flex flex-col flex-auto mt-6 h-44 overflow-x-auto" [style]="githubIssuesWeekSelector7.value === 'lastweek' ? {'display': 'none !important'} : {'display': 'block !important'}">
+                        <canvas id="erpChart"></canvas>
+                    </div>
+                    <div class="flex flex-col flex-auto mt-6 h-44 overflow-x-auto" [style]="githubIssuesWeekSelector7.value === 'thisweek' ? {'display': 'none !important'} : {'display': 'block !important'}">
+                        <canvas id="erpChartLastWeek"></canvas>
+                    </div>
+                </div>
+
+                <!-- ERP Activities login-->
+                <div
+                    class="sm:col-span-2 md:col-span-4 lg:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                    <div class="flex flex-col sm:flex-row items-start justify-between"
+                         style="background-image: linear-gradient(to right, rgba(159,89,228,1), rgba(159,89,228,.05)); height: 41px;">
+                        <div class="text-lg font-medium tracking-tight leading-6 truncate"
+                             style="color: #EEF2FF; padding: 7px;">ERP Activities (Login)
+                        </div>
+                        <div class="mt-3 sm:mt-0 sm:ml-2">
+                            <mat-button-toggle-group
+                                value="thisweek"
+                                #githubIssuesWeekSelector8="matButtonToggleGroup">
+                                <mat-button-toggle value="lastweek">Last Week
+                                </mat-button-toggle>
+                                <mat-button-toggle value="thisweek">This Week
+                                </mat-button-toggle>
+                            </mat-button-toggle-group>
+                        </div>
+                    </div>
+                    <div class="flex flex-col flex-auto mt-6 h-44 overflow-x-auto" [style]="githubIssuesWeekSelector8.value === 'lastweek' ? {'display': 'none !important'} : {'display': 'block !important'}">
+                        <canvas height="500px" id="erpChartLogin"></canvas>
+                    </div>
+                    <div class="flex flex-col flex-auto mt-6 h-44  overflow-x-auto" [style]="githubIssuesWeekSelector8.value === 'thisweek' ? {'display': 'none !important'} : {'display': 'block !important'}">
+                        <canvas height="300px" id="erpChartLoginLastWeek"></canvas>
+                    </div>
+                </div>
+
+                <!-- ERP Activities report genaration-->
+                <div
+                    class="sm:col-span-2 md:col-span-4 lg:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                    <div class="flex flex-col sm:flex-row items-start justify-between"
+                         style="background-image: linear-gradient(to right, rgba(198,120,78,1), rgba(198,120,78,.25)); height: 41px;">
+                        <div class="text-lg font-medium tracking-tight leading-6 truncate"
+                             style="color: #EEF2FF; padding: 7px;">ERP Activities (Report Generation)
+                        </div>
+                        <div class="mt-3 sm:mt-0 sm:ml-2">
+                            <mat-button-toggle-group
+                                value="thisweek"
+                                #githubIssuesWeekSelector9="matButtonToggleGroup">
+                                <mat-button-toggle value="lastweek">Last Week
+                                </mat-button-toggle>
+                                <mat-button-toggle value="thisweek">This Week
+                                </mat-button-toggle>
+                            </mat-button-toggle-group>
+                        </div>
+                    </div>
+                    <div class="flex flex-col flex-auto mt-6 h-44 overflow-x-auto" [style]="githubIssuesWeekSelector9.value === 'lastweek' ? {'display': 'none !important'} : {'display': 'block !important'}">
+                        <canvas height="300px" id="erpChartReportGeneration"></canvas>
+                    </div>
+                    <div class="flex flex-col flex-auto mt-6 h-44 overflow-x-auto" [style]="githubIssuesWeekSelector9.value === 'thisweek' ? {'display': 'none !important'} : {'display': 'block !important'}">
+                        <canvas height="300px" id="erpChartReportGenerationLastWeek"></canvas>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Life time activity-->
+            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div class="flex justify-end mt-3 mr-2">
+                    <button (click)="onClickLifeTimeActivities()" class="px-8 mr-2" mat-flat-button color="primary"
+                            type="button">
+                        Life Time Activities
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

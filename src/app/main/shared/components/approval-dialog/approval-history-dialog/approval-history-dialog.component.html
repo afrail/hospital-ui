@@ -1,0 +1,67 @@
+<h2 mat-dialog-title>
+    {{'title' | translate}}
+</h2>
+<mat-dialog-content style="height: 70%">
+
+    <div *ngFor="let history of modelList">
+        <mat-card>
+            <div fxLayout="row wrap" fxLayoutAlign="center">
+                <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+<!--                    <p><strong>{{ history.fromUserId.username }} - <small>{{history.fromApprovalTeam.name}}</small></strong> </p>-->
+
+                    <!--from info-->
+                    <p>
+                        {{'from' | translate}} <strong> : {{ history.fromUserId.name }}</strong>
+                        <small>( {{history.fromUserId.username}} )</small>
+                        <small> - {{history.fromApprovalTeam.name}}</small>
+                    </p>
+                    <img
+                        *ngIf="history.fromAppUserEmployee && history.fromAppUserEmployee.employeeInfo && history.fromAppUserEmployee.employeeInfo.signature"
+                        style="width: 100px; height: 80px"
+                        alt="{{ history.fromAppUserEmployee.code }}"
+                        src="{{ validationMsg.SIGNATURE_SERVER_URL + history.fromAppUserEmployee.employeeInfo.signature }}">
+                    <!--from info-->
+
+                    <!--to info-->
+                    <p *ngIf="history.defaultUser">
+                        <span [style.color]= "history.read ? 'green' : 'gray'"> {{'to' | translate}} </span>
+                        <strong> : {{ history.defaultUser.name }}</strong>
+                        <small>( {{history.defaultUser.username}} )</small>
+                        <small> - {{history.toApprovalTeam.name}}</small>
+                        <small *ngIf="history.read"> &emsp; | &emsp;
+                            <span [style.color]= "history.read ? 'green' : 'gray'"> {{'seen' | translate}} </span>
+                            {{history.readDate | date: validationMsg.PIPE_DATE_TIME_FORMAT}}
+                        </small>
+                    </p>
+                    <!--to info-->
+
+                    <p>{{history.comment}}</p>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <b><small [style.color]= "history.status.color" > {{history.status.name}}</small></b>
+                        <b><small> {{history.entryDate | date: validationMsg.PIPE_DATE_TIME_FORMAT}}</small></b>
+                    </div>
+
+                </div>
+            </div>
+        </mat-card>
+        <br/>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button class="no-button" (click)="onNoClick()">{{'close' | translate}}</button>
+</mat-dialog-actions>
+
+
+
+
+
+
+
+
+
+
+
+
+

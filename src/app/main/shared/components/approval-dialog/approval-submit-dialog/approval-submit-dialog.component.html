@@ -1,0 +1,232 @@
+<!--submit team info-->
+<mat-card *ngIf="approvalHistory">
+    <!--header-->
+    <div fxLayout="row wrap" fxLayoutAlign="center" >
+        <strong [style.color] = "approvalHistory.status.color" *ngIf="approvalHistory.approvalStatus === approvalStatusService.SUBMIT_ID">
+            {{'submitTeamInformation' | translate}}
+        </strong>
+        <strong [style.color] = "approvalHistory.status.color" *ngIf="approvalHistory.approvalStatus === approvalStatusService.FORWARD_ID">
+            {{'forwardTeamInformation' | translate}}
+        </strong>
+        <strong [style.color] = "approvalHistory.status.color" *ngIf="approvalHistory.approvalStatus === approvalStatusService.BACK_ID">
+            {{'backTeamInformation' | translate}}
+        </strong>
+    </div>
+    <!--header-->
+    <!-- row 1 -->
+    <div fxLayout="row wrap" fxLayoutAlign="space-between">
+        <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayoutAlign="center">
+            {{approvalHistory.fromApprovalTeam.name}}
+        </div>
+
+        <div fxFlex="50%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="50%">
+            <div fxLayoutAlign="center">
+                <u>{{'teamUser' | translate}}</u>
+            </div>
+            <br/>
+            <div>
+                <ol>
+                    <li *ngFor="let user of approvalHistory.fromApprovalTeam.approvalTeamDetailList">
+                        {{user.appUser.username + ' (' +user.appUser.employeeCode + ')' +' - '+user.appUser.name}}
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div fxFlex="50%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="50%">
+            <div fxLayoutAlign="center">
+                <u>{{'submitUser' | translate}}</u>
+            </div>
+            <br/>
+            <div>
+                {{approvalHistory.fromUserId.username +
+            ' (' +approvalHistory.fromUserId.employeeCode + ')' +
+            ' - '+ approvalHistory.fromUserId.name}}
+            </div>
+        </div>
+
+    </div>
+    <!-- row 1 -->
+</mat-card>
+<!-- submit team info -->
+<br/>
+
+<!--current Approval Team Details-->
+<mat-card *ngIf="approvalHistory">
+    <!--header-->
+    <div fxLayout="row wrap" fxLayoutAlign="center" >
+        <strong>{{'currentTeamInformation' | translate}}</strong>
+    </div>
+    <!--header-->
+    <!-- row 1 -->
+    <div fxLayout="row wrap" fxLayoutAlign="space-between">
+        <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayoutAlign="center">
+            {{approvalHistory && approvalHistory.toApprovalTeam ? approvalHistory.toApprovalTeam.name : ''}}
+        </div>
+
+        <div fxFlex="50%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="50%">
+            <div fxLayoutAlign="center">
+                <u>{{'teamUser' | translate}}</u>
+            </div>
+            <br/>
+            <div>
+                <ol>
+                    <li *ngFor="let user of approvalHistory.toApprovalTeam.approvalTeamDetailList">
+                        {{user.appUser.username + ' (' +user.appUser.employeeCode + ')' +' - '+user.appUser.name}}
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div fxFlex="50%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="50%">
+            <div fxLayoutAlign="center">
+                <u>{{'notifyUser' | translate}}</u>
+            </div>
+            <br/>
+            <div>
+                {{approvalHistory.defaultUser.username +
+                ' (' +approvalHistory.defaultUser.employeeCode + ')' +
+                ' - '+ approvalHistory.defaultUser.name}}
+            </div>
+        </div>
+
+    </div>
+    <!-- row 1 -->
+</mat-card>
+<!-- current Approval Team Details -->
+<br/>
+
+<!--next Approval Team Details-->
+<form class="form p4" [formGroup]="frmGroup">
+
+<mat-card *ngIf="nextApprovalTeamConfig">
+    <!--header-->
+    <div fxLayout="row wrap" fxLayoutAlign="center" >
+        <strong>{{'nextTeamInformation' | translate}}</strong>
+    </div>
+    <!--header-->
+    <!-- row 1 -->
+    <div fxLayout="row wrap" fxLayoutAlign="space-between">
+
+        <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayoutAlign="center">
+
+            <mat-select-search class="fuse-mat-dense flex-auto" fxFlex="30%" fxFlex.xs="30%" fxFlex.sm="50%"
+                               [formGroup]="frmGroup"
+                               [controlName]="'toApprovalTeam'"
+                               [data]="approvalTeamDropdownList"
+                               (selectionChange)="selectChange()">
+            </mat-select-search>
+
+        </div>
+
+        <div fxFlex="50%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="50%">
+            <div>
+                <u>{{'teamUser' | translate}}</u>
+            </div>
+            <div>
+                <ol>
+                   <!-- <li *ngFor="let user of obj.toApprovalTeam.approvalTeamDetailList">
+                        {{user.appUser.username + ' (' +user.appUser.employeeCode + ')' +' - '+user.appUser.name}}
+                    </li> -->
+                    <li *ngFor="let user of appUserDropdownList">
+                        {{user.name}}
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div fxFlex="50%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="50%">
+            <div>
+                <u>{{'notifyUser' | translate}}</u>
+            </div>
+            <div>
+<!--                {{obj.defaultUser.username + ' (' +obj.defaultUser.employeeCode + ')' +' - '+obj.defaultUser.name}}-->
+                <mat-select-search class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.xs="60%" fxFlex.sm="60%"
+                                   [formGroup]="frmGroup"
+                                   [controlName]="'defaultUser'"
+                                   [data]="appUserDropdownList">
+                </mat-select-search>
+            </div>
+        </div>
+
+    </div>
+    <!-- row 1 -->
+</mat-card>
+<!-- next Approval Team Details -->
+<br/>
+
+<!--form card-->
+<mat-card>
+
+    <!-- row 1 -->
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+        <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <mat-label style="margin-top: -15px" fxFlex="10%" fxFlex.md="10%" fxFlex.sm="10%"
+                           fxFlex.xs="100%">{{'comment' | translate}}
+                </mat-label>
+                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="90%" fxFlex.md="90%" fxFlex.sm="90%"
+                                fxFlex.xs="100%">
+                    <textarea matInput formControlName="comment" #txtArea1 [maxlength]="textAreaSize" rows="10"></textarea>
+                    <mat-hint align="end">{{txtArea1.value.length}}/{{textAreaSize}}</mat-hint>
+                    <mat-error>{{'emptyNotAllow' | translate}}</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+            </div>
+        </div>
+
+    </div>
+    <!-- // row 1 -->
+
+    <!-- submit div -->
+    <div class="flex justify-end mt-3 mr-2" *ngIf="!approvalHistory">
+        <button (click)="submitDialog()" [disabled]="!frmGroup.valid" class="px-8"
+                mat-flat-button color="primary" type="button">
+            {{'submit' | translate}}
+        </button>
+    </div>
+    <!-- // submit div -->
+
+    <!-- submit div -->
+    <div class="flex justify-end mt-3 mr-2" *ngIf="approvalHistory">
+        <button (click)="backDialog()" [disabled]="!frmGroup.valid" class="px-8 no-button" *ngIf="!isSubmitUser"
+                mat-flat-button type="button">
+            {{'back' | translate}}&emsp;
+        </button>&nbsp;
+        <button (click)="forwardDialog()" [disabled]="!frmGroup.valid" class="px-8" *ngIf="nextApprovalTeamConfig"
+                mat-flat-button color="accent" type="button">
+            {{'forward' | translate}}
+        </button>&nbsp;
+        <button (click)="approveDialog()" [disabled]="!frmGroup.valid" class="px-8" *ngIf="!isSubmitUser"
+                mat-flat-button color="primary" type="button">
+            {{'approved' | translate}}
+        </button>
+    </div>
+    <!-- // submit div -->
+
+</mat-card>
+
+</form>
+<!--form card-->
+<br/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

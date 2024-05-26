@@ -1,0 +1,9 @@
+<h2 mat-dialog-title *ngIf="title">{{title}}</h2>
+<h2 mat-dialog-title *ngIf="!title">{{'Confirmation' | translate}}</h2>
+<mat-dialog-content>
+    <p>{{ message }}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button class="no-button" (click)="confirm(false)">{{'No' | translate}}</button>
+    <button mat-button class="yes-button" cdkFocusInitial (click)="confirm(true)">{{'Yes' | translate}}</button>
+</mat-dialog-actions>

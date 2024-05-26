@@ -1,0 +1,40 @@
+<div class="flex-auto" style="width: 100%; margin-top: 5px">
+
+    <mat-form-field [formGroup]="formGroup" style="width: 25%;">
+
+        <mat-select [formControlName]="dayControlName" [placeholder]="'day' | translate">
+            <mat-option [value]="">{{'select' | translate}}</mat-option>
+            <mat-option *ngFor="let data of banglaDayList" [value]="data.id">
+                {{data.name}}
+            </mat-option>
+        </mat-select >
+        <mat-error>{{'pleaseSelectAnOption' | translate }}</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field [formGroup]="formGroup"  style="width: 40%;">
+
+        <mat-select [formControlName]="monthControlName" [placeholder]="'month' | translate">
+            <mat-option [value]="">{{'select' | translate}}</mat-option>
+            <mat-option *ngFor="let data of banglaMonthList" [value]="data.id">
+                {{data.name}}
+            </mat-option>
+        </mat-select >
+        <mat-error>{{'pleaseSelectAnOption' | translate }}</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field [formGroup]="formGroup" style="width: 34%;">
+
+        <mat-select [formControlName]="yearControlName" [placeholder]="'year' | translate">
+            <mat-option [value]="">{{'select' | translate}}</mat-option>
+            <mat-option *ngFor="let data of banglaYearList" [value]="data.id">
+                {{data.name}}
+            </mat-option>
+        </mat-select >
+        <mat-error>{{'pleaseSelectAnOption' | translate }}</mat-error>
+    </mat-form-field>
+
+</div>
+
+

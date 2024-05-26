@@ -1,0 +1,11 @@
+<!-- Modal -->
+<div  class="text-center dialog-body">
+    <div class="dialog-header">
+        <h1>{{data.title}}</h1>
+    </div>
+    <div >
+        <h6>{{data.subtitle}}</h6>
+    </div>
+    <button mat-raised-button color="warn" class="delete-but" [mat-dialog-close]="success" cdkFocusInitial> Delete</button>
+    <button mat-raised-button color="warn" (click)="onNoClick()"> Close</button>
+</div>

@@ -1,0 +1,85 @@
+<h2 mat-dialog-title>
+    {{'title' | translate}}
+</h2>
+<mat-dialog-content style="height: 75%">
+
+<form class="form p4" [formGroup]="frmGroup">
+    <!--next Approval Team Details-->
+    <mat-card *ngIf="modelList[0]">
+        <!--header-->
+        <div fxLayout="row wrap" fxLayoutAlign="center" >
+            <strong>{{'backTeamInformation' | translate}}</strong>
+        </div>
+        <!--header-->
+        <!-- row 1 -->
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+            <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayoutAlign="center">
+                <mat-select-search class="fuse-mat-dense flex-auto" fxFlex="30%" fxFlex.xs="30%" fxFlex.sm="50%"
+                                   [formGroup]="frmGroup"
+                                   [controlName]="'toApprovalTeam'"
+                                   [data]="approvalTeamDropdownList"
+                                   (selectionChange)="selectChange()">
+                </mat-select-search>
+            </div>
+
+            <div fxFlex="50%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="50%">
+                <div fxLayoutAlign="center">
+                    <u>{{'teamUser' | translate}}</u>
+                </div>
+                <br/>
+                <div>
+                    <ol>
+                        <li *ngFor="let user of appUserDropdownList">
+                            {{user.name}}
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div fxFlex="50%" fxFlex.md="50%" fxFlex.sm="50%" fxFlex.xs="50%">
+                <div fxLayoutAlign="center">
+                    <u>{{'notifyUser' | translate}}</u>
+                </div>
+                <br/>
+                <div>
+                    <mat-select-search class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.xs="60%" fxFlex.sm="60%"
+                                       [formGroup]="frmGroup"
+                                       [controlName]="'defaultUser'"
+                                       [data]="appUserDropdownList">
+                    </mat-select-search>
+                </div>
+            </div>
+
+        </div>
+        <!-- row 1 -->
+
+        <!-- submit div -->
+        <div class="flex justify-end mt-3 mr-2">
+            <button (click)="confirm()" [disabled]="!frmGroup.valid" class="px-8"
+                    mat-flat-button color="primary" type="button">
+                {{'confirm' | translate}}
+            </button>
+        </div>
+        <!-- // submit div -->
+
+    </mat-card>
+    <!-- next Approval Team Details -->
+</form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button class="no-button" (click)="onNoClick()">{{'close' | translate}}</button>
+</mat-dialog-actions>
+
+
+
+
+
+
+
+
+
+
+
+
+

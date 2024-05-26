@@ -1,0 +1,131 @@
+<div class="w-full max-w-3xl">
+
+    <!-- Form -->
+    <form [formGroup]="accountForm">
+
+        <!-- Section -->
+        <div class="w-full">
+            <div class="text-xl">Profile</div>
+            <div class="text-secondary">Following information is publicly displayed, be careful!</div>
+        </div>
+        <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+            <!-- Name -->
+            <div class="sm:col-span-4">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>Name</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:user'"
+                        matPrefix></mat-icon>
+                    <input
+                        [formControlName]="'name'"
+                        matInput>
+                </mat-form-field>
+            </div>
+            <!-- Username -->
+            <div class="sm:col-span-4">
+                <mat-form-field class="fuse-mat-no-subscript fuse-mat-emphasized-affix w-full">
+                    <mat-label>Username</mat-label>
+<!--                                        <div-->
+<!--                                            class="text-secondary"-->
+<!--                                            matPrefix>-->
+<!--                                            fusetheme.com/-->
+<!--                                        </div>-->
+                    <input
+                        [formControlName]="'username'"
+                        matInput>
+                </mat-form-field>
+            </div>
+            <!-- Title -->
+            <div class="sm:col-span-2">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>Designation</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:briefcase'"
+                        matPrefix></mat-icon>
+                    <input
+                        [formControlName]="'designation'"
+                        matInput>
+                </mat-form-field>
+            </div>
+            <!-- email -->
+            <div class="sm:col-span-2">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>Email</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:office-building'"
+                        matPrefix></mat-icon>
+                    <input
+                        [formControlName]="'email'"
+                        matInput>
+                </mat-form-field>
+            </div>
+
+            <!-- email -->
+            <div class="sm:col-span-2">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>Mobile</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:office-building'"
+                        matPrefix></mat-icon>
+                    <input
+                        [formControlName]="'mobile'"
+                        matInput>
+                </mat-form-field>
+            </div>
+
+            <div class="col-span-4 sm:col-span-2">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>Password Policy</mat-label>
+                    <mat-select [formControlName]="'passwordPolicy'" (selectionChange)="onSelectChange()">
+                        <mat-option [value]="''">Select One</mat-option>
+                        <div *ngFor="let i of passwordPolicyDropdownList">
+                            <mat-option [value]="i">{{i.name}}</mat-option>
+                        </div>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <!--            <div fxLayout="row wrap" fxLayoutAlign="space-between center">-->
+            <!--                <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">-->
+            <!--                    <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">-->
+            <!--                        <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"-->
+            <!--                                   fxFlex.xs="100%">{{'passwordPolicy' | translate}}<strong-->
+            <!--                            class="required">*</strong>-->
+            <!--                        </mat-label>-->
+            <!--                        <mat-select-search class="fuse-mat-dense flex-auto" fxFlex="75%" fxFlex.xs="50%" fxFlex.sm="50%"-->
+            <!--                                           [formGroup]="accountForm"-->
+            <!--                                           [controlName]="'passwordPolicy'"-->
+            <!--                                           [data]="passwordPolicyDropdownList">-->
+            <!--                        </mat-select-search>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+
+            <!-- Divider -->
+            <div class="my-10 border-t"></div>
+            <div class="my-10 border-t"></div>
+            <div class="my-10 border-t"></div>
+
+            <!-- Actions -->
+            <div class="flex items-center justify-end">
+<!--                <button-->
+<!--                    mat-stroked-button-->
+<!--                    type="button">-->
+<!--                    Cancel-->
+<!--                </button>-->
+                <button (click)="onSubmit()"
+                    class="ml-4"
+                    mat-flat-button
+                    type="button"
+                    [color]="'primary'">Save
+                </button>
+            </div>
+        </div>
+    </form>
+
+</div>

@@ -1,0 +1,28 @@
+<mat-form-field [formGroup]="formGroup" class="flex-auto gt-xs:pr-3" style="width: 100%; margin-top: 5px">
+
+
+    <mat-select *ngIf="data"
+              [matTooltip]="formGroup.get(controlName).value.name" [matTooltipClass]="'tooltip'"
+              (selectionChange)="onSelectionChange($event.value)"
+              [formControlName]="controlName" [attr.disabled]="isReadonly">
+
+    <mat-option>
+      <ngx-mat-select-search  placeholderLabel="{{'search' | translate }}"
+                              noEntriesFoundLabel="{{'NoMatchFound' | translate }}"
+                              [formControl]="matSelectSearch"
+                              (ngModelChange)="onKeyDown($event)">
+      </ngx-mat-select-search>
+    </mat-option>
+<!--    <mat-option *ngIf="!required"></mat-option>-->
+    <mat-option value="" *ngIf="showSelectOne && !isSearch">{{'selectOne' | translate}}</mat-option>
+    <mat-option value="" *ngIf="isSearch">{{'search' | translate}}</mat-option>
+    <mat-option *ngFor="let item of filteredData | async " [value]="item">
+      {{ item.name }}
+    </mat-option>
+  </mat-select>
+  <input type="text" readonly matInput [value]="getValueForSelectionControl()"
+    *ngIf="!(data)">
+    <mat-error>{{'pleaseSelectAnOption' | translate }}</mat-error>
+</mat-form-field>
+
+

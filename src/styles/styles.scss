@@ -1,0 +1,231 @@
+/* ----------------------------------------------------------------------------------------------------- */
+/*  @ Import/write your custom styles here.
+/*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
+
+//@import '~@angular/material/theming';
+ */
+/* ----------------------------------------------------------------------------------------------------- */
+//$base-color: #0f172a;
+//$base-color: red;
+//$base-color: #778da9;
+$base-color: #0d9488;
+
+.heading {
+    background-color: $base-color;
+    color: #FFFFFF;
+    padding: 10px;
+    font-weight: bold;
+    //background-image: linear-gradient(to right, rgba(13,148,136,1), rgba(13,148,136,.20));
+    //background-image: linear-gradient(to right, #0f172a, #0f172a1a);
+}
+
+.sub-heading {
+    background-color: $base-color;
+    color: #FFFFFF;
+    padding: 10px;
+}
+
+.body {
+    background-color: #F0FDF4;
+}
+
+.outside-body {
+    background-color: #EEF2FF;
+}
+
+/*-----Date 03/05/2021-----*/
+
+.readOnly .mat-form-field-flex {
+    background-color: #e4e4e4 !important;
+}
+.AnnexureLink{
+    color: #00adff;
+    font-weight: bold;
+}
+a.AnnexureLink:hover{
+    color: #5f3d3d;
+}
+
+.tab-header-title {
+    //white-space: pre-wrap !important;
+}
+
+.warn {
+    color: red;
+}
+
+.success {
+    color: green;
+}
+
+.success-snackbar {
+    background: #008000 !important;
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+.error-snackbar {
+    background: #ff0000 !important;
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+.header-font-title {
+    font-size: 1.50rem;
+    padding-bottom: 2px;
+
+}
+
+.dialog-background {
+    mat-dialog-container {
+        background: #F0FDF4 !important;
+    }
+}
+
+
+/*------------bof-------------*/
+
+.mat-tooltip.tooltip {
+    font-size: 15px;   // current default is 10px :-/
+}
+
+.mat-table {
+    width: 100%;
+
+    th {
+        background-color: $base-color;
+        color: white;
+        font-size: small;
+        font-weight: bold;
+        //padding-left: 4px;
+        text-align: left;
+    }
+
+    th, td{
+        border: 1px solid #e2e8f0;
+        padding: 0px 4px !important;
+    }
+
+    th:last-child, td:last-child {
+        width: 108px;
+        //text-align: center;
+    }
+}
+
+.mat-sort-header-arrow {
+    color: #fff !important;
+    //opacity: 1 !important;
+}
+
+.text-alignment {
+    text-align: center;
+}
+
+.text-alignment-right {
+    text-align: right !important;
+}
+
+.text-alignment-left {
+    text-align: left !important;
+}
+
+
+.required {
+    color: red
+}
+
+
+.header1 {
+    font-size: 16px;
+    color: white;
+}
+
+
+.table {
+    width: 100%;
+    caption {
+        text-transform: uppercase;
+        font-weight: bold;
+        color: black;
+        text-align: center;
+    }
+    thead {
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+        th {
+            text-transform: uppercase;
+            text-align: center;
+            padding: 10px;
+            color: black;
+            border: 1px solid black;
+        }
+    }
+    tbody {
+        tr {
+            border-bottom: 1px solid black;
+            color: black;
+            td {
+                padding: 10px;
+                border: 1px solid black;
+            }
+            th {
+                padding-left: 10px;
+                border: 1px solid black;
+            }
+        }
+    }
+    tfoot {
+        color: black;
+        font-style: italic;
+        border-bottom: 2px solid black;
+        tr {
+            td {
+                padding: 10px;
+                border: 1px solid black;
+            }
+        }
+    }
+}
+
+
+
+/* Expandable table CSS Start */
+tr.example-detail-row {
+    height: 0 !important;
+    border-collapse: collapse;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+    background-color: aquamarine;
+    cursor: pointer;
+}
+
+.example-element-detail {
+    overflow: hidden;
+    display: flex;
+    background: #797a7a;
+    //color: #0F172A;
+    color: white;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* Expandable table CSS Start */
+
+/* Expandable table CSS End */
+::ng-deep mat-form-field.mat-form-field-appearance-fill .mat-form-field-wrapper .mat-form-field-flex{
+    min-height: 48px !important;
+}
+
+.hand-cursor {
+    cursor: pointer;
+}
