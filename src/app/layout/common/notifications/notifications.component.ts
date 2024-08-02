@@ -99,10 +99,9 @@ export class NotificationsComponent implements OnChanges, OnInit, OnDestroy {
     // @ API calling
     // -----------------------------------------------------------------------------------------------------
     getApprovalHistoryList(): any {
-        this.approvalHistoryService.getByDefaultUserId(this.appUser.id).subscribe(res => {
-            this.historyList = res.data;
+
+            this.historyList = [];
             this.workForNotification();
-        });
     }
 
     workForNotification(): void{

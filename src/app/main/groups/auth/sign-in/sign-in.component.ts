@@ -61,7 +61,6 @@ export class AuthSignInComponent implements OnInit {
 
     checkAlreadyLogin(): void{
         const token = this.cookieService.get('access_token');
-         console.log('token : ' + token);
         if (token){
             this._router.navigate(['dashboard']);
         }
@@ -88,6 +87,7 @@ export class AuthSignInComponent implements OnInit {
                         this.cookieService.set('access_token', res.data.token);
                         localStorage.setItem('userRoles', JSON.stringify(res.data.userRoles));
                         localStorage.setItem('approvalUser', JSON.stringify(res.data.approvalUser));
+                        localStorage.setItem('passwordHistory', JSON.stringify(res.data.passwordHistory));
 
 
                         // return;

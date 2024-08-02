@@ -19,20 +19,6 @@
                         <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
                             <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
                                 <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
-                                           fxFlex.xs="100%">{{'passwordPolicy' | translate}}<strong
-                                    class="required">*</strong>
-                                </mat-label>
-                                <mat-select-search class="fuse-mat-dense flex-auto" fxFlex="75%" fxFlex.xs="50%" fxFlex.sm="50%"
-                                    [formGroup]="frmGroup"
-                                    [controlName]="'passwordPolicy'"
-                                    [data]="passwordPolicyDropdownList">
-                                </mat-select-search>
-                            </div>
-                        </div>
-
-                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
-                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
-                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%"
                                            fxFlex.xs="100%">{{'username' | translate}}<strong
                                     class="required">*</strong>
                                 </mat-label>
@@ -86,7 +72,7 @@
                     <!-- // row 2 -->
 
                     <!-- row 3 -->
-                    <div fxLayout="row wrap" fxLayoutAlign="space-between center" *ngIf="false">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
 
                         <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
                             <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
@@ -216,14 +202,6 @@
                         </ng-container>
 
                         <!-- employeeCode -->
-                        <ng-container matColumnDef="employeeCode">
-                            <th  *matHeaderCellDef>
-                                {{'employeeCode' | translate}}
-                            </th>
-                            <td mat-cell *matCellDef="let row">
-                                {{ row.employeeCode }}
-                            </td>
-                        </ng-container>
 
                         <!-- mobile -->
                         <ng-container matColumnDef="mobile">
@@ -235,35 +213,8 @@
                             </td>
                         </ng-container>
 
-                        <!-- passwordPolicy -->
-                        <ng-container matColumnDef="passwordPolicy">
-                            <th mat-sort-header  *matHeaderCellDef>
-                                {{'passwordPolicy' | translate}}
-                            </th>
-                            <td mat-cell *matCellDef="let row">
-                                {{ row.passwordPolicy.name }}
-                            </td>
-                        </ng-container>
 
-                        <!-- office -->
-                        <ng-container matColumnDef="office">
-                            <th  *matHeaderCellDef>
-                                {{'office' | translate}}
-                            </th>
-                            <td mat-cell *matCellDef="let row">
-                                {{ row.office ? row.office.name : ''}}
-                            </td>
-                        </ng-container>
 
-                        <!-- billingOffice -->
-                        <ng-container matColumnDef="billingOffice">
-                            <th  *matHeaderCellDef>
-                                {{'billingOffice' | translate}}
-                            </th>
-                            <td mat-cell *matCellDef="let row">
-                                {{ row.billingOffice ? row.billingOffice.name : ''}}
-                            </td>
-                        </ng-container>
 
                         <!-- status -->
                         <ng-container matColumnDef="status">

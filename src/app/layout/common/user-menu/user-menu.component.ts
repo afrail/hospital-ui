@@ -114,7 +114,6 @@ export class UserMenuComponent implements OnInit, OnDestroy
             {
                 state: {
                     passwordHistory: this.localStorageHelper.getPasswordHistory(),
-                    passwordPolicy: this.localStorageHelper.getPasswordPolicy(),
                     hideLogin: true
                 }
             }

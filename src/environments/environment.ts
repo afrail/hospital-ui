@@ -8,7 +8,7 @@ export const environment = {
     // hmr       : false,
     // domain   : '103.112.238.22',
     ibcs: {
-        // baseApiEndPoint: 'http://103.112.238.22:8081/', // local host
+        // baseApiEndPoint: 'https://202.161.191.133:9020/hospital-server/', // live
         baseApiEndPoint: 'http://localhost:8082/', // local host
         apiEndPoint: 'api/',
         moduleHRM: 'hrm/',
@@ -23,7 +23,7 @@ export const environment = {
         moduleDrawing: 'drw/',
         moduleRationAndWelfare: 'raw/',
         moduleBudget: 'budget/',
-        moduleEHM: 'ehm/',
+        moduleEHM: 'hospital/',
     },
     // clientid: 'ibcsplanningidsdp',
     // clientSecret: 'planningIdsdpsha$@#929%'

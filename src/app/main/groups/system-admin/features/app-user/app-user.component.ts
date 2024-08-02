@@ -35,7 +35,7 @@ export class AppUserComponent implements OnInit {
     size: number = DEFAULT_SIZE;
     page: number = DEFAULT_PAGE;
     total: number;
-    displayedColumns: string[] = ['username', 'passwordPolicy', 'employeeCode', 'office', 'billingOffice', 'status', 'action'];
+    displayedColumns: string[] = ['username', 'mobile', 'status', 'action'];
     searchLoader: boolean = false;
     validationMsg: ValidationMessage = new ValidationMessage();
     msgUserNameTaken: string = 'username already taken !!';
@@ -65,12 +65,7 @@ export class AppUserComponent implements OnInit {
         private appUtils: AppUtils,
     ) {
         this.fuseTranslationLoaderService.loadTranslations(lngEnglish, lngBangla);
-        // this.userRolePermission = this.appUtils.findUserRolePermission();
-        this.userRolePermission = new UserRolePermission();
-        this.userRolePermission.insert = true;
-        this.userRolePermission.edit = true;
-        this.userRolePermission.delete = true;
-        this.userRolePermission.view = true;
+        this.userRolePermission = this.appUtils.findUserRolePermission();
     }
 
     ngOnInit(): void {
@@ -266,7 +261,6 @@ export class AppUserComponent implements OnInit {
 
     setFormInitValue(): any {
         this.frmGroup = this.formBuilder.group({
-            passwordPolicy: ['', Validators.required],
             username: ['', Validators.required],
             email: ['', Validators.email],
             mobile: ['', ''],

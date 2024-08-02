@@ -11,6 +11,7 @@ export const UPAZILA_ID = 14;
 export const GENDER_ID = 15;
 export const BOARD_UNIVERSITY_ID = 17;
 export const EXAM_ID = 18;
+export const EXAM_CATEGORY_ID = 142;
 export const WING_ID = 19;
 export const BRANCH_ID = 20;
 export const SHOP_ID = 21;
@@ -29,6 +30,7 @@ export const INACTIVE_ID = 79;
 export const REGIMENT_ID = 84;
 export const OFFICER_RANK_ID = 77;
 export const VEHICLE_TYPE_ID = 93;
+export const VEHICLE_OWNER_TYPE_ID = 133;
 export const PART_TWO_TYPE_ID = 112;
 export const PART_ONE_TYPE_ID = 114;
 export const TRAINING_ID = 94;
@@ -45,6 +47,20 @@ export const BILLING_OFFICE_ID = 127;
 export const TRANSFER_TYPE_ID = 128;
 export const RECURITMENT_REFERENCE_STATUS_ID = 129;
 export const JOB_TYPE_ID = 130;
+export const HEALTH_STATUS_ID = 131;
+export const CASUALTY_TYPE_ID = 132;
+export const REFERENCE_TYPE_ID = 135;
+export const TITLE_ID = 135;
+export const VACCINE_TYPE_ID = 136;
+export const ATTACHMENT_TYPE_ID = 137;
+export const VISIT_TYPE_ID = 138;
+export const CHALLENGED_ID = 139;
+export const SEC_SHOP = 144;
+
+
+// security common lookup
+export const MATERIALS_ID = 7;
+export const MEASURING_UNIT_ID = 8;
 
 // 2nd phase
 // budget common lookup master id
@@ -76,6 +92,7 @@ export const DEPOSIT_TYPE_ID = 7;
 export const FUND_TYPE_ID = 8;
 export const PURPOSE_ID = 9;
 export const RATION_EMPLOYEE_TYPE_ID = 12;
+export const BURIAL_EMP_CATEGORY = 20;
 
 
 /*finance*/
@@ -86,6 +103,7 @@ export const LOAN_TYPE_ID = 8;
 export const FIN_EMPLOYEE_TYPE_ID = 9;
 export const FIN_PENSION_TYPE_ID = 12;
 export const BONUS_TYPE_ID = 13;
+export const LOCAL_TADA_GROUP_TYPE_ID = 14;
 
 
 /*EHM*/
@@ -110,6 +128,22 @@ export const EHM_DENTAL_CATEGORY_ID = 26;
 export const EHM_REF_DOC_ID = 28;
 export const EHM_DISPOSAL_ID = 29;
 export const EHM_DENTAL_ITEM_UNIT = 30;
+export const EHM_CHRONIC_DISEASE = 32;
+export const EHM_FOLLOWUP_COMMENT = 33;
+export const EHM_ON_EXAMINATION = 34;
+
+/*security*/
+export const SECURITY_MODC_LEAVE_TYPE_ID = 2;
+export const RAW_SCHOLARSHIP_CLASS_ID = 19;
+export const SECURITY_TYPE_ID = 3;
+export const EXMA_TEAM_ID = 4;
+export const MODC_OUT_PASS_REGISTER_TYPE_ID = 5;
 
 
+export const REQUEST_VOUCHER_TYPE = 'CALL_FROM_VOUCHER';
+export const REQUEST_EMPLOYEE_TYPE = 'CALL_FROM_EMPLOYEE';
+
+
+export const PART_ONE_REGISTER = 'PART_ONE_REGISTER';
+export const PART_TWO_REGISTER = 'PART_TWO_REGISTER';
 

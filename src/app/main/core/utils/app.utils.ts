@@ -79,20 +79,20 @@ export class AppUtils {
     }
 
     openConfirmDialog(viewModel, callBackDelete): void {
-        // const dialogConfig = new MatDialogConfig();
-        // dialogConfig.disableClose = false;
-        // dialogConfig.autoFocus = false;
-        // dialogConfig.width = ConfirmDialogConstant.WIDTH;
-        // dialogConfig.height = ConfirmDialogConstant.HEIGHT;
-        // dialogConfig.panelClass = ConfirmDialogConstant.PANEL_CLASS;
-        // dialogConfig.data = {message: this.isLocalActive() ? ConfirmDialogConstant.MESSAGE_BN : ConfirmDialogConstant.MESSAGE};
-        // const dialogRef = this.matDialog.open(SubmitConfirmationDialogComponent, dialogConfig);
-        // dialogRef.componentInstance.closeEventEmitter.subscribe(res => {
-        //     if (res) {
-        //         callBackDelete(viewModel);
-        //     }
-        //     dialogRef.close(true);
-        // });
+         const dialogConfig = new MatDialogConfig();
+         dialogConfig.disableClose = false;
+         dialogConfig.autoFocus = false;
+         dialogConfig.width = ConfirmDialogConstant.WIDTH;
+         dialogConfig.height = ConfirmDialogConstant.HEIGHT;
+         dialogConfig.panelClass = ConfirmDialogConstant.PANEL_CLASS;
+         dialogConfig.data = {message: this.isLocalActive() ? ConfirmDialogConstant.MESSAGE_BN : ConfirmDialogConstant.MESSAGE};
+         const dialogRef = this.matDialog.open(SubmitConfirmationDialogComponent, dialogConfig);
+         dialogRef.componentInstance.closeEventEmitter.subscribe(res => {
+             if (res) {
+                 callBackDelete(viewModel);
+             }
+             dialogRef.close(true);
+         });
         callBackDelete(viewModel);
     }
 
@@ -283,6 +283,12 @@ export class AppUtils {
         // get file from server
         this.reportService.printReport(convMap).subscribe(blob => window.open(window.URL.createObjectURL(blob)));
 
+    }
+
+    public detailsLastEntryDeleteMsg(): void {
+        const no = this.isLocalActive() ? 'অন্তত একটি আইটেম প্রয়োজন!' : 'At least one item needed!';
+        const ok = this.isLocalActive() ? OK_BN : OK;
+        this.snackbarHelper.openErrorSnackBarWithMessage(no, ok);
     }
 
 

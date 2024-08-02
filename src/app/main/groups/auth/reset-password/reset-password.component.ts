@@ -29,7 +29,6 @@ export class AuthResetPasswordComponent implements OnInit
     showAlert: boolean = false;
 
     passwordHistory: any;
-    passwordPolicy: PasswordPolicy;
     isExpire: boolean;
     hideLogin: boolean;
 
@@ -53,10 +52,9 @@ export class AuthResetPasswordComponent implements OnInit
 
     ngOnInit(): void {
         this.passwordHistory = history.state.passwordHistory;
-        this.passwordPolicy = history.state.passwordPolicy;
+        console.log(this.passwordHistory);
         this.isExpire = history.state.isExpire;
         this.hideLogin = history.state.hideLogin;
-        console.log(this.passwordPolicy);
         if (!this.passwordHistory){
             this._router.navigateByUrl( 'sign-in' );
         }
@@ -85,6 +83,7 @@ export class AuthResetPasswordComponent implements OnInit
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
     resetPassword(): void {
+
         /*Return if the form is invalid*/
         if ( this.resetPasswordForm.invalid ) {
             return;
@@ -94,7 +93,8 @@ export class AuthResetPasswordComponent implements OnInit
         if ( !this.checkPassword(this.resetPasswordForm.get('password').value)) {
             return;
         }
-
+        console.log(this.passwordHistory.password);
+        console.log(this.resetPasswordForm.get('oldPassword').value);
         /*check old password*/
         if ( this.resetPasswordForm.get('oldPassword').value !==  this.passwordHistory.password) {
             this.showAlert = true;
@@ -167,7 +167,7 @@ export class AuthResetPasswordComponent implements OnInit
         let res = true;
 
         /*check length*/
-        if (passwordValue.length < this.passwordPolicy.minLength ){
+        if (passwordValue.length < 5 ){
             res = false;
             this.policyColor.minLength = this.COLOR_REJECT;
         }else {
@@ -175,7 +175,7 @@ export class AuthResetPasswordComponent implements OnInit
             this.policyColor.minLength = this.COLOR_ACCEPT;
         }
 
-        /*check alphanumeric*/
+/*        /!*check alphanumeric*!/
         if (this.passwordPolicy.alphanumeric){
             if (!CommonValidator.isContainsAlpha(passwordValue) || !CommonValidator.isContainsNumeric(passwordValue)){
                 res = false;
@@ -186,7 +186,7 @@ export class AuthResetPasswordComponent implements OnInit
             }
         }
 
-        /*check sequential*/
+        /!*check sequential*!/
         if (this.passwordPolicy.sequential){
             if (!CommonValidator.isContainsSequential(passwordValue)){
                 res = false;
@@ -197,7 +197,7 @@ export class AuthResetPasswordComponent implements OnInit
             }
         }
 
-        /*check specialChar*/
+        /!*check specialChar*!/
         if (this.passwordPolicy.specialChar){
             if (!CommonValidator.isContainsAnySpecialChar(passwordValue)){
                 res = false;
@@ -208,7 +208,7 @@ export class AuthResetPasswordComponent implements OnInit
             }
         }
 
-        /*check upperLower*/
+        /!*check upperLower*!/
         if (this.passwordPolicy.upperLower){
             if (!CommonValidator.isContainsUpper(passwordValue) || !CommonValidator.isContainsLower(passwordValue)){
                 res = false;
@@ -219,7 +219,7 @@ export class AuthResetPasswordComponent implements OnInit
             }
         }
 
-        /*check matchUsername*/
+        /!*check matchUsername*!/
         if (this.passwordPolicy.matchUsername){
             if (passwordValue === this.passwordHistory.appUser.username){
                 res = false;
@@ -228,7 +228,7 @@ export class AuthResetPasswordComponent implements OnInit
                 // res = true;
                 this.policyColor.matchUsername = this.COLOR_ACCEPT;
             }
-        }
+        }*/
 
         return res;
     }

@@ -1,0 +1,292 @@
+<div *ngIf="frmGroup" style="width: 100%">
+    <!-- Main -->
+    <div class="flex-auto m-7 body-color">
+        <!-- body Card -->
+        <mat-card class="tab-color -mt-4">
+            <!-- form div -->
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <!-- heading -->
+                <!--                <div class="heading">{{'listTitle' | translate}} </div>-->
+
+                <!-- heading 1  -->
+                <div class="heading">
+                    {{'listTitle1' | translate}}
+                </div>
+                <!-- // EMPLOYEE heading -->
+
+                <form [formGroup]="frmGroup" class="p-4">
+
+                    <!-- row 1 -->
+                    <div fxLayout="row wrap" fxLayoutAlign="center">
+
+
+                        <div fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div class="flex-auto gt-xs:pr-3">
+                                    <mat-label>{{'doctor' | translate}}</mat-label>
+                                    <mat-select-search
+                                        [controlName]="'doctor'"
+                                        [data]="doctorDropdownList"
+                                        [formGroup]="frmGroup">
+                                    </mat-select-search>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-form-field class="flex-auto gt-xs:pr-3">
+                                    <mat-label>{{'fromDate' | translate}}</mat-label>
+                                    <input (click)="picker1.open()" [matDatepicker]="picker1"
+                                           [placeholder]="validationMsg.DATE_FORMAT" formControlName="fromDate" matInput
+                                           readonly>
+                                    <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                    <mat-error>
+                                        {{'emptyNotAllow' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-form-field class="flex-auto gt-xs:pr-3">
+                                    <mat-label>{{'toDate' | translate}}</mat-label>
+                                    <input (click)="picker2.open()" [matDatepicker]="picker2"
+                                           [placeholder]="validationMsg.DATE_FORMAT" formControlName="toDate" matInput
+                                           readonly>
+                                    <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2></mat-datepicker>
+                                    <mat-error>
+                                        {{'emptyNotAllow' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- // row 1 -->
+
+                    <!-- row 2 -->
+                    <div fxLayout="row wrap" fxLayoutAlign="left">
+                        <div fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-form-field class="flex-auto gt-xs:pr-3">
+                                    <mat-label>{{'prescriptionNo' | translate}}</mat-label>
+                                    <input formControlName="prescriptionNo" matInput (keydown.enter)="serchPrescription()"/>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- // row 2 -->
+
+                    <!-- button -->
+                    <div class="flex justify-end mt-3 mr-2">
+
+                        <button id = "search" (click)="onSearch()" [disabled]="!frmGroup.valid || searchLoader" class="px-8 mr-2"
+                                color="primary" mat-flat-button type="button">
+                            <mat-icon class="mr-1">refresh</mat-icon>
+                            {{'search' | translate}}
+                            <mat-progress-spinner
+                                *ngIf="searchLoader"
+                                [diameter]="24"
+                                [mode]="'indeterminate'"></mat-progress-spinner>
+                        </button>
+
+                        <button (click)="resetFromData()" class="px-8 mr-2" color="accent" mat-flat-button
+                                type="button">
+                            <mat-icon class="mr-1">refresh</mat-icon>
+                            {{'reset' | translate}}
+                        </button>
+
+
+                    </div>
+                    <!-- button -->
+                </form>
+
+            </div>
+            <!-- // form div -->
+            <br>
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <mat-card>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div fxFlex="30%">
+                            <h1 class="header1">
+                                <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                                {{'listTitle1' | translate}}
+                            </h1>
+                        </div>
+
+                        <div>
+                            <!--                            <mat-dialog-actions align="end">-->
+                            <!--                                <button mat-flat-button color="primary" class="px-8 mr-2 ml-3"-->
+                            <!--                                        (click)="generatePDFDescription()">-->
+                            <!--                                    <mat-icon class="mr-1">print</mat-icon>-->
+                            <!--                                    {{'print' | translate}}-->
+                            <!--                                </button>-->
+                            <!--                            </mat-dialog-actions>-->
+                            <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                                <input
+                                    #input
+                                    (keyup)="applyFilter($event)"
+                                    matInput
+                                    placeholder="{{'search' |translate}}"/>
+                                <button mat-button mat-icon-button matPrefix>
+                                    <mat-icon>search</mat-icon>
+                                </button>
+                            </mat-form-field>
+
+                            <button [routerLink]="this.prefixUrl + 'patient-prescription/add'" class="px-8 mr-2 ml-3"
+                                    color="primary" mat-flat-button>
+                                <mat-icon class="mr-1">add</mat-icon>
+                                {{'addNew' | translate}}
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto"
+                    >
+                        <!-- table div-->
+                        <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto" id="description">
+                            <table [dataSource]="dataSource" class="mat-elevation-z8 bg-transparent" mat-table matSort>
+                                <!-- sl -->
+                                <ng-container matColumnDef="sl">
+                                    <th *matHeaderCellDef style="width: 40px">
+                                        {{'sl' | translate}}
+                                    </th>
+                                    <td *matCellDef="let row; let index = index" class="text-alignment" mat-cell>
+                                        {{this.page == 0 ? index + 1 : 1 + index + this.page * this.size}}
+                                    </td>
+                                </ng-container>
+                                <!-- prescriptionNo -->
+                                <ng-container matColumnDef="prescriptionNo">
+                                    <th *matHeaderCellDef>
+                                        {{'prescriptionNo' | translate}}
+                                    </th>
+                                    <td *matCellDef="let row" mat-cell>
+                                        {{ row.prescriptionNo }}
+                                    </td>
+                                </ng-container>
+
+                                <!-- prescriptionDate -->
+                                <ng-container matColumnDef="prescriptionDate">
+                                    <th *matHeaderCellDef>
+                                        {{'prescriptionDate' | translate}}
+                                    </th>
+                                    <td *matCellDef="let row" mat-cell>
+                                        {{ row.prescriptionDate | date: validationMsg.PIPE_DATE_FORMAT}}
+                                    </td>
+                                </ng-container>
+
+
+                                <!-- patientInfo -->
+                                <ng-container matColumnDef="patientInfo">
+                                    <th *matHeaderCellDef>
+                                        {{'patientInfo' | translate}}
+                                    </th>
+                                    <td *matCellDef="let row" mat-cell>
+                                        {{ ehmUtils.getPatientName(row.patientInfo) }}
+                                    </td>
+                                </ng-container>
+
+                                <!-- doctorInfo -->
+                                <ng-container matColumnDef="doctorInfo">
+                                    <th *matHeaderCellDef>
+                                        {{'doctorInfo' | translate}}
+                                    </th>
+                                    <td *matCellDef="let row" mat-cell>
+                                        {{ ehmUtils.getDoctorName(row.doctorInfo) }}
+                                    </td>
+                                </ng-container>
+
+                                <!-- status -->
+                                <ng-container matColumnDef="status">
+                                    <th *matHeaderCellDef>
+                                        {{'status' | translate}}
+                                    </th>
+                                    <td *matCellDef="let row" class="text-alignment" mat-cell>
+                                        <mat-icon *ngIf="row.active" color="primary"
+                                                  svgIcon="heroicons_solid:check-circle"></mat-icon>
+                                        <mat-icon *ngIf="!row.active" color="warn"
+                                                  svgIcon="heroicons_solid:x-circle"></mat-icon>
+                                    </td>
+                                </ng-container>
+
+                                <!-- Action Column -->
+                                <ng-container matColumnDef="action">
+                                    <th *matHeaderCellDef class="text-alignment" style="width: 170px">
+                                        {{'action' | translate}}
+                                    </th>
+
+                                    <td *matCellDef="let row" class="text-alignment" mat-cell>
+                                        <div class="buttons">
+
+                                            <button (click)="printReportCoronic(row)"
+                                                    [matTooltip]="'storeSlip' | translate"
+                                                    class="toggle-sidebar-folded"
+                                                    fxHide.lt-lg
+                                                    mat-icon-button>
+                                                <mat-icon>picture_as_pdf</mat-icon>
+                                            </button>
+
+                                            <button (click)="printReport(row)"
+                                                    [matTooltip]="'prescription' | translate"
+                                                    class="toggle-sidebar-folded"
+                                                    fxHide.lt-lg
+                                                    mat-icon-button>
+                                                <mat-icon>picture_as_pdf</mat-icon>
+                                            </button>
+
+                                            <button (click)="edit(row)"
+                                                    *ngIf="userRolePermission.edit
+                                                     && row.doctorInfo?.appUser.id === appUser.id
+                                                        "
+                                                    [matTooltip]="'edit' | translate"
+                                                    class="toggle-sidebar-folded"
+                                                    fxHide.lt-lg
+                                                    mat-icon-button>
+                                                <mat-icon color="accent">
+                                                    edit
+                                                </mat-icon>
+                                            </button>
+
+                                            <!--<button (click)="closeDialog(row)" mat-icon-button
+                                                    *ngIf="row.master.treatmentIs === false"
+                                                    class="toggle-sidebar-folded"
+                                                    [matTooltip]="'close' | translate"
+                                                    fxHide.lt-lg>
+                                                <mat-icon svgIcon="heroicons_outline:clipboard-list" color="primary"></mat-icon>
+                                            </button>-->
+
+                                            <!--(click)="closeDialog(row)"-->
+
+                                        </div>
+                                    </td>
+                                </ng-container>
+                                <!-- Table Action Buttons End-->
+
+                                <tr *matHeaderRowDef="displayedColumns"
+                                    mat-header-row></tr>
+                                <tr *matRowDef="let row; columns: displayedColumns"
+                                    mat-row></tr>
+                            </table>
+                        </div>
+
+                        <mat-paginator
+                            (page)="onChangePage($event)"
+                            [length]="total"
+                            [pageSizeOptions]="[2, 3, 5, 10, 25, 100]"
+                            [pageSize]="size"></mat-paginator>
+                    </div>
+                </mat-card>
+            </div>
+
+
+        </mat-card>
+        <!-- // body Card -->
+    </div>
+    <!-- // Main -->
+</div>
+

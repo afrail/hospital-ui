@@ -4,6 +4,12 @@ import {ReplaySubject, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {IOption} from '../../model/option';
 import {AppUtils} from '../../../core/utils/app.utils';
+import { EhmUtils } from 'app/main/groups/system-admin/features/utils/ehm.utils';
+import { EhmCommonLookupDetailsService } from 'app/main/groups/system-admin/service/ehm-common-lookup-details.service';
+import { MedicineMasterService } from 'app/main/groups/system-admin/service/medicine-master.service';
+import {CommonLookupDetails} from '../../../groups/system-admin/model/common-lookup-details';
+import {CommonLookupMaster} from '../../../groups/system-admin/model/common-lookup-master';
+import {MedicineMaster} from '../../../groups/system-admin/model/medicine-master';
 
 
 @Component({
@@ -36,7 +42,10 @@ export class MatSelectSearchSmallComponent implements OnInit, OnChanges, OnDestr
     filterList: IOption[] = [];
 
     constructor(
+        private ehmCommonLookupDetailsService: EhmCommonLookupDetailsService,
+        private medicineMasterService: MedicineMasterService,
         private appUtils: AppUtils,
+        private ehmUtils: EhmUtils,
 
     ){
 
@@ -102,11 +111,73 @@ export class MatSelectSearchSmallComponent implements OnInit, OnChanges, OnDestr
         if (!this.commonLookupId){
             console.log('retrun');
             return;
+        }else if (this.commonLookupId === this.ehmUtils.medicineDialog){
+            console.log('medi');
+            this.submitMedicineData(searchValue);
         }else {
             console.log('other');
-           // this.submitCommonLookupData(searchValue);
+            this.submitCommonLookupData(searchValue);
         }
 
+    }
+
+    submitCommonLookupData(searchValue): void{
+        const model: CommonLookupDetails = new CommonLookupDetails();
+        model.name = searchValue;
+        model.banglaName = searchValue;
+        const masterObj: CommonLookupMaster = new CommonLookupMaster();
+        masterObj.id = this.commonLookupId;
+        model.master = masterObj;
+        model.parent = null;
+        model.active = true;
+        this.ehmCommonLookupDetailsService.create(model).subscribe(res => {
+            this.appUtils.onServerSuccessResponse(res, null);
+            const obj = {
+                row : this.formGroup,
+                value: res.data,
+                searchType: this.searchType,
+            };
+            this.callBackForAddData.emit(obj);
+        }, error => {
+            this.appUtils.onServerErrorResponse(error);
+        });
+    }
+
+    submitMedicineData(searchValue): void{
+        const model: MedicineMaster = new MedicineMaster();
+
+        const medicineGroup: CommonLookupDetails = new CommonLookupDetails();
+        medicineGroup.id = this.ehmUtils.mescGroupId;
+        model.medicineGroup = medicineGroup;
+
+        const unitMeasurement: CommonLookupDetails = new CommonLookupDetails();
+        unitMeasurement.id = this.ehmUtils.unitId;
+        model.unitMeasurement = unitMeasurement;
+
+        model.medicineName = searchValue;
+        model.barcode = '';
+        model.availableStock = 0;
+        model.minimumStock = 0;
+        model.warningStock = 0;
+        model.minimumStockSub = 0;
+        model.warningStockSub = 0;
+        model.minimumStockEmergency = 0;
+        model.warningStockEmergency = 0;
+        model.medicineIs = true;
+        model.active = true;
+
+        this.medicineMasterService.create(model).subscribe(res => {
+            this.appUtils.onServerSuccessResponse(res, null);
+            const obj = {
+                row : this.formGroup,
+                value: res.data,
+                searchType: this.searchType,
+                index: this.index,
+            };
+            this.callBackForAddData.emit(obj);
+        }, error => {
+            this.appUtils.onServerErrorResponse(error);
+        });
     }
 
 

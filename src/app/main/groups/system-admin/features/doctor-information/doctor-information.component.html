@@ -1,0 +1,419 @@
+<div *ngIf="frmGroup" style="width: 100%">
+    <app-common-header [subTitle]="'bannerSubTitle' | translate"
+                       [title]="'bannerTitle' | translate"></app-common-header>
+    <!--    <app-common-header *ngIf="menuType===2" [title]="'bannerTitle' | translate" [subTitle]="'bannerSubTitle' | translate"></app-common-header>-->
+    <!-- Main -->
+    <div class="flex-auto m-7 body-color">
+        <!-- body Card -->
+        <mat-card class="tab-color -mt-4">
+            <!-- form div -->
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div *ngIf="menuType===1" class="heading">
+                    {{'title1' | translate}}
+                </div>
+                <!-- // EMPLOYEE heading -->
+
+                <!-- DENTAT heading -->
+                <div *ngIf="menuType===2" class="heading">
+                    {{'title2' | translate}}
+                </div>
+                <!-- // heading -->
+                <form [formGroup]="frmGroup" class="p-8">
+
+                    <!-- row 1 -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">  {{'bofEmployee' | translate}}
+                                </mat-label>
+                                <mat-checkbox [ngStyle]="{'padding-bottom': '15px'}" formControlName="bofEmployee" fxFlex="60%" fxFlex.md="100%"
+                                              fxFlex.sm="100%"
+                                              fxFlex.xs="100%">
+                                </mat-checkbox>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- // row 1 -->
+
+                    <!-- row 1.1 -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'appUser' | translate}}<strong class="required">*</strong>
+                                </mat-label>
+                                <mat-select-search (selectionChange)="checkUser()"
+                                                   [controlName]="'appUser'"
+                                                   [data]="appUserDropdownList"
+                                                   [formGroup]="frmGroup"
+                                                   class="fuse-mat-dense flex-auto"
+                                                   fxFlex="75%"
+                                                   fxFlex.sm="50%"
+                                                   fxFlex.xs="50%">
+                                </mat-select-search>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- // row 1.1 -->
+
+                    <!-- row 2 -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'name'| translate}}<strong class="required">*</strong>
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input formControlName="name" matInput>
+                                    <mat-error>{{'emptyNotAllow'| translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'banglaName'| translate}}
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input formControlName="banglaName" matInput>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- // row 2 -->
+
+                    <!-- row 3 -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'mobileNumber'| translate}}
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input formControlName="mobileNumber" matInput min="0" type="number">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'doctorRank'| translate}}
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input formControlName="doctorRank" matInput>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- // row 3 -->
+
+                    <!-- row 4 -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'activeDate' | translate}}
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%"
+                                                fxFlex.xs="60%">
+                                    <input [matDatepicker]="picker"
+                                           [placeholder]="validationMsg.DATE_FORMAT"
+                                           formControlName="activeDate" matInput>
+                                    <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'inactiveDate' | translate}}
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%"
+                                                fxFlex.xs="60%">
+                                    <input [matDatepicker]="picker1"
+                                           [placeholder]="validationMsg.DATE_FORMAT"
+                                           formControlName="inactiveDate" matInput>
+                                    <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <!-- // row 4 -->
+
+                    <!-- row 5 -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'roomNo'| translate}}
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input formControlName="roomNo" matInput>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'specialFor'| translate}}
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%"
+                                                fxFlex.xs="100%">
+                                <textarea #txtArea1 [maxlength]="textAreaSize" formControlName="specialFor"
+                                          matInput></textarea>
+                                    <mat-hint align="end">{{txtArea1.value.length}}/{{textAreaSize}}</mat-hint>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- // row 5 -->
+
+                    <!-- button -->
+                    <div class="flex justify-end mt-3 mr-2">
+
+                        <button
+                            (click)="resetFromData()"
+                            class="px-8 mr-2"
+                            color="accent"
+                            mat-flat-button
+                            type="button">
+                            <mat-icon class="mr-1">refresh</mat-icon>
+                            <span *ngIf="!editValue">{{'reset' | translate}}</span>
+                            <span *ngIf="editValue">{{'cancel' | translate}}</span></button>
+
+                        <button
+                            (click)="onSubmit()"
+                            *ngIf="!editValue && userRolePermission.insert"
+                            [disabled]="!frmGroup.valid || searchLoader"
+                            class="px-8"
+                            color="primary"
+                            mat-flat-button
+                            type="button">
+                            <mat-icon class="mr-1">save</mat-icon>
+                            {{'save' | translate}}
+                            <mat-progress-spinner
+                                *ngIf="searchLoader"
+                                [diameter]="24"
+                                [mode]="'indeterminate'">
+                            </mat-progress-spinner>
+                        </button>
+
+                        <button
+                            (click)="update()"
+                            *ngIf="editValue"
+                            [disabled]="!frmGroup.valid || searchLoader"
+                            class="px-8"
+                            color="primary"
+                            mat-flat-button
+                            type="button">
+                            <mat-icon class="mr-1">save</mat-icon>
+                            {{'update' | translate}}
+                            <mat-progress-spinner
+                                *ngIf="searchLoader"
+                                [diameter]="24"
+                                [mode]="'indeterminate'">
+                            </mat-progress-spinner>
+                        </button>
+                    </div>
+                    <!-- // button -->
+                </form>
+
+            </div>
+            <!-- // form div -->
+
+            <!--view div-->
+            <div *ngIf="userRolePermission.view">
+                <!-- List Grid title and search -->
+                <div class="mt-5" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <!--header-->
+                    <div *ngIf="menuType===1" fxFlex="30%">
+                        <h1 class="header1">
+                            <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                            {{'listTitle1'| translate}}
+                        </h1>
+                    </div>
+
+                    <div *ngIf="menuType===2" fxFlex="30%">
+                        <h1 class="header1">
+                            <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                            {{'listTitle2'| translate}}
+                        </h1>
+                    </div>
+
+                    <!-- // header-->
+                    <!--  search-->
+                    <div>
+                        <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                            <input
+                                #input
+                                (keyup)="applyFilter($event)"
+                                matInput
+                                placeholder="{{'search' | translate}}"/>
+                            <button mat-button mat-icon-button matPrefix>
+                                <mat-icon>search</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                    <!--  search-->
+                </div>
+                <!-- // List Grid title and search -->
+
+                <!-- List Grid -->
+                <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+                    <!-- table div-->
+                    <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                        <table (matSortChange)="sortData($event)"
+                               [dataSource]="dataSource"
+                               class="mat-elevation-z8 bg-transparent"
+                               mat-table matSort>
+
+                            <!-- sl -->
+                            <ng-container matColumnDef="sl">
+                                <th *matHeaderCellDef class="text-alignment"
+                                    mat-sort-header>
+                                    {{'sl' | translate}}
+                                </th>
+                                <td *matCellDef="let row; let i = index" mat-cell>
+                                    {{this.page == 0 ? i + 1 : i + 1 + this.page * this.size}}
+                                </td>
+                            </ng-container>
+
+                            <!-- name -->
+                            <ng-container matColumnDef="name">
+                                <th *matHeaderCellDef class="text-alignment"
+                                    mat-sort-header>
+                                    {{'name' | translate}}
+                                </th>
+                                <td *matCellDef="let row" mat-cell>
+                                    {{ row.name }}
+                                </td>
+                            </ng-container>
+
+                            <!-- doctorRank -->
+                            <ng-container matColumnDef="doctorRank">
+                                <th *matHeaderCellDef class="text-alignment"
+                                    mat-sort-header>
+                                    {{'doctorRank' | translate}}
+                                </th>
+                                <td *matCellDef="let row" mat-cell>
+                                    {{ row.doctorRank }}
+                                </td>
+                            </ng-container>
+
+                            <!-- mobileNumber -->
+                            <ng-container matColumnDef="mobileNumber">
+                                <th *matHeaderCellDef class="text-alignment"
+                                    mat-sort-header>
+                                    {{'mobileNumber' | translate}}
+                                </th>
+                                <td *matCellDef="let row" mat-cell>
+                                    {{ row.mobileNumber }}
+                                </td>
+                            </ng-container>
+
+                            <!-- appUser -->
+                            <ng-container matColumnDef="appUser">
+                                <th *matHeaderCellDef class="text-alignment"
+                                    mat-sort-header>
+                                    {{'appUser' | translate}}
+                                </th>
+                                <td *matCellDef="let row" mat-cell>
+                                    {{ row.appUser.username }}
+                                </td>
+                            </ng-container>
+
+                            <!-- action -->
+                            <ng-container matColumnDef="action">
+                                <th *matHeaderCellDef class="text-alignment">
+                                    {{'action' | translate}}
+                                </th>
+                                <td *matCellDef="let row" class="text-alignment" mat-cell>
+                                    <div class="buttons">
+                                        <button (click)="edit(row)" *ngIf="userRolePermission.edit"
+                                                class="toggle-sidebar-folded"
+                                                fxHide.lt-lg
+                                                mat-icon-button
+                                                matTooltip="{{'edit' | translate}}">
+                                            <mat-icon
+                                                color="accent">edit
+                                            </mat-icon>
+                                        </button>
+
+                                        <button (click)="openDialog(row)" *ngIf="userRolePermission.delete"
+                                                [disabled]="disableDelete"
+                                                class="toggle-sidebar-folded"
+                                                fxHide.lt-lg
+                                                mat-icon-button
+                                                matTooltip="{{'delete' | translate}}">
+                                            <mat-icon
+                                                color="warn">delete
+                                            </mat-icon>
+                                        </button>
+                                    </div>
+                                </td>
+                            </ng-container>
+                            <!-- Table Action Buttons End-->
+
+                            <!--bind with ts-->
+                            <tr *matHeaderRowDef="displayedColumns"
+                                mat-header-row></tr>
+                            <tr *matRowDef="let row; columns: displayedColumns"
+                                mat-row></tr>
+                            <!-- // bind with ts-->
+
+                            <!-- Row shown when there is no matching data. -->
+                            <tr *matNoDataRow class="mat-row">
+                                <td class="mat-cell" colspan="10">
+                                    {{'noDataMatchingTheFilter' | translate}} "{{ input.value }}"
+                                </td>
+                            </tr>
+                            <!-- //  Row shown when there is no matching data. -->
+                        </table>
+                    </div>
+                    <!-- // table div-->
+                    <!-- pagination -->
+                    <mat-paginator
+                        (page)="onChangePage($event)"
+                        [length]="total"
+                        [pageSizeOptions]="[2, 3, 5, 10, 25, 100]"
+                        [pageSize]="size"></mat-paginator>
+                    <!-- // pagination -->
+                </div>
+                <!-- // List Grid -->
+            </div>
+            <!-- // view div-->
+        </mat-card>
+        <!-- body Card -->
+    </div>
+</div>

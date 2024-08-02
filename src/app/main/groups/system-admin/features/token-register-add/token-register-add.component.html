@@ -1,0 +1,370 @@
+<div *ngIf="frmGroup" style="width: 100%">
+    <app-common-header [title]="'bannerTitle' | translate"></app-common-header>
+    <!-- Main -->
+    <div class="flex-auto m-7 body-color">
+        <!-- body Card -->
+        <mat-card class="tab-color -mt-4">
+            <!-- form div -->
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <div class="heading">
+                    {{'title1' | translate}}
+                </div>
+                <form [formGroup]="frmGroup" class="pl-8 pr-8">
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'contactNo' | translate}}<strong
+                                    class="required">*</strong>
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%"
+                                                fxFlex.xs="60%">
+                                    <input formControlName="contactNo" matInput (blur)="getPatientContactNumber()">
+                                    <mat-error>{{'emptyNotAllow' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'patientName' | translate}}<strong
+                                    class="required">*</strong>
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%"
+                                                fxFlex.xs="60%">
+                                    <input formControlName="patientName" matInput>
+                                    <mat-error>{{'emptyNotAllow' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'age' | translate}}<strong
+                                    class="required">*</strong>
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%"
+                                                fxFlex.xs="60%">
+                                    <input formControlName="age" matInput>
+                                    <mat-error>{{'emptyNotAllow' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'visitDate' | translate}}<strong
+                                    class="required">*</strong>
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%"
+                                                fxFlex.xs="60%">
+                                    <input #dateValue1 (blur)="appUtils.formatDate(frmGroup, 'visitDate', dateValue1)"
+                                           [matDatepicker]="picker1"
+                                           [placeholder]="validationMsg.DATE_FORMAT"
+                                           formControlName="visitDate" matInput>
+                                    <mat-datepicker-toggle [for]="picker1" matSuffix></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                    <mat-error>{{'emptyNotAllow' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- // row 1 -->
+
+                    <!-- row 2  -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%"
+                             fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">
+                                    {{'referToDoctor' | translate}}<strong class="required">*</strong>
+                                </mat-label>
+                                <mat-select-search [controlName]="'referToDoctorName'"
+                                                   [data]="doctorDropdownList"
+                                                   [formGroup]="frmGroup"
+                                                   class="fuse-mat-dense flex-auto"
+                                                   fxFlex="75%"
+                                                   fxFlex.sm="50%"
+                                                   fxFlex.xs="50%">
+                                </mat-select-search>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // row 2 -->
+
+                    <!-- row 3 -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%"
+                             fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'pulse' | translate}}
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input formControlName="pulse" matInput>
+                                    <mat-error>{{'emptyNotAllow' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%"
+                             fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'bp' | translate}}
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input formControlName="bp" matInput>
+                                    <mat-error>{{'emptyNotAllow' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%"
+                             fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'temp' | translate}}
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input formControlName="temp" matInput>
+                                    <mat-error>{{'emptyNotAllow' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%"
+                             fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'height' | translate}}
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input formControlName="height" matInput>
+                                    <mat-error>{{'emptyNotAllow' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%"
+                             fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'weight' | translate}}
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input formControlName="weight" matInput>
+                                    <mat-error>{{'emptyNotAllow' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%"
+                             fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'ofc' | translate}}
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input formControlName="ofc" matInput>
+                                    <mat-error>{{'emptyNotAllow' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%"
+                             fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'spo2' | translate}}
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
+                                                fxFlex.sm="60%" fxFlex.xs="100%">
+                                    <input formControlName="spo2" matInput>
+                                    <mat-error>{{'emptyNotAllow' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%"
+                             fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label fxFlex="20%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
+                                           style="margin-top: -15px">{{'primaryProblem'| translate}}
+                                </mat-label>
+                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.md="60%"
+                                                fxFlex.sm="60%" fxFlex.xs="100%">
+                                        <textarea #txtArea1 [maxlength]="1000" formControlName="primaryProblem"
+                                                  matInput></textarea>
+                                    <mat-hint align="end">{{txtArea1.value.length}}/{{1000}}</mat-hint>
+                                    <mat-error>{{'emptyNotAllow' | translate}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- // row 3 -->
+
+                    <!-- row 4 -->
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+
+                        <!-- active -->
+                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <mat-checkbox formControlName="active" fxFlex="20%" fxFlex.md="100%" fxFlex.sm="100%"
+                                              fxFlex.xs="100%">
+                                    {{'active' | translate}}
+                                </mat-checkbox>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- // row 4 -->
+
+
+
+                    <!-- button -->
+                    <div class="flex justify-end mt-3 mr-2 mb-2">
+                        <button
+                            [routerLink]="viewList()"
+                            class="px-8 mr-2 ml-3"
+                            color="primary" mat-flat-button>>
+                            <mat-icon class="mr-1"></mat-icon>
+                            <span>{{'viewList' | translate}}</span>
+                        </button>
+
+                        <button
+                            (click)="resetFromData()"
+                            class="px-8 mr-2"
+                            color="accent"
+                            mat-flat-button
+                            type="button">
+                            <mat-icon class="mr-1">refresh</mat-icon>
+                            <span *ngIf="!editValue">{{'reset' | translate}}</span>
+                            <span *ngIf="editValue">{{'cancel' | translate}}</span></button>
+
+                        <button
+                            (click)="onSubmit()"
+                            *ngIf="!editValue && userRolePermission.insert"
+                            [disabled]="!frmGroup.valid || searchLoader"
+                            class="px-8"
+                            color="primary"
+                            mat-flat-button
+                            type="button">
+                            <mat-icon class="mr-1">save</mat-icon>
+                            {{'save' | translate}}
+                            <mat-progress-spinner
+                                *ngIf="searchLoader"
+                                [diameter]="24"
+                                [mode]="'indeterminate'">
+                            </mat-progress-spinner>
+                        </button>
+
+                        <button
+                            (click)="update()"
+                            *ngIf="editValue"
+                            [disabled]="!frmGroup.valid || searchLoader"
+                            class="px-8"
+                            color="primary"
+                            mat-flat-button
+                            type="button">
+                            <mat-icon class="mr-1">save</mat-icon>
+                            {{'update' | translate}}
+                            <mat-progress-spinner
+                                *ngIf="searchLoader"
+                                [diameter]="24"
+                                [mode]="'indeterminate'">
+                            </mat-progress-spinner>
+                        </button>
+                    </div>
+                    <!-- // button -->
+                </form>
+
+            </div>
+            <!-- // form div -->
+
+
+        </mat-card>
+        <!-- body Card -->
+    </div>
+</div>
+
+<!--dialog-->
+<ng-template #templateDialog fxFlex="100%" fxFlex.md="100%" fxFlex.sm="70%" fxFlex.xs="70%">
+    <div>
+        <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+            <div class="heading">
+                <!--                {{'Token Register' | translate}}-->
+            </div>
+            <div class="flex flex-col bg-card shadow rounded" fxFlex="100">
+            </div>
+        </div>
+        <mat-card>
+            <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
+                <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
+                    <div class="p-5">
+                        <Typography variant="h1">The Patient taken medicine before {{day}} ago</Typography>
+                        <h3>
+                            Date: {{toDate| date:"dd-MM-YYYY"}}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+        </mat-card>
+        <!-- // Contact Information -->
+        <br/>
+        <!------------------------------------------------------------------------------------------------------------------------------>
+    </div>
+
+
+    <!-- button -->
+    <button [matDialogClose]="true" class="px-8 mr-2 flex justify-start" mat-flat-button
+            style="background-color: red !important;"
+            type="button">
+        <mat-icon class="mr-1">close</mat-icon>
+        {{'close' | translate}}
+    </button>
+</ng-template>
+
+
+

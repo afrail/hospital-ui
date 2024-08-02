@@ -1,0 +1,237 @@
+<div style="width: 100%">
+
+    <!-- Main -->
+    <div class="flex-auto m-7 body-color">
+        <!-- body Card -->
+        <mat-card class="tab-color -mt-4">
+            <!-- form div -->
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+
+                <div class="heading">
+                    {{'listTitle1' | translate}}
+                </div>
+
+
+
+                <form [formGroup]="frmGroup" class="p-4">
+
+
+
+                    <!-- button -->
+                    <div class="flex justify-end mt-3 mr-2">
+                        <!-- search -->
+                        <button (click)="onSearch()" [disabled]="!frmGroup.valid || searchLoader" class="px-8 mr-2"
+                                color="primary" mat-flat-button type="button">
+                            <mat-icon>search</mat-icon>
+                            {{'search' | translate}}
+                            <mat-progress-spinner
+                                *ngIf="searchLoader"
+                                [diameter]="24"
+                                [mode]="'indeterminate'"></mat-progress-spinner>
+                        </button>
+                        <!-- reset -->
+                        <button (click)="resetFromData()" class="px-8 mr-2" color="accent" mat-flat-button
+                                type="button">
+                            <mat-icon class="mr-1">refresh</mat-icon>
+                            {{'reset' | translate}}
+                        </button>
+
+
+                    </div>
+                    <!-- button -->
+                </form>
+
+            </div>
+            <!-- // form div -->
+            <br>
+
+            <div class="flex flex-col bg-card shadow rounded overflow-hidden">
+                <mat-card>
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div fxFlex="30%">
+                            <h1 *ngIf="menuType===101" class="header1">
+                                <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                                {{'listTitle1' | translate}}
+                            </h1>
+                            <h1 *ngIf="menuType===201" class="header1">
+                                <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                                {{'listTitle2' | translate}}
+                            </h1>
+                            <h1 *ngIf="menuType===301" class="header1">
+                                <mat-icon class="tblMatIcon mr-1">view_list</mat-icon>
+                                {{'listTitle3' | translate}}
+                            </h1>
+                        </div>
+
+                        <div>
+                            <!--                            <mat-dialog-actions align="end">-->
+                            <!--                                <button mat-flat-button color="primary" class="px-8 mr-2 ml-3"-->
+                            <!--                                        (click)="generatePDFDescription()">-->
+                            <!--                                    <mat-icon class="mr-1">print</mat-icon>-->
+                            <!--                                    {{'print' | translate}}-->
+                            <!--                                </button>-->
+                            <!--                            </mat-dialog-actions>-->
+                            <mat-form-field fxFlex="100%" style="width: 300px !important;">
+                                <input
+                                    #input
+                                    (keyup)="applyFilter($event)"
+                                    matInput
+                                    placeholder="{{'search' |translate}}"/>
+                                <button mat-button mat-icon-button matPrefix>
+                                    <mat-icon>search</mat-icon>
+                                </button>
+                            </mat-form-field>
+
+                            <button [routerLink]="getHrmUrl()" class="px-8 mr-2 ml-3"
+                                    color="primary" mat-flat-button>
+                                <mat-icon class="mr-1">add</mat-icon>
+                                {{'addNew' | translate}}
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto"
+                    >
+                        <!-- table div-->
+                        <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto" id="description">
+                            <table [dataSource]="dataSource" class="mat-elevation-z8 bg-transparent" mat-table matSort>
+
+                                <!-- sl -->
+                                <ng-container matColumnDef="sl">
+                                    <th *matHeaderCellDef style="width: 40px">
+                                        {{'sl' | translate}}
+                                    </th>
+                                    <td *matCellDef="let row; let index = index" class="text-alignment" mat-cell>
+                                        {{this.page == 0 ? index + 1 : 1 + index + this.page * this.size}}
+                                    </td>
+                                </ng-container>
+
+                                <!-- tokenNumber -->
+                                <ng-container matColumnDef="tokenNumber">
+                                    <th *matHeaderCellDef>
+                                        {{'tokenNumber' | translate}}
+                                    </th>
+                                    <td *matCellDef="let row" mat-cell>
+                                        {{ row.tokenNumber }}
+                                    </td>
+                                </ng-container>
+
+                                <!-- visitDate -->
+                                <ng-container matColumnDef="visitDate">
+                                    <th *matHeaderCellDef>
+                                        {{'visitDate' | translate}}
+                                    </th>
+                                    <td *matCellDef="let row" mat-cell>
+                                        {{ row.visitDate | date:"dd-MM-yyyy"}}
+                                    </td>
+                                </ng-container>
+
+                                <!-- patient -->
+                                <ng-container matColumnDef="patient">
+                                    <th *matHeaderCellDef>
+                                        {{'patient' | translate}}
+                                    </th>
+                                    <td *matCellDef="let row" mat-cell>
+                                        {{ row.patientName }}
+                                    </td>
+                                </ng-container>
+
+
+                                <!-- referToDoctor -->
+                                <ng-container matColumnDef="referToDoctor">
+                                    <th *matHeaderCellDef>
+                                        {{'referToDoctor' | translate}}
+                                    </th>
+                                    <td *matCellDef="let row" mat-cell>
+                                        {{ row.referToDoctorName }}
+                                    </td>
+                                </ng-container>
+
+                                <!-- actionToken -->
+                                <ng-container matColumnDef="actionToken">
+                                    <th *matHeaderCellDef class="text-alignment">
+                                        {{'actionToken' | translate}}
+                                    </th>
+                                    <td *matCellDef="let row"
+                                        class="text-alignment"
+                                        mat-cell>
+                                        <mat-icon *ngIf="row.actionToken" color="primary"
+                                                  svgIcon="heroicons_solid:check-circle"></mat-icon>
+                                        <mat-icon *ngIf="!row.actionToken" color="warn"
+                                                  svgIcon="heroicons_solid:x-circle"></mat-icon>
+                                    </td>
+                                </ng-container>
+
+                                <!-- status -->
+                                <ng-container matColumnDef="active">
+                                    <th *matHeaderCellDef
+                                        class="text-alignment">
+                                        {{'active' | translate}}
+                                    </th>
+                                    <td *matCellDef="let row"
+                                        class="text-alignment"
+                                        mat-cell>
+                                        <mat-icon *ngIf="row.active" color="primary"
+                                                  svgIcon="heroicons_solid:check-circle"></mat-icon>
+                                        <mat-icon *ngIf="!row.active" color="warn"
+                                                  svgIcon="heroicons_solid:x-circle"></mat-icon>
+                                    </td>
+                                </ng-container>
+
+                                <!-- Action Column -->
+                                <ng-container matColumnDef="action">
+                                    <th *matHeaderCellDef class="text-alignment" style="width: 130px">
+                                        {{'action' | translate}}
+                                    </th>
+
+                                    <td *matCellDef="let row" class="text-alignment" mat-cell>
+                                        <div class="buttons">
+
+                                            <button (click)="edit(row)"
+                                                    *ngIf="userRolePermission.edit"
+                                                    [matTooltip]="'edit' | translate"
+                                                    class="toggle-sidebar-folded"
+                                                    fxHide.lt-lg
+                                                    mat-icon-button>
+                                                <mat-icon color="accent">
+                                                    edit
+                                                </mat-icon>
+                                            </button>
+                                            <button (click)="openDialog(row)"
+                                                    *ngIf="userRolePermission.delete && !row.actionToken"
+                                                    [matTooltip]="'delete' | translate"
+                                                    [disabled] = "row.visitType?.name == 'Chronic Medicine Collect'"
+                                                    class="toggle-sidebar-folded"
+                                                    fxHide.lt-lg
+                                                    mat-icon-button>
+                                                <mat-icon color="warn">
+                                                    delete
+                                                </mat-icon>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                                <!-- Table Action Buttons End-->
+
+                                <tr *matHeaderRowDef="displayedColumns"
+                                    mat-header-row></tr>
+                                <tr *matRowDef="let row; columns: displayedColumns"
+                                    mat-row></tr>
+                            </table>
+
+                        </div>
+
+                        <mat-paginator
+                            (page)="onChangePage($event)"
+                            [length]="total"
+                            [pageSizeOptions]="[2, 3, 5, 10, 25, 100]"
+                            [pageSize]="size"></mat-paginator>
+                    </div>
+                </mat-card>
+            </div>
+        </mat-card>
+        <!-- // body Card -->
+    </div>
+    <!-- // Main -->
+</div>
+

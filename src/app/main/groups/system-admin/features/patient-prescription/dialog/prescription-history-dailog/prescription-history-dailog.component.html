@@ -1,0 +1,142 @@
+<div style="width: 100%">
+    <!-- Main -->
+    <div class="flex-auto m-2 body-color">
+        <!-- body Card -->
+        <mat-card class="tab-color -mt-2">
+
+            <div *ngIf="modelList && modelList.length ==0" class="text-alignment">
+                <h1>{{'noResultFound'| translate}}</h1>
+            </div>
+
+            <mat-card *ngIf="this.flag ==2" class="tab-color -mt-4">
+
+                <div fxLayout="row wrap" fxLayoutAlign="center">
+                    <table>
+                        <tr>
+                            <td><strong>{{'tokenNumber' | translate}}</strong></td>
+                            <td>&emsp;&emsp; : &emsp;</td>
+                            <td>{{model.tokenNumber}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{'referToDoctor' | translate}}</strong></td>
+                            <td>&emsp;&emsp; : &emsp;</td>
+                            <td>{{model.referToDoctorName}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{'roomNo' | translate}}</strong></td>
+                            <td>&emsp;&emsp; : &emsp;</td>
+                            <td>{{model.referToDoctorRoom}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{'patient' | translate}}</strong></td>
+                            <td>&emsp;&emsp; : &emsp;</td>
+                            <td>{{this.ehmUtils.getPatientName(model.patientInfo)}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </mat-card>
+
+            <!--  main div-->
+            <mat-card *ngFor="let model of modelList" class="mt-5">
+
+                <div class="row">
+                    <div fxFlex="70%">
+
+                    </div>
+
+                    <div fxFlex="30%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+
+                        <tr>
+                            <td><strong>Prescription ID</strong></td>
+                            <td><strong>:</strong></td>
+                            <td> {{model.master.prescriptionNo}}</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Prescription Date </strong></td>
+                            <td><strong>:</strong></td>
+                            <td> {{model.master.prescriptionDate| date:validationMsg.PIPE_DATE_FORMAT}}</td>
+                        </tr>
+
+                    </div>
+                </div>
+
+                <hr>
+
+                <!--    prescription design-->
+                <!--                prescription heading-->
+                <div class="row">
+                    <!--left-->
+                    <div fxFlex="60%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+
+                        <table width="100%">
+                            <h1><strong>Chief Complain</strong></h1>
+                            <tr *ngFor="let chiefComplaint of model.ccList">
+                                <td>{{chiefComplaint.chiefComplaintValue}}</td>
+                            </tr>
+
+                            <br/>
+                            <br/>
+
+                            <h1><strong>Disease</strong></h1>
+                            <tr *ngFor="let disease of model.diseaseList">
+                                <td>{{disease.diseaseValue}}</td>
+                            </tr>
+
+                            <br/>
+                            <br/>
+
+
+                            <h1><strong>Investigation</strong></h1>
+                            <tr *ngFor="let investigation of model.investigationList">
+                                <td>{{investigation.investigationValue}}</td>
+                            </tr>
+
+                            <br/>
+                            <br/>
+                        </table>
+                    </div>
+                    <!--//left-->
+                    <!--reight-->
+                    <div class="a" fxFlex="40%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <strong><h1>Rx,</h1></strong>
+                        <table width="100%">
+                            <tr *ngFor="let medicine of model.treatmentList">
+                                <td>
+                                    <STRONG>{{ medicine.medicineMaster.medicineName}}</STRONG>
+                                    <br>
+                                    {{medicine.doseValue}} [{{medicine.duration}}] Day- (Qty:-{{medicine.qty}}) <br>
+                                </td>
+
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- // reight-->
+                </div>
+                <!--             //   prescription heading-->
+                <!--  //  prescription design-->
+                <tr>
+                    <td><strong>{{model.master.doctorInfo.name}}</strong></td>
+                </tr>
+                <tr>
+                    <td>{{model.master.doctorInfo.doctorRank}}</td>
+                </tr>
+                <tr>
+                    <td>{{model.master.doctorInfo.specialFor}}</td>
+                </tr>
+
+                <!--                <h1>&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</h1>-->
+
+
+            </mat-card>
+
+            <!-- // main div-->
+        </mat-card>
+
+        <mat-dialog-actions align="end">
+            <button (click)="onNoClick()" class="no-button" mat-button>{{'close' | translate}}</button>
+        </mat-dialog-actions>
+        <!-- body Card -->
+    </div>
+</div>
