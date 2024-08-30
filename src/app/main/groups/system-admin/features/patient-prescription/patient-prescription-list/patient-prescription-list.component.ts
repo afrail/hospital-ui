@@ -98,10 +98,7 @@ export class PatientPrescriptionListComponent implements OnInit {
 
     getDoctorList(): void {
         this.doctorInformationService.getActiveList().subscribe(res => {
-            this.doctorDropdownList = res.data.map(m => ({
-                ...m,
-                name: m.name + ' , ' + m.specialFor
-            }));
+            this.doctorDropdownList = res.data;
             this.getDoctorInfo();
         });
     }

@@ -48,6 +48,7 @@ export const locale = {
         'prescriptionDate': 'প্রেসক্রিপশনের তারিখ',
         'doctorInfo': 'ডাক্তারদের তথ্য',
         'doctor': 'ডাক্তার',
+        'contactNo': 'Contact No',
 
         'patientInfo': 'রোগীর তথ্য',
         'patientCode': 'রোগীর কোড',

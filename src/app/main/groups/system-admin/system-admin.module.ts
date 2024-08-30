@@ -35,6 +35,7 @@ import {
     PatientPrescriptionListComponent
 } from './features/patient-prescription/patient-prescription-list/patient-prescription-list.component';
 import {CustomNameFilterPipes} from './features/utils/custom-name-filter.pipes';
+import {QuillModule} from 'ngx-quill';
 
 /*const _materialModule = [
     MatButtonModule,
@@ -119,6 +120,7 @@ import {CustomNameFilterPipes} from './features/utils/custom-name-filter.pipes';
 
         SharedModule,
         SystemAdminRoutingModule,
+        QuillModule,
 
 
     ]

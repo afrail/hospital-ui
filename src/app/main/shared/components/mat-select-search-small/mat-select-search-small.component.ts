@@ -154,7 +154,7 @@ export class MatSelectSearchSmallComponent implements OnInit, OnChanges, OnDestr
         unitMeasurement.id = this.ehmUtils.unitId;
         model.unitMeasurement = unitMeasurement;
 
-        model.medicineName = searchValue;
+        model.name = searchValue;
         model.barcode = '';
         model.availableStock = 0;
         model.minimumStock = 0;
@@ -170,7 +170,7 @@ export class MatSelectSearchSmallComponent implements OnInit, OnChanges, OnDestr
             this.appUtils.onServerSuccessResponse(res, null);
             const obj = {
                 row : this.formGroup,
-                value: res.data,
+                value:  res.data,
                 searchType: this.searchType,
                 index: this.index,
             };

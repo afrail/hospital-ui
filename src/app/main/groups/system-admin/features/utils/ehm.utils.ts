@@ -51,19 +51,7 @@ export class EhmUtils {
     ) {
     }
 
-    getPatientName(pat: any): string {
-        if (!pat) {
-            return '';
-        }
 
-        return pat.relationType ?
-            pat.relationType.name + ' Of ' + '(' + pat.patient.patientCode + ')' + pat.patient.patientName
-            : '(' + pat.patientCode + ')' + pat.patientName;
-    }
-
-    getPatientNameWithOutRelation(pat: any): string {
-        return pat ? '(' + pat.patientCode + ')' + pat.patientName : '';
-    }
 
     getDoctorName(doctor: DoctorInformation): string {
         return doctor ?

@@ -8,6 +8,7 @@ export const locale = {
         'title' : 'অ্যাপ্লিকেশন ব্যবহারকারী',
         'listTitle' : 'অ্যাপ্লিকেশন ব্যবহারকারী তালিকা',
         'username': 'ব্যবহারকারীর নাম',
+        'entryHospitalCode': 'Hospital Code',
         'password': 'পাসওয়ার্ড',
         'confirmPassword': 'কনফার্ম পাসওয়ার্ড',
         'email': 'ইমেল',

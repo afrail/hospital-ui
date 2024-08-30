@@ -13,6 +13,7 @@ export const locale = {
         'confirmPassword': 'Confirm Password',
         'email': 'Email',
         'mobile': 'Mobile',
+        'entryHospitalCode': 'Hospital Code',
         'employeeCode': 'Employee Code',
         'designation': 'Designation',
         'accountExpired': 'Account Expired',

@@ -29,7 +29,7 @@ export class TokenRegisterService extends CrudRequestService<TokenRegister> {
         return this.http.get<CommonResponseList<TokenRegister>>(this._BASE_URL + '/' + 'get-by-app-user-id' + '/' + appUserId);
     }
 
-
-
-
+    searchTokenRegister(model: any): Observable<CommonResponseList<TokenRegister>> {
+        return this.http.put<CommonResponseList<TokenRegister>>(this._BASE_URL + '/' + 'search', model);
+    }
 }

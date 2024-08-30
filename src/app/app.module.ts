@@ -18,10 +18,12 @@ import {HttpClient} from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { DashboardModule } from './main/groups/dashboard/dashboard.module';
-import {MAT_DATE_LOCALE} from '@angular/material/core';
+import {MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {SystemAdminModule} from './main/groups/system-admin/system-admin.module';
 // import { PlanningAndProgressModule } from './main/groups/planning-and-progress/planning-and-progress.module';
 import {CommonGroupModule} from './main/groups/common-group/common-group.module';
+import {MAT_MOMENT_DATE_FORMATS} from '@angular/material-moment-adapter';
+
 
 
 const routerConfig: ExtraOptions = {
@@ -41,7 +43,9 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
     providers: [
         {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+        { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
     ],
+
 
     declarations: [
         AppComponent,

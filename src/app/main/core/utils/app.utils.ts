@@ -93,7 +93,7 @@ export class AppUtils {
              }
              dialogRef.close(true);
          });
-        callBackDelete(viewModel);
+         callBackDelete(viewModel);
     }
 
     openReloadDialog(viewModel, callBackMethod): void {

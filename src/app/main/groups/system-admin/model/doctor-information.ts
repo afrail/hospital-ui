@@ -12,6 +12,7 @@ export class DoctorInformation extends CommonModelField {
     doctorRank: string;
     mobileNumber: string;
     specialFor: string;
+    specialForBangla: string;
     roomNo: string;
     activeDate: Date;
     inactiveDate: Date;

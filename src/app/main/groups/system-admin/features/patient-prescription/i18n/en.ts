@@ -65,6 +65,7 @@ export const locale = {
         'prescription': 'Prescription',
 
         'illness': 'Illness',
+        'contactNo': 'Contact No',
         'pulse': 'Pulse (/min)',
         'bp': 'BP (mmhg)',
         'temp': 'Temp (°F)',

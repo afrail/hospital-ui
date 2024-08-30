@@ -47,6 +47,7 @@ export class TokenRegisterListComponent implements OnInit {
     // object
     frmGroup: FormGroup;
     modelList: TokenRegister[] = new Array<TokenRegister>();
+    model: TokenRegister
     dataSource = new MatTableDataSource(this.modelList);
     displayedColumns: string[] = ['sl', 'tokenNumber', 'visitDate', 'patient', 'referToDoctor', 'actionToken', 'action'];
 
@@ -61,6 +62,8 @@ export class TokenRegisterListComponent implements OnInit {
     // -----------------------------------------------------------------------------------------------------
     // @ Init
     // -----------------------------------------------------------------------------------------------------
+
+
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -105,7 +108,11 @@ export class TokenRegisterListComponent implements OnInit {
             return;
         }
         this.searchLoader = true;
-        /*this.modelService.searchTokenRegister(this.model).subscribe(res => {
+        const data =
+            {fromDate : this.frmGroup.value.fromDate === '' || this.frmGroup.value.toDate === '' ? null : this.frmGroup.value.fromDate,
+                toDate : this.frmGroup.value.fromDate === '' || this.frmGroup.value.toDate === '' ? null : this.frmGroup.value.toDate};
+
+        this.modelService.searchTokenRegister(data).subscribe(res => {
             this.modelList = res.data;
             this.dataSource = new MatTableDataSource(this.modelList);
             if (this.modelList.length < 1) {
@@ -118,7 +125,7 @@ export class TokenRegisterListComponent implements OnInit {
         }, error => {
             this.appUtils.onServerErrorResponse(error);
             this.searchLoader = false;
-        });*/
+        });
     }
 
     delete(obj: TokenRegister): void {
@@ -157,27 +164,16 @@ export class TokenRegisterListComponent implements OnInit {
     // -----------------------------------------------------------------------------------------------------
     setFormInitValue(): void {
         this.frmGroup = this.formBuilder.group({
-            doctor: ['', ''],
-            hospitalType: ['', ''],
-            visitType: ['', ''],
             fromDate: [this.appUtils.getCurrentDate(), ''],
             toDate: [this.appUtils.getCurrentDate(), ''],
-            patientCode: ['', ''],
         });
     }
 
-   /* generateModel(): void {
-        this.model.doctorId = this.frmGroup.value.doctor ? this.frmGroup.value.doctor.id : 0;
-        this.model.fromDate = this.frmGroup.value.fromDate === '' || this.frmGroup.value.toDate === '' ? null : this.frmGroup.value.fromDate;
-        this.model.toDate = this.frmGroup.value.fromDate === '' || this.frmGroup.value.toDate === '' ? null : this.frmGroup.value.toDate;
-        this.model.patientCode = this.frmGroup.value.patientCode;
-        this.model.hospitalType = this.frmGroup.value.hospitalType ? this.frmGroup.value.hospitalType.id : 0;
-        this.model.visitType = this.frmGroup.value.visitType ? this.frmGroup.value.visitType.id : 0;
-        this.model.hosType = this.menuType;
-    }*/
 
-    openDialog(viewModel: TokenRegister): void {
-        this.appUtils.openConfirmDialog(viewModel, this.delete.bind(this));
+    openDialog(viewModel: any): void {
+      this.model = viewModel;
+      this.model.id = viewModel.tokenId;
+      this.appUtils.openConfirmDialog(viewModel, this.delete.bind(this));
     }
 
     printReport(row: any): any {

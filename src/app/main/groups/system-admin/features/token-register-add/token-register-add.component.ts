@@ -139,7 +139,6 @@ export class TokenRegisterAddComponent implements OnInit {
     edit(res: TokenRegister): void {
         this.editValue = true;
         this.model = res;
-        console.log(this.model);
         this.frmGroup.patchValue({
             patientName: res.patientName,
             registrationDate: res.registrationDate,
@@ -148,6 +147,7 @@ export class TokenRegisterAddComponent implements OnInit {
             identityMark: res.identityMark,
             presentAddress: res.presentAddress,
             contactNo: res.contactNo,
+            referToDoctor: res.referToDoctorId,
             email: res.email,
             picture: res.picture,
             TokenId: res.TokenId,
@@ -263,16 +263,6 @@ export class TokenRegisterAddComponent implements OnInit {
     }
 
     /*call back*/
-
-    printReport(token: TokenRegister): any {
-        const moduleId = '416';
-        const reportId = '292';
-        const params = new Map<string, string>();
-        params.set('P_TOKEN_ID', String(token.id));
-        params.set('id', reportId);
-        params.set('P_MODULE_ID', moduleId);
-        this.appUtils.printReport(params);
-    }
 
     viewList(): any {
             const subUrl = this.prefixUrl + 'token-register';

@@ -21,10 +21,6 @@
                             <mat-icon class="mr-1" style="color: white;">arrow_back</mat-icon>
                             {{'viewList' | translate}}
                         </button> &nbsp;
-                        <button (click)="openTokenRegisterDialog()" *ngIf="doctorInformation" color="primary"
-                                mat-raised-button>
-                            {{'addToken' | translate}}
-                        </button>
                     </div>
                     <!-- // add button-->
                 </div>
@@ -89,43 +85,73 @@
                                 <div fxLayout="row">
 
                                     <!--image-->
-                                    <div fxFlex="20%">
+                                    <!--<div fxFlex="20%">
                                         <mat-icon [svgIcon]="'heroicons_solid:user-circle'"
                                                   class="icon-size-20"></mat-icon>
-                                    </div>
+                                    </div>-->
                                     <!-- // image-->
 
                                     <!--table-->
                                     <div fxFlex="80%">
                                         <table class="smallFont">
                                             <tr>
-                                                <td><strong>{{'patientCode' | translate}}</strong></td>
+                                                <td><strong>{{'contactNo' | translate}}</strong></td>
                                                 <td>:</td>
-                                                <td>{{patientInfo ? patientInfo.patientCode : ''}}</td>
+                                                <td *ngIf="!this.tokenRegister">
+                                                    <mat-form-field-1 style="display: flow-root;">
+                                                    <input class="inputField" formControlName="contactNo" matInput (blur)="getPatientContactNumber()"/>
+                                                </mat-form-field-1>
+                                                </td>
+                                                <td *ngIf="this.tokenRegister">{{tokenRegister.patientInfo.contactNo}}</td>
                                             </tr>
 
                                             <tr>
                                                 <td><strong>{{'patientName' | translate}}</strong></td>
                                                 <td>:</td>
-                                                <td>{{patientInfo ? patientInfo.patientName : ''}}</td>
+                                                <td *ngIf="!this.tokenRegister"><mat-form-field-1 style="display: flow-root;">
+                                                    <input class="inputField" formControlName="patientName" matInput/>
+                                                </mat-form-field-1></td>
+                                                <td *ngIf="this.tokenRegister">{{tokenRegister.patientInfo.patientName}}</td>
+                                                <td>
+                                                    <button *ngIf="!this.tokenRegister && frmGroup.value.patientName
+                                                                        && frmGroup.value.age && frmGroup.value.contactNo"
+                                                            [matTooltip]="'add' | translate"
+                                                            class="toggle-sidebar-folded"
+                                                            fxHide.lt-lg
+                                                            mat-icon-button
+                                                     (click)="tokenGenerate()">
+                                                        <mat-icon color="primary"
+                                                                  svgIcon="save"></mat-icon>
+                                                    </button>
+                                                </td>
                                             </tr>
 
                                             <tr>
-                                                <td><strong>{{'refEmployee' | translate}}</strong></td>
+                                                <td><strong>{{'pulse' | translate}}</strong></td>
                                                 <td>:</td>
-                                                <td>{{patientInfo && patientInfo.relationType ? ehmUtils.getPatientName(patientInfo) : ''}}</td>
+                                               <td>
+                                                   <mat-form-field-1>
+                                                       <input class="inputField" formControlName="pulse" matInput/>
+                                                   </mat-form-field-1>
+                                               </td>
                                             </tr>
 
                                             <tr>
-                                                <td><strong>{{'age' | translate}}</strong></td>
+                                                <td><strong>{{'bp' | translate}}</strong></td>
                                                 <td>:</td>
-                                                <td>{{patientInfo ? appUtils.calculateAge(patientInfo.dob) : ''}}</td>
+                                                <td>
+                                                    <mat-form-field-1>
+                                                        <input class="inputField" formControlName="bp" matInput/>
+                                                    </mat-form-field-1>
+                                                </td>
                                             </tr>
 
                                             <tr>
-                                                <td><strong>{{'gender' | translate}}</strong></td>
+                                                <td><strong>{{'temp' | translate}}</strong></td>
                                                 <td>:</td>
-                                                <td>{{patientInfo && patientInfo.gender ? patientInfo.gender.name : ''}}</td>
+                                                <mat-form-field-1>
+                                                    <input class="inputField" formControlName="temp" matInput/>
+                                                </mat-form-field-1>
                                             </tr>
 
                                         </table>
@@ -140,57 +166,52 @@
                                 <table class="smallFont">
 
                                     <tr>
-                                        <td><strong>{{'bloodGroup' | translate}}</strong></td>
+                                        <td><strong>{{'age' | translate}}</strong></td>
                                         <td>:</td>
-                                        <td>{{patientInfo && patientInfo.bloodGroup ? patientInfo.bloodGroup.name : ''}}</td>
+                                        <td *ngIf="!this.tokenRegister"><mat-form-field-1>
+                                            <input class="inputField" formControlName="age" matInput/>
+                                        </mat-form-field-1></td>
+                                        <td *ngIf="this.tokenRegister" >{{tokenRegister.patientInfo.age}}</td>
                                     </tr>
 
                                     <tr>
-                                        <td><strong>{{'rank' | translate}}</strong></td>
+                                        <td><strong>{{'rr' | translate}}</strong></td>
                                         <td>:</td>
                                         <td>
-                                            {{this.ehmUtils.getPatientRank(patientInfo)}}
+                                            <mat-form-field-1>
+                                                <input class="inputField" formControlName="rr" matInput/>
+                                            </mat-form-field-1>
                                         </td>
                                     </tr>
 
                                     <tr>
-                                        <td><strong>{{'unit' | translate}}</strong></td>
+                                        <td><strong>{{'weight' | translate}}</strong></td>
                                         <td>:</td>
-                                        <td>{{patientInfo && patientInfo.unit ? getUnitName(patientInfo.unit) : ''}}</td>
+                                        <td><mat-form-field-1>
+                                            <input class="inputField" formControlName="weight" matInput/>
+                                        </mat-form-field-1></td>
                                     </tr>
 
                                     <tr>
-                                        <td><strong>{{'corps' | translate}}</strong></td>
+                                        <td><strong>{{'spo2' | translate}}</strong></td>
                                         <td>:</td>
-                                        <td>{{patientInfo && patientInfo.corps ? patientInfo.corps.name : ''}}</td>
+                                        <td><mat-form-field-1>
+                                            <input class="inputField" formControlName="spo2" matInput/>
+                                        </mat-form-field-1></td>
                                     </tr>
 
                                     <tr>
-                                        <td><strong>{{'serviceCategory' | translate}}</strong></td>
+                                        <td><strong>{{'ofc' | translate}}</strong></td>
                                         <td>:</td>
-                                        <td>{{patientInfo && patientInfo.serviceCategory ? patientInfo.serviceCategory.name : ''}}</td>
+                                        <td><mat-form-field-1>
+                                            <input class="inputField" formControlName="ofc" matInput/>
+                                        </mat-form-field-1></td>
                                     </tr>
 
                                     <tr>
                                         <td colspan="2">
                                             <button (click)="openPatientPrescriptionDialog()" *ngIf="patientInfo"
                                                     [matTooltip]="'previousPrescription' | translate"
-                                                    class="toggle-sidebar-folded"
-                                                    fxHide.lt-lg
-                                                    mat-icon-button>
-                                                <mat-icon color="primary"
-                                                          svgIcon="heroicons_outline:clipboard-list"></mat-icon>
-                                            </button>
-                                            <button (click)="openContinueMedicineDialog()" *ngIf="patientInfo"
-                                                    [matTooltip]="'continueMedicine' | translate"
-                                                    class="toggle-sidebar-folded"
-                                                    fxHide.lt-lg
-                                                    mat-icon-button>
-                                                <mat-icon color="primary"
-                                                          svgIcon="heroicons_outline:clipboard-list"></mat-icon>
-                                            </button>
-                                            <button (click)="openChronicPatientDialog()" *ngIf="patientInfo && patientInfo.isChronic"
-                                                    [matTooltip]="'chronicPatient' | translate"
                                                     class="toggle-sidebar-folded"
                                                     fxHide.lt-lg
                                                     mat-icon-button>
@@ -205,64 +226,6 @@
                             <!--// right-->
                         </div>
 
-                        <!-- Footer -->
-                        <div class="footer p-2" fxLayout="row wrap">
-                            <div *ngIf="false" class="matInputField" fxFlex="20%">
-                                <mat-form-field-1>
-                                    <mat-label class="smallFont">{{'illness' | translate}}</mat-label>
-                                    <input class="inputField" formControlName="illness" matInput/>
-                                </mat-form-field-1>
-                            </div>
-                            <div class="matInputField" fxFlex=" 10%">
-                                <mat-form-field-1 style="display: flow-root;">
-                                    <mat-label class="smallFont">{{'pulse' | translate}}</mat-label>
-                                    <input class="inputField" formControlName="pulse" matInput/>
-                                </mat-form-field-1>
-                            </div>
-                            <div class="matInputField" fxFlex="13%">
-                                <mat-form-field-1 style="display: flow-root;">
-                                    <mat-label class="smallFont">{{'bp' | translate}}</mat-label>
-                                    <input class="inputField" formControlName="bp" matInput/>
-                                </mat-form-field-1>
-                            </div>
-                            <div class="matInputField" fxFlex="10%">
-                                <mat-form-field-1 style="display: flow-root;">
-                                    <mat-label class="smallFont">{{'temp' | translate}}</mat-label>
-                                    <input class="inputField" formControlName="temp" matInput/>
-                                </mat-form-field-1>
-                            </div>
-                            <div class="matInputField" fxFlex="15%">
-                                <mat-form-field-1 style="display: flow-root;">
-                                    <mat-label class="smallFont">{{'rr' | translate}}</mat-label>
-                                    <input class="inputField" formControlName="rr" matInput/>
-                                </mat-form-field-1>
-                            </div>
-                            <div class="matInputField" fxFlex="10%">
-                                <mat-form-field-1 style="display: flow-root;">
-                                    <mat-label class="smallFont">{{'height' | translate}}</mat-label>
-                                    <input class="inputField" formControlName="height" matInput/>
-                                </mat-form-field-1>
-                            </div>
-                            <div class="matInputField" fxFlex="10%">
-                                <mat-form-field-1 style="display: flow-root;">
-                                    <mat-label class="smallFont">{{'weight' | translate}}</mat-label>
-                                    <input class="inputField" formControlName="weight" matInput/>
-                                </mat-form-field-1>
-                            </div>
-                            <div class="matInputField" fxFlex="12%">
-                                <mat-form-field-1 style="display: flow-root;">
-                                    <mat-label class="smallFont">{{'spo2' | translate}}</mat-label>
-                                    <input class="inputField" formControlName="spo2" matInput/>
-                                </mat-form-field-1>
-                            </div>
-                            <div class="matInputField" fxFlex="15%">
-                                <mat-form-field-1 style="display: flow-root;">
-                                    <mat-label class="smallFont">{{'ofc' | translate}}</mat-label>
-                                    <input class="inputField" formControlName="ofc" matInput/>
-                                </mat-form-field-1>
-                            </div>
-                        </div>
-                        <!-- Footer -->
 
                     </div>
                     <!-- // top left-->
@@ -324,7 +287,7 @@
                                 </th>
                                 <td *matCellDef="let row" class="mediumFont" mat-cell>
                                     <div class="buttons">
-                                        <button (click)="openPatientTokenDialog(row)" [matTooltip]="'details' | translate"
+                                        <button [matTooltip]="'details' | translate"
                                                 class="toggle-sidebar-folded"
                                                 fxHide.lt-lg
                                                 mat-icon-button>
@@ -365,7 +328,7 @@
                         <div class="row">
 
                             <!-- middle right left 1-->
-                            <div fxFlex="65%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div fxFlex="35%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
                                 <form [formGroup]="ccFrmGroupDetails">
                                     <table [dataSource]="ccDataSourceDetails" class="mat-elevation-z8" formArrayName="scope"
                                            mat-table>
@@ -387,19 +350,6 @@
                                             <td *matCellDef="let row; let index = index" [formGroupName]="index"
                                                 mat-cell>
                                                 <div style="display: flex; align-items: center">
-                                                    <!--<mat-select-search-small
-                                                        #ccValue
-
-                                                        [formGroup]="row"
-                                                        [controlName]="'chiefComplaint'"
-                                                        [data]="ccDropdownList"
-                                                        (selectionChange)="checkCC(row)"
-                                                        [commonLookupId]="ccId"
-                                                        [isDental]="isDental"
-                                                        (callBackForAddData)="setCommonLookupAddValue($event)"
-                                                        [searchType]="ehmUtils.ccDialog"
-                                                        (keydown.enter)="ccAddRow()">
-                                                    </mat-select-search-small>-->
                                                     <mat-form-field-1 class="flex-auto gt-xs:pr-3"
                                                                       style="width: 55%; margin-top: 5px;">
                                                         <input [matAutocomplete]="auto" class="border"
@@ -475,7 +425,7 @@
                             </div>
                             <!--// middle right left 1-->
 
-                            <div fxFlex="15%" fxFlex.md="100%" fxFlex.sm="100%"
+                            <div fxFlex="30%" fxFlex.md="100%" fxFlex.sm="100%"
                                  fxFlex.xs="100%">
 
                                 <form [formGroup]="onExaminationFrmGroupDetails">
@@ -542,7 +492,7 @@
                             </div>
 
                             <!-- oldInvestigation -->
-                            <div fxFlex="45%" fxFlex.md="100%" fxFlex.sm="100%"
+                            <div fxFlex="35%" fxFlex.md="100%" fxFlex.sm="100%"
                                  fxFlex.xs="100%">
 
                                 <form [formGroup]="investigationFindFrmGroupDetails">
@@ -637,9 +587,6 @@
                                         <ng-container matColumnDef="investigation">
                                             <th *matHeaderCellDef>
                                                 {{'investigation' | translate}}
-                                                <!--<mat-icon class="hand-cursor white-icon" matTooltip="{{'addNew' | translate}}"
-                                                          (click)="openAllAddDialog(ehmUtils.investigationDialog)"> add
-                                                </mat-icon>-->
                                             </th>
                                             <td *matCellDef="let row; let index = index" [formGroupName]="index"
                                                 mat-cell>
@@ -677,29 +624,6 @@
                                                 </div>
                                             </td>
                                         </ng-container>
-
-                                        <!--<ng-container matColumnDef="action">
-                                            <th *matHeaderCellDef>{{'action' | translate}}</th>
-                                            <td mat-cell *matCellDef="let row; let index = index"
-                                                [formGroupName]="index">
-                                                <div class="buttons">
-                                                    <button class="toggle-sidebar-folded" mat-icon-button fxHide.lt-lg>
-                                                        <mat-icon matTooltip="{{'addNew' | translate}}"
-                                                                  (click)="investigationAddRow()" color="primary"> add
-                                                        </mat-icon>
-                                                    </button>
-
-                                                    <button mat-icon-button class="toggle-sidebar-folded" fxHide.lt-lg>
-                                                        <mat-icon matTooltip=" {{'delete' | translate}}"
-                                                                  (click)="investigationDeleteRow(index)" color="warn">
-                                                            delete
-                                                        </mat-icon>
-                                                    </button>
-
-                                                </div>
-                                            </td>
-                                        </ng-container>-->
-
                                     </table>
                                 </form>
                             </div>
@@ -721,9 +645,6 @@
                                         <ng-container matColumnDef="illnessName">
                                             <th *matHeaderCellDef style="width: 60% !important;">
                                                 {{'illnessName' | translate}}
-                                                <!--<mat-icon class="hand-cursor white-icon" matTooltip="{{'addNew' | translate}}"
-                                                          (click)="openAllAddDialog(ehmUtils.diseaseDialog)"> add
-                                                </mat-icon>-->
                                             </th>
                                             <td *matCellDef="let row; let index = index" [formGroupName]="index"
                                                 mat-cell>
@@ -797,9 +718,6 @@
                                         <ng-container matColumnDef="disease">
                                             <th *matHeaderCellDef>
                                                 {{'disease' | translate}}
-                                                <!--<mat-icon class="hand-cursor white-icon" matTooltip="{{'addNew' | translate}}"
-                                                          (click)="openAllAddDialog(ehmUtils.diseaseDialog)"> add
-                                                </mat-icon>-->
                                             </th>
                                             <td *matCellDef="let row; let index = index" [formGroupName]="index"
                                                 mat-cell>
@@ -849,27 +767,6 @@
                                                 </div>
                                             </td>
                                         </ng-container>
-                                        <!--<ng-container matColumnDef="action">
-                                            <th *matHeaderCellDef>{{'action' | translate}}</th>
-                                            <td mat-cell *matCellDef="let row; let index = index"
-                                                [formGroupName]="index">
-                                                <div class="buttons">
-                                                    <button class="toggle-sidebar-folded" mat-icon-button fxHide.lt-lg>
-                                                        <mat-icon matTooltip="{{'addNew' | translate}}"
-                                                                  (click)="diseaseAddRow()" color="primary"> add
-                                                        </mat-icon>
-                                                    </button>
-
-                                                    <button mat-icon-button class="toggle-sidebar-folded" fxHide.lt-lg>
-                                                        <mat-icon matTooltip=" {{'delete' | translate}}"
-                                                                  (click)="diseaseDeleteRow(index)" color="warn">delete
-                                                        </mat-icon>
-                                                    </button>
-
-                                                </div>
-                                            </td>
-                                        </ng-container>-->
-
                                     </table>
                                 </form>
                             </div>
@@ -928,13 +825,6 @@
                                                     (selectionChange)="checkMedicineMaster(row)"
                                                     [searchType]="ehmUtils.medicineDialog">
                                                 </mat-select-search-small>
-                                                <!--(customKeyDown)="appUtils.getBySearchValue(medicineMasterService, $event, this.setSearchDropdownListForDetails.bind(this), index, true)"-->
-                                                <!--<mat-select-search
-                                                    (selectionChange)="checkMedicineMaster(row)"
-                                                    [controlName]="'medicineMaster'"
-                                                    [data]="globalMedicineList"
-                                                    [formGroup]="row">
-                                                </mat-select-search>-->
                                             </div>
                                         </td>
                                     </ng-container>
@@ -954,9 +844,6 @@
                                     <ng-container matColumnDef="dose">
                                         <th *matHeaderCellDef>
                                             {{'dose' | translate}}
-                                            <!--<mat-icon class="hand-cursor white-icon" matTooltip="{{'addNew' | translate}}"
-                                                      (click)="openAllAddDialog(ehmUtils.doseDialog)"> add
-                                            </mat-icon>-->
                                         </th>
                                         <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell
                                             style="width: 15%">
@@ -1025,9 +912,6 @@
                                     <ng-container matColumnDef="instruction">
                                         <th *matHeaderCellDef>
                                             {{'instruction' | translate}}
-                                            <!--<mat-icon class="hand-cursor white-icon" matTooltip="{{'addNew' | translate}}"
-                                                      (click)="openAllAddDialog(ehmUtils.instructionDialog)"> add
-                                            </mat-icon>-->
                                         </th>
                                         <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell
                                             style="width: 20%">
@@ -1074,25 +958,6 @@
                                             </div>
                                         </td>
                                     </ng-container>
-                                    <!--<ng-container matColumnDef="action">
-                                        <th *matHeaderCellDef>{{'action' | translate}}</th>
-                                        <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
-                                            <div class="buttons" style="width:80px">
-                                                <button class="toggle-sidebar-folded" mat-icon-button fxHide.lt-lg>
-                                                    <mat-icon matTooltip="{{'addNew' | translate}}"
-                                                              (click)="medicineAddRow()" color="primary"> add
-                                                    </mat-icon>
-                                                </button>
-
-                                                <button mat-icon-button class="toggle-sidebar-folded" fxHide.lt-lg>
-                                                    <mat-icon matTooltip=" {{'delete' | translate}}"
-                                                              (click)="medicineDeleteRow(index)" color="warn">delete
-                                                    </mat-icon>
-                                                </button>
-
-                                            </div>
-                                        </td>
-                                    </ng-container>-->
 
                                 </table>
                             </form>
@@ -1129,9 +994,6 @@
                                     <ng-container matColumnDef="advice">
                                         <th *matHeaderCellDef>
                                             {{'advice' | translate}}
-                                            <!--<mat-icon class="hand-cursor white-icon" matTooltip="{{'addNew' | translate}}"
-                                                      (click)="openAllAddDialog(ehmUtils.adviceDialog)"> add
-                                            </mat-icon>-->
                                         </th>
                                         <td *matCellDef="let row; let index = index" [formGroupName]="index"
                                             mat-cell>
@@ -1180,126 +1042,23 @@
                         </div>
                         <!-- // advice-->
 
-                        <!--ref doctor-->
+
                         <div fxFlex="49%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
-                            <form [formGroup]="referredDoctorFrmGroupDetails">
-                                <table [dataSource]="referredDoctorDataSourceDetails" class="mat-elevation-z8"
-                                       formArrayName="scope" mat-table>
-                                    <!-- Row definitions -->
-                                    <tr *matHeaderRowDef="referredDoctorDisplayColumnsDetails" class="table-row smallFont"
-                                        mat-header-row></tr>
-                                    <tr *matRowDef="let row; let i = index; columns: referredDoctorDisplayColumnsDetails;"
-                                        class="table-row smallFont"
-                                        mat-row></tr>
-
-                                    <!--advice-->
-                                    <ng-container matColumnDef="referredDoctor">
-                                        <th *matHeaderCellDef>
-                                            {{'referredDoctor' | translate}}
-                                            <!--<mat-icon class="hand-cursor white-icon" matTooltip="{{'addNew' | translate}}"
-                                                      (click)="openAllAddDialog(ehmUtils.adviceDialog)"> add
-                                            </mat-icon>-->
-                                        </th>
-                                        <td *matCellDef="let row; let index = index" [formGroupName]="index"
-                                            mat-cell>
-                                            <div style="display: flow-root;">
-                                                <mat-select-search-small
-                                                    (callBackForAddData)="setCommonLookupAddValue($event)"
-                                                    (selectionChange)="checkReferredDoctor(row)"
-                                                    [commonLookupId]="refDocId"
-                                                    [controlName]="'referredDoctor'"
-                                                    [data]="refDocDropdownList"
-                                                    [formGroup]="row"
-                                                    [isDental]="isDental"
-                                                    [searchType]="ehmUtils.refDocDialog"
-                                                >
-                                                </mat-select-search-small>
-                                            </div>
-                                        </td>
-                                    </ng-container>
-
-
-                                    <!--action-->
-                                    <ng-container matColumnDef="action">
-                                        <th *matHeaderCellDef>{{'action' | translate}}</th>
-                                        <td *matCellDef="let row; let index = index" [formGroupName]="index"
-                                            mat-cell>
-                                            <div class="buttons">
-                                                <button class="toggle-sidebar-folded" fxHide.lt-lg mat-icon-button>
-                                                    <mat-icon (click)="refDocAddRow()"
-                                                              *ngIf="refDocRows.length === index+1"
-                                                              color="primary" matTooltip="{{'addNew' | translate}}"> add
-                                                    </mat-icon>
-                                                </button>
-
-                                                <button class="toggle-sidebar-folded" fxHide.lt-lg mat-icon-button>
-                                                    <mat-icon (click)="refDocDeleteRow(index)"
-                                                              color="warn" matTooltip=" {{'delete' | translate}}">
-                                                        delete
-                                                    </mat-icon>
-                                                </button>
-
-                                            </div>
-                                        </td>
-                                    </ng-container>
-
-                                </table>
-                            </form>
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <div class="flex-auto gt-xs:pr-3">
+                                    <mat-label>{{'referredDoctor' | translate}}</mat-label>
+                                    <mat-select-search-small
+                                        (callBackForAddData)="setCommonLookupAddValue($event)"
+                                        [commonLookupId]="refDocId"
+                                        [controlName]="'referredDoctor'"
+                                        [data]="refDocDropdownList"
+                                        [formGroup]="frmGroup"
+                                        [isDental]="isDental"
+                                        [searchType]="ehmUtils.refDocDialog">
+                                    </mat-select-search-small>
+                                </div>
+                            </div>
                         </div>
-                        <!-- // ref doctor-->
-
-                        <!--ref doctor-->
-<!--                        <div fxFlex="49%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">-->
-<!--                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">-->
-<!--                                <div class="flex-auto gt-xs:pr-3">-->
-<!--                                    <mat-label>{{'referredDoctor' | translate}}</mat-label>-->
-<!--                                    <mat-select-search-small-->
-<!--                                        (callBackForAddData)="setCommonLookupAddValue($event)"-->
-<!--                                        [commonLookupId]="refDocId"-->
-<!--                                        [controlName]="'referredDoctor'"-->
-<!--                                        [data]="refDocDropdownList"-->
-<!--                                        [formGroup]="frmGroup"-->
-<!--                                        [isDental]="isDental"-->
-<!--                                        [searchType]="ehmUtils.refDocDialog">-->
-<!--                                    </mat-select-search-small>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-                        <!-- // ref doctor-->
-
-                        <!--<div fxFlex="35%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
-                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
-                                <mat-label style="margin-top: -15px" fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%">
-                                    {{'referredDoctor' | translate}}
-                                </mat-label>
-                                <mat-select-search-small class="fuse-mat-dense flex-auto" fxFlex="75%" fxFlex.xs="50%"
-                                                         fxFlex.sm="50%"
-                                                         [formGroup]="frmGroup"
-                                                         [controlName]="'referredDoctor'"
-                                                         [data]="refDocDropdownList"
-                                                         [isDental]="isDental"
-                                                         [commonLookupId]="refDocId"
-                                                         (callBackForAddData)="setCommonLookupAddValue($event)"
-                                                         [searchType]="ehmUtils.refDocDialog">
-                                </mat-select-search-small>
-                            </div>
-                        </div>-->
-
-                        <!--<div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
-                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
-                                <mat-label fxFlex="20%" fxFlex.md="20%" fxFlex.sm="20%"
-                                           fxFlex.xs="100%" class="ml-2">{{'otherAdvice' | translate}}
-                                </mat-label>
-                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="80%" fxFlex.md="80%"
-                                                fxFlex.sm="80%"
-                                                fxFlex.xs="100%">
-                                    <textarea matInput formControlName="otherAdvice" #txtArea2
-                                              [maxlength]="1000"></textarea>
-                                    <mat-hint align="end">{{txtArea2.value.length}}/{{1000}}</mat-hint>
-                                    <mat-error>{{'emptyNotAllow' | translate}}</mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>-->
 
                     </div>
                     <br/>
@@ -1414,78 +1173,6 @@
                             </table>
                         </form>
                     </div>
-                    <!--// middle right left 1-->
-
-
-                    <!-- // disposal-->
-
-                    <!--                     row 2.1
-                                        <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-
-                                            disposal
-                                            <div fxFlex="40%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
-                                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
-                                                    <div class="flex-auto gt-xs:pr-3">
-                                                        <mat-label>{{'disposal' | translate}}</mat-label>
-                                                        <mat-select-search-small
-                                                            [formGroup]="frmGroup"
-                                                            [controlName]="'disposalName'"
-                                                            [data]="disposalDropdownList"
-                                                            [isDental]="isDental"
-                                                            [commonLookupId]="dosposalId"
-                                                            (callBackForAddData)="setCommonLookupAddValue($event)"
-                                                            [searchType]="ehmUtils.disposalDialog">
-                                                        </mat-select-search-small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                             // disposal
-
-                                            <div fxFlex="20%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
-                                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
-                                                    <mat-form-field-1 class="flex-auto gt-xs:pr-3">
-                                                        <mat-label>{{'disposalDuration' | translate}}</mat-label>
-                                                        <input matInput formControlName="disposalDuration" type="number" min="0"
-                                                               oninput="validity.valid||(value='.');"
-                                                               (ngModelChange)="onBlurDisposalDuration()"
-                                                               class="inputField">
-                                                    </mat-form-field-1>
-                                                </div>
-                                            </div>
-
-                                            disposalDwmy
-                                            <div fxFlex="20%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
-                                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
-                                                    <div class="flex-auto gt-xs:pr-3">
-                                                        <mat-label>{{'dwmy' | translate}}</mat-label>
-                                                        <mat-select-search-small
-                                                            [formGroup]="frmGroup"
-                                                            [controlName]="'disposalDwmy'"
-                                                            (selectionChange)="onBlurDisposalDuration()"
-                                                            [data]="dwmyDropdownList">
-                                                        </mat-select-search-small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                             // disposal
-
-                                            <div fxFlex="20%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
-                                                <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
-                                                    <mat-form-field-1 class="flex-auto gt-xs:pr-3">
-                                                        <mat-label>{{'disposalDate' | translate}}</mat-label>
-                                                        <input #dateValue1 [matDatepicker]="picker2"
-                                                               formControlName="disposalDate"
-                                                               (blur)="appUtils.formatDate(frmGroup, 'disposalDate', dateValue1)"
-                                                               [placeholder]="validationMsg.DATE_FORMAT" matInput readonly class="inputField">
-                                                        <mat-datepicker #picker2></mat-datepicker>
-                                                    </mat-form-field-1>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                         // row 2.1 -->
-
                     <!-- row 2 -->
                     <div class="mt-2" fxLayout="row wrap" fxLayoutAlign="space-between center">
 

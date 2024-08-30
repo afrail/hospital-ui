@@ -55,6 +55,7 @@ import {PatientPrescriptionMaster} from '../../../model/patient-prescription-mas
 import {DATA_TAKEN, DATA_TAKEN_BN, OK, OK_BN} from '../../../../../core/constants/message';
 import {CommonLookupMaster} from '../../../model/common-lookup-master';
 import {PatientIllnessHistoryService} from '../../../service/patient-illness-history.service';
+import {MedicineMaster} from '../../../model/medicine-master';
 
 
 
@@ -83,6 +84,7 @@ export class PatientPrescriptionAddComponent implements OnInit {
     // object
     frmGroup: FormGroup;
     model: PatientPrescriptionRequest = new PatientPrescriptionRequest();
+    tokenRegisterModel: TokenRegister = new TokenRegister();
     modelList: PatientPrescriptionRequest[] = new Array<PatientPrescriptionRequest>();
 
     tokenRegister: TokenRegister;
@@ -100,7 +102,7 @@ export class PatientPrescriptionAddComponent implements OnInit {
     });
 
     /*chief complaint*/
-    ccDisplayColumnsDetails = ['chiefComplaint', 'duration', 'dwmy', 'action'];
+    ccDisplayColumnsDetails = ['chiefComplaint', 'action'];
     ccDataSourceDetails = new BehaviorSubject<AbstractControl[]>([]);
     ccRows: FormArray = this.formBuilder.array([]);
     ccFrmGroupDetails: FormGroup = this.formBuilder.group({
@@ -192,7 +194,7 @@ export class PatientPrescriptionAddComponent implements OnInit {
     templateDropdownList: PatientPrescriptionRequest[] = new Array<PatientPrescriptionRequest>();
     refDocDropdownList: CommonLookupDetails[] = new Array<CommonLookupDetails>();
     disposalDropdownList: CommonLookupDetails[] = new Array<CommonLookupDetails>();
-    globalMedicineList: any[] = [];
+    globalMedicineList: MedicineMaster[] = new Array<MedicineMaster>();
     /*extra*/
     doctorInformation: DoctorInformation;
 
@@ -216,7 +218,6 @@ export class PatientPrescriptionAddComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private modelService: PatientPrescriptionMasterService,
-        private tokenRegisterService: TokenRegisterService,
         private doctorInformationService: DoctorInformationService,
         private ehmCommonLookupDetailsService: EhmCommonLookupDetailsService,
         private medicineMasterService: MedicineMasterService,
@@ -290,10 +291,7 @@ export class PatientPrescriptionAddComponent implements OnInit {
 
     getAllMedicine(): void {
         this.medicineMasterService.getActiveList().subscribe(res => {
-            this.globalMedicineList = res.data.map(m => ({
-                ...m,
-                name: m.medicineName
-            }));
+            this.globalMedicineList = res.data;
         });
     }
 
@@ -323,7 +321,7 @@ export class PatientPrescriptionAddComponent implements OnInit {
     }
 
     getTokenForCurrentDoctor(): void {
-        this.tokenRegisterService.getByAppUserId(this.localStorageHelper.getUserInfo().id).subscribe(res => {
+        this.tokenService.getByAppUserId(this.localStorageHelper.getUserInfo().id).subscribe(res => {
             this.tokenRegisterList = res.data;
             this.dataSource = new MatTableDataSource(this.tokenRegisterList);
         });
@@ -387,7 +385,6 @@ export class PatientPrescriptionAddComponent implements OnInit {
     getDiseaseList(): void {
         this.ehmCommonLookupDetailsService.getListByMasterId(EHM_DISEASE_ID).subscribe(res => {
             this.diseaseDropdownList = res.data;
-            console.log(res.data);
             if (this.model && this.model.master && this.model.diseaseList.length > 0) {
                 this.diseaseRows.clear();
                 this.model.diseaseList.forEach(value => {
@@ -605,6 +602,9 @@ export class PatientPrescriptionAddComponent implements OnInit {
         this.tokenRegister = tR;
         this.patientInfo = this.tokenRegister.patientInfo;
         this.frmGroup.patchValue({
+            contactNo: this.tokenRegister.patientInfo.contactNo,
+            patientName: this.tokenRegister.patientInfo.patientName,
+            age: this.tokenRegister.patientInfo.age,
             tokenRegister: this.tokenRegister,
             illness: this.tokenRegister.primaryProblem,
             pulse: this.tokenRegister.pulse,
@@ -1038,9 +1038,11 @@ export class PatientPrescriptionAddComponent implements OnInit {
         const doseValue = value && value.dose ? this.doseDropdownList.find(model => model.id === value.dose.id) : '';
         const instructionValue = value && value.instruction ? this.instructionDropdownList.find(model => model.id === value.instruction.id) : '';
         serialNoValue = value && value.serialNo ? value.serialNo.toString() : serialNoValue;
+        const selectMedicine = value ? this.globalMedicineList.find(m => m.id === value.medicineMaster.id ): '';
+
         const row = this.formBuilder.group({
             serialNo: [serialNoValue, ''],
-            medicineMaster: [value ? value.medicineMaster : '', ''],
+            medicineMaster: [value ? selectMedicine : '', ''],
             dose: [doseValue, ''],
             duration: [value ? value.duration : '', ''],
             dwmy: [dwmyValue ? dwmyValue : '', ''],
@@ -1105,19 +1107,7 @@ export class PatientPrescriptionAddComponent implements OnInit {
         });
     }
 
-    ChoronicMedicine(): void {
-        const dialogConfig = new MatDialogConfig();
-        dialogConfig.disableClose = false;
-        dialogConfig.autoFocus = false;
-        dialogConfig.width = ConfirmDialogConstant.WIDTH;
-        dialogConfig.height = ConfirmDialogConstant.HEIGHT;
-        dialogConfig.panelClass = ConfirmDialogConstant.PANEL_CLASS;
-        dialogConfig.data = {message: this.isLocalActive() ? 'রোগী এই ওষুধটি দীর্ঘস্থায়ী হিসাবে পান' : 'The Patient gets this medicine as a chronic'};
-        const dialogRef = this.matDialog.open(SubmitConfirmationDialogComponent, dialogConfig);
-        dialogRef.componentInstance.closeEventEmitter.subscribe(res => {
-            dialogRef.close(true);
-        });
-    }
+
 
 
     dateCount(d: Date): any {
@@ -1216,12 +1206,6 @@ export class PatientPrescriptionAddComponent implements OnInit {
             });
         }
 
-        if (template.referredDoctorList.length > 0) {
-            this.refDocRows.clear();
-            template.referredDoctorList.forEach((value) => {
-                this.refDocAddRow(value);
-            });
-        }
     }
 
     onBlurPreviousPrescription(): void {
@@ -1252,16 +1236,6 @@ export class PatientPrescriptionAddComponent implements OnInit {
 
     }
 
-    onChangeTokenPresent(row: TokenRegister): void {
-        row.absenceIs = row.absenceIs === 0 ? 1 : 0;
-        console.log(row);
-        this.tokenRegisterService.updateMaster(row).subscribe(res => {
-            this.getTokenForCurrentDoctor();
-        }, error => {
-            this.appUtils.onServerErrorResponse(error);
-        });
-    }
-
     // -----------------------------------------------------------------------------------------------------
     // @ Helper Method
     // -----------------------------------------------------------------------------------------------------
@@ -1271,6 +1245,9 @@ export class PatientPrescriptionAddComponent implements OnInit {
         this.patientInfo = null;
         this.frmGroup = this.formBuilder.group({
             template: ['', ''],
+            contactNo: ['', ''],
+            patientName: ['', ''],
+            age: ['', ''],
             tokenRegister: ['', Validators.required],
             illness: ['', ''],
             pulse: ['', ''],
@@ -1287,7 +1264,7 @@ export class PatientPrescriptionAddComponent implements OnInit {
             otherAdvice: ['', ''],
             // disposalName: ['', ''],
             referredDoctor: ['', ''],
-            // disposalDuration: ['', ''],
+            patientInfo: [''],
             // disposalDwmy: ['', ''],
             // disposalDate: ['', ''],
             followUpVisitDuration: ['', ''],
@@ -1591,6 +1568,7 @@ export class PatientPrescriptionAddComponent implements OnInit {
         }
 
         else if (searchType === this.ehmUtils.medicineDialog) {
+
             this.globalMedicineList.push(value);
             const selectValue = this.globalMedicineList.find(model => model.id === value.id);
             row.patchValue({
@@ -1600,10 +1578,10 @@ export class PatientPrescriptionAddComponent implements OnInit {
     }
 
     printReport(master: PatientPrescriptionMaster): any {
-        const moduleId = '416';
-        const reportId = this.menuType === TOKEN_REGISTER_DENTAL_ID ? '234' : '232';
+        const moduleId = '8';
+        const reportId = '1';
         const params = new Map<string, string>();
-        params.set('prescription_master_id', master.id.toString());
+        params.set('P_PRES_ID', master.id.toString());
         params.set('id', reportId);
         params.set('P_MODULE_ID', moduleId);
         this.appUtils.printReport(params);
@@ -1633,6 +1611,44 @@ export class PatientPrescriptionAddComponent implements OnInit {
             }
         }, error => {
             this.appUtils.onServerErrorResponse(error);
+        });
+    }
+
+    tokenGenerate(): void{
+
+        this.tokenRegisterModel.id = null;
+        this.tokenRegisterModel.patientName = this.frmGroup.value.patientName;
+        this.tokenRegisterModel.registrationDate = this.appUtils.getCurrentDate();
+        this.tokenRegisterModel.age =  this.frmGroup.value.age;
+        this.tokenRegisterModel.contactNo = this.frmGroup.value.contactNo;
+
+        /* TokenId: res.TokenId,*/
+        this.tokenRegisterModel.patientInfo = this.frmGroup.value.patientInfo ? this.frmGroup.value.patientInfo: null;
+        this.tokenRegisterModel.visitDate = this.appUtils.getCurrentDate();
+        this.tokenRegisterModel.referToDoctorName = this.doctorInformation ? this.doctorInformation.name : null;
+        this.tokenRegisterModel.referToDoctorId = this.doctorInformation ? this.doctorInformation : null;
+
+        console.log(this.tokenRegisterModel);
+        this.tokenService.create(this.tokenRegisterModel).subscribe(res => {
+            this.selectTokenRegister(res.data);
+        });
+
+    }
+
+    getPatientContactNumber(): void{
+        const date: string = this.frmGroup.value.contactNo;
+
+        this.tokenService.getPatientPhoneNumber(date).subscribe(res =>{
+            console.log(res.data);
+            if (res.data){
+                this.frmGroup.patchValue({
+                    patientName: res.data.patientName,
+                    registrationDate: res.data.registrationDate,
+                    age: res.data.age,
+                    contactNo: res.data.contactNo,
+                    patientInfo: res.data,
+                });
+            }
         });
     }
 

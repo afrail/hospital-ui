@@ -195,6 +195,7 @@ export class DoctorInformationComponent implements OnInit{
             doctorRank: res.doctorRank,
             mobileNumber: res.mobileNumber,
             specialFor: res.specialFor,
+            specialForBangla: res.specialForBangla,
             roomNo: res.roomNo,
             activeDate: res.activeDate,
             inactiveDate: res.inactiveDate
@@ -314,6 +315,7 @@ export class DoctorInformationComponent implements OnInit{
             doctorRank: ['', ''],
             mobileNumber: ['', ''],
             specialFor: ['', ''],
+            specialForBangla: ['', ''],
             roomNo: ['', ''],
             activeDate: ['', ''],
             inactiveDate: ['', '']
@@ -330,9 +332,9 @@ export class DoctorInformationComponent implements OnInit{
         this.model.appUser = this.frmGroup.value.appUser;
         this.model.name = this.frmGroup.value.name;
         this.model.banglaName = this.frmGroup.value.banglaName;
-        this.model.doctorRank = this.frmGroup.value.doctorRank;
         this.model.mobileNumber = this.frmGroup.value.mobileNumber;
         this.model.specialFor = this.frmGroup.value.specialFor;
+        this.model.specialForBangla = this.frmGroup.value.specialForBangla;
         this.model.roomNo = this.frmGroup.value.roomNo;
         this.model.activeDate = this.frmGroup.value.activeDate;
         this.model.inactiveDate = this.frmGroup.value.inactiveDate;
@@ -346,4 +348,6 @@ export class DoctorInformationComponent implements OnInit{
         this.getPageableModelList();
         this.getModelList();
     }
+
+
 }

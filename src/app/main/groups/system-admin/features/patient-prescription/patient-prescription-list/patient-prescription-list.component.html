@@ -65,11 +65,6 @@
                             </div>
                         </div>
 
-                    </div>
-                    <!-- // row 1 -->
-
-                    <!-- row 2 -->
-                    <div fxLayout="row wrap" fxLayoutAlign="left">
                         <div fxFlex="25%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
                             <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
                                 <mat-form-field class="flex-auto gt-xs:pr-3">
@@ -80,7 +75,8 @@
                         </div>
 
                     </div>
-                    <!-- // row 2 -->
+                    <!-- // row 1 -->
+
 
                     <!-- button -->
                     <div class="flex justify-end mt-3 mr-2">
@@ -187,7 +183,7 @@
                                         {{'patientInfo' | translate}}
                                     </th>
                                     <td *matCellDef="let row" mat-cell>
-                                        {{ ehmUtils.getPatientName(row.patientInfo) }}
+                                        {{ row.patientInfo.patientName }}
                                     </td>
                                 </ng-container>
 
@@ -222,15 +218,6 @@
 
                                     <td *matCellDef="let row" class="text-alignment" mat-cell>
                                         <div class="buttons">
-
-                                            <button (click)="printReportCoronic(row)"
-                                                    [matTooltip]="'storeSlip' | translate"
-                                                    class="toggle-sidebar-folded"
-                                                    fxHide.lt-lg
-                                                    mat-icon-button>
-                                                <mat-icon>picture_as_pdf</mat-icon>
-                                            </button>
-
                                             <button (click)="printReport(row)"
                                                     [matTooltip]="'prescription' | translate"
                                                     class="toggle-sidebar-folded"
@@ -251,16 +238,6 @@
                                                     edit
                                                 </mat-icon>
                                             </button>
-
-                                            <!--<button (click)="closeDialog(row)" mat-icon-button
-                                                    *ngIf="row.master.treatmentIs === false"
-                                                    class="toggle-sidebar-folded"
-                                                    [matTooltip]="'close' | translate"
-                                                    fxHide.lt-lg>
-                                                <mat-icon svgIcon="heroicons_outline:clipboard-list" color="primary"></mat-icon>
-                                            </button>-->
-
-                                            <!--(click)="closeDialog(row)"-->
 
                                         </div>
                                     </td>

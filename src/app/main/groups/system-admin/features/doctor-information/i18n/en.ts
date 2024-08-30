@@ -23,6 +23,7 @@ export const locale = {
         'doctorRank': 'Doctor Rank',
         'mobileNumber': 'Mobile Number',
         'specialFor': 'Speciality',
+        'specialForBangla': 'Speciality Bangla',
         'roomNo': 'Room No',
         'activeDate': 'Active Date',
         'inactiveDate': 'Inactive Date'

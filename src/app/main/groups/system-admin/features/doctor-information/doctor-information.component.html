@@ -1,5 +1,5 @@
 <div *ngIf="frmGroup" style="width: 100%">
-    <app-common-header [subTitle]="'bannerSubTitle' | translate"
+    <app-common-header
                        [title]="'bannerTitle' | translate"></app-common-header>
     <!--    <app-common-header *ngIf="menuType===2" [title]="'bannerTitle' | translate" [subTitle]="'bannerSubTitle' | translate"></app-common-header>-->
     <!-- Main -->
@@ -8,35 +8,12 @@
         <mat-card class="tab-color -mt-4">
             <!-- form div -->
             <div class="flex flex-col bg-card shadow rounded overflow-hidden">
-                <div *ngIf="menuType===1" class="heading">
+                <div class="heading">
                     {{'title1' | translate}}
                 </div>
                 <!-- // EMPLOYEE heading -->
-
-                <!-- DENTAT heading -->
-                <div *ngIf="menuType===2" class="heading">
-                    {{'title2' | translate}}
-                </div>
                 <!-- // heading -->
                 <form [formGroup]="frmGroup" class="p-8">
-
-                    <!-- row 1 -->
-                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-
-                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
-                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
-                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
-                                           style="margin-top: -15px">  {{'bofEmployee' | translate}}
-                                </mat-label>
-                                <mat-checkbox [ngStyle]="{'padding-bottom': '15px'}" formControlName="bofEmployee" fxFlex="60%" fxFlex.md="100%"
-                                              fxFlex.sm="100%"
-                                              fxFlex.xs="100%">
-                                </mat-checkbox>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- // row 1 -->
 
                     <!-- row 1.1 -->
                     <div fxLayout="row wrap" fxLayoutAlign="space-between center">
@@ -162,40 +139,39 @@
 
                     </div>
 
-                    <!-- // row 4 -->
 
-                    <!-- row 5 -->
                     <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-
-                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
                             <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
-                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
-                                           style="margin-top: -15px">{{'roomNo'| translate}}
+                                <mat-label style="margin-top: -15px" fxFlex="20%" fxFlex.md="20%" fxFlex.sm="20%"
+                                           fxFlex.xs="100%">
+                                    {{'specialFor' | translate}}
                                 </mat-label>
-                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
-                                                fxFlex.sm="60%" fxFlex.xs="100%">
-                                    <input formControlName="roomNo" matInput>
-                                </mat-form-field>
+                                <quill-editor fxFlex="80%" fxFlex.md="80%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                              formControlName="specialFor">
+                                </quill-editor>
                             </div>
                         </div>
-
-                        <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
-                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
-                                <mat-label fxFlex="40%" fxFlex.md="40%" fxFlex.sm="40%" fxFlex.xs="100%"
-                                           style="margin-top: -15px">{{'specialFor'| translate}}
-                                </mat-label>
-                                <mat-form-field class="fuse-mat-dense flex-auto" fxFlex="60%" fxFlex.md="60%"
-                                                fxFlex.sm="60%"
-                                                fxFlex.xs="100%">
-                                <textarea #txtArea1 [maxlength]="textAreaSize" formControlName="specialFor"
-                                          matInput></textarea>
-                                    <mat-hint align="end">{{txtArea1.value.length}}/{{textAreaSize}}</mat-hint>
-
-                                </mat-form-field>
-                            </div>
-                        </div>
-
                     </div>
+                    <br>
+
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                        <div fxFlex="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                            <div class="pr-4" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                                <mat-label style="margin-top: -15px" fxFlex="20%" fxFlex.md="20%" fxFlex.sm="20%"
+                                           fxFlex.xs="100%">
+                                    {{'specialForBangla' | translate}}
+                                </mat-label>
+                                <quill-editor fxFlex="80%" fxFlex.md="80%" fxFlex.sm="100%" fxFlex.xs="100%"
+                                              formControlName="specialForBangla">
+                                </quill-editor>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
 
                     <!-- // row 5 -->
 

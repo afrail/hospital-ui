@@ -45,6 +45,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {NgApexchartsModule} from 'ng-apexcharts';
 import {TableColumnExcludeSelectPipe} from './filters/ table-column-exclude-select.pipe';
 import {MatSelectSearchSmallComponent} from './components/mat-select-search-small/mat-select-search-small.component';
+import {QuillModule} from 'ngx-quill';
 
 
 const _materialModule = [
@@ -87,6 +88,7 @@ const _allModule = [
     FlexLayoutModule,
     TranslateModule,
     TranslateModule.forRoot(),
+    QuillModule.forRoot(),
     NgxMatSelectSearchModule,
     HttpClientModule,
     FuseCardModule,

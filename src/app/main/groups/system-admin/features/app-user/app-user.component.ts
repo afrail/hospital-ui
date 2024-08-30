@@ -177,6 +177,7 @@ export class AppUserComponent implements OnInit {
         this.model = res;
         this.frmGroup.patchValue({
             username: res.username,
+            entryHospitalCode: res.entryHospitalCode,
             password: res.password,
             confirmPassword: '',
             passwordPolicy: selectValue,
@@ -262,6 +263,7 @@ export class AppUserComponent implements OnInit {
     setFormInitValue(): any {
         this.frmGroup = this.formBuilder.group({
             username: ['', Validators.required],
+            entryHospitalCode: ['', Validators.required],
             email: ['', Validators.email],
             mobile: ['', ''],
             password: ['', ''],
@@ -276,6 +278,7 @@ export class AppUserComponent implements OnInit {
         }
         this.model.passwordPolicy = this.frmGroup.value.passwordPolicy;
         this.model.username = this.frmGroup.value.username;
+        this.model.entryHospitalCode = this.frmGroup.value.entryHospitalCode;
         this.model.email = this.frmGroup.value.email;
         this.model.mobile = this.frmGroup.value.mobile;
         this.model.password = this.frmGroup.value.password;

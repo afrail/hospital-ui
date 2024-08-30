@@ -9,7 +9,7 @@ export class MedicineMaster extends CommonModelField {
 
     unitMeasurement: CommonLookupDetails;
 
-    medicineName: string;
+    name: string;
 
     barcode: string;
 
@@ -55,8 +55,6 @@ export class MedicineMaster extends CommonModelField {
 
     hosType: number;
 
-    /*extra*/
-    name: string;
 
 
 }

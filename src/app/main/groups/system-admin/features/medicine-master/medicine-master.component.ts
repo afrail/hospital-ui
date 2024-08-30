@@ -192,7 +192,7 @@ export class MedicineMasterComponent implements OnInit {
         this.frmGroup.patchValue({
             medicineGroup: selectGroup,
             unitMeasurement: selectUm,
-            medicineName: res.medicineName,
+            medicineName: res.name,
             barcode: res.barcode,
             minimumStock: res.minimumStock,
             warningStock: res.warningStock,
@@ -228,7 +228,7 @@ export class MedicineMasterComponent implements OnInit {
             if (
                 e.medicineGroup.name.toLowerCase().includes(filterValue) ||
                 // umValue.toLowerCase().includes(filterValue) ||
-                e.medicineName.toLowerCase().includes(filterValue)
+                e.name.toLowerCase().includes(filterValue)
             ) {
                 list.push(e);
             }
@@ -251,7 +251,7 @@ export class MedicineMasterComponent implements OnInit {
                 case 'medicineGroup':
                     return this.compare(a.medicineGroup.name, b.medicineGroup.name, isAsc);
                 case 'medicineName':
-                    return this.compare(a.medicineName, b.medicineName, isAsc);
+                    return this.compare(a.name, b.name, isAsc);
                 default:
                     return 0;
             }
@@ -311,7 +311,7 @@ export class MedicineMasterComponent implements OnInit {
         }
         this.model.medicineGroup = this.frmGroup.value.medicineGroup;
         this.model.unitMeasurement = this.frmGroup.value.unitMeasurement ? this.frmGroup.value.unitMeasurement : null;
-        this.model.medicineName = this.frmGroup.value.medicineName;
+        this.model.name = this.frmGroup.value.medicineName;
         this.model.barcode = this.frmGroup.value.barcode;
         this.model.availableStock = this.frmGroup.value.availableStock;
         this.model.minimumStock = this.frmGroup.value.minimumStock;
