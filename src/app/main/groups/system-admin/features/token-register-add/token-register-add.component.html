@@ -264,13 +264,13 @@
 
                     <!-- button -->
                     <div class="flex justify-end mt-3 mr-2 mb-2">
-                        <button
+                        <!--<button
                             [routerLink]="viewList()"
                             class="px-8 mr-2 ml-3"
                             color="primary" mat-flat-button>>
                             <mat-icon class="mr-1"></mat-icon>
                             <span>{{'viewList' | translate}}</span>
-                        </button>
+                        </button>-->
 
                         <button
                             (click)="resetFromData()"
@@ -329,42 +329,3 @@
 </div>
 
 <!--dialog-->
-<ng-template #templateDialog fxFlex="100%" fxFlex.md="100%" fxFlex.sm="70%" fxFlex.xs="70%">
-    <div>
-        <div class="flex flex-col bg-card shadow rounded overflow-hidden">
-            <div class="heading">
-                <!--                {{'Token Register' | translate}}-->
-            </div>
-            <div class="flex flex-col bg-card shadow rounded" fxFlex="100">
-            </div>
-        </div>
-        <mat-card>
-            <div class="flex flex-col bg-card shadow rounded overflow-x-auto sm:overflow-y-auto">
-                <div cdkScrollable class="overflow-x-auto sm:overflow-y-auto">
-                    <div class="p-5">
-                        <Typography variant="h1">The Patient taken medicine before {{day}} ago</Typography>
-                        <h3>
-                            Date: {{toDate| date:"dd-MM-YYYY"}}
-                        </h3>
-                    </div>
-                </div>
-            </div>
-
-        </mat-card>
-        <!-- // Contact Information -->
-        <br/>
-        <!------------------------------------------------------------------------------------------------------------------------------>
-    </div>
-
-
-    <!-- button -->
-    <button [matDialogClose]="true" class="px-8 mr-2 flex justify-start" mat-flat-button
-            style="background-color: red !important;"
-            type="button">
-        <mat-icon class="mr-1">close</mat-icon>
-        {{'close' | translate}}
-    </button>
-</ng-template>
-
-
-

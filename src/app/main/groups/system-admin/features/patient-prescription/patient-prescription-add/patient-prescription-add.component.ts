@@ -142,7 +142,7 @@ export class PatientPrescriptionAddComponent implements OnInit {
     });
 
     /*medicine*/
-    medicineDisplayColumnsDetails = ['serialNo', 'medicineMaster', 'stock', 'dose', 'duration', 'dwmy', 'qty', 'instruction', 'continueIs', 'action'];
+    medicineDisplayColumnsDetails = ['serialNo', 'medicineMaster', 'dose', 'duration', 'instruction', 'continueIs', 'action'];
     medicineDataSourceDetails = new BehaviorSubject<AbstractControl[]>([]);
     medicineRows: FormArray = this.formBuilder.array([]);
     medicineFrmGroupDetails: FormGroup = this.formBuilder.group({
@@ -235,7 +235,7 @@ export class PatientPrescriptionAddComponent implements OnInit {
         private illnessHistoryService: PatientIllnessHistoryService
     ) {
         this.fuseTranslationLoaderService.loadTranslations(lngEnglish, lngBangla);
-        this.userRolePermission = this.appUtils.findUserRolePermission('/add');
+        this.userRolePermission = this.appUtils.findUserRolePermission();
     }
 
     ngOnInit(): void {
@@ -253,22 +253,24 @@ export class PatientPrescriptionAddComponent implements OnInit {
         this.getReferList();
         this.getDisposalList();
         this.getDoseList();
-        this.pastIllAddRow();
+       // this.pastIllAddRow();
         this.model = history.state.res;
         if (this.model && this.model.master) {
             this.edit(this.model);
         }
         this.getDWMYList();
-        this.ccAddRow();
+        this.medicineAddRow(null, null, null, true);
+       /* this.ccAddRow();
         this.investigationFindAddRow();
         this.diseaseAddRow();
         this.investigationAddRow();
-        this.medicineAddRow(null, null, null, true);
+
         this.adviceAddRow();
         this.refDocAddRow();
-        this.disposalAddRow();
-        this.onExaminationAddRow();
+
+        this.onExaminationAddRow();*/
         this.getFollowupComments();
+        this.disposalAddRow();
 
         /*id for pass search*/
         this.isDental = this.menuType === TOKEN_REGISTER_DENTAL_ID;

@@ -72,9 +72,9 @@ const routes: Routes = [
 
             {path: 'doctor-information', component: DoctorInformationComponent},
             {path: 'token-register', component: TokenRegisterListComponent},
-            {path: 'token-register/add', component: TokenRegisterAddComponent},
+            {path: 'token-register-add', component: TokenRegisterAddComponent},
             {path: 'patient-prescription', component: PatientPrescriptionListComponent},
-            {path: 'patient-prescription/add', component: PatientPrescriptionAddComponent},
+            {path: 'patient-prescription-add', component: PatientPrescriptionAddComponent},
             {path: 'medicine-master', component: MedicineMasterComponent},
 
 

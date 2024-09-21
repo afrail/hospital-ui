@@ -66,7 +66,7 @@ export class TokenRegisterAddComponent implements OnInit {
         private appUtils: AppUtils,
     ) {
         this.fuseTranslationLoaderService.loadTranslations(lngEnglish, lngBangla);
-        this.userRolePermission = this.appUtils.findUserRolePermission('/add');
+        this.userRolePermission = this.appUtils.findUserRolePermission();
     }
     // -----------------------------------------------------------------------------------------------------
     // @ API calling

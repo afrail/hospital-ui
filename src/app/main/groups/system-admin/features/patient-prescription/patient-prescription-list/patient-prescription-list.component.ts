@@ -83,9 +83,6 @@ export class PatientPrescriptionListComponent implements OnInit {
 
     ngOnInit(): void {
         this.prefixUrl = this.appUtils.getPrefixUrl();
-        this.activatedRoute.data.subscribe(data => {
-            this.menuType = data.menuType;
-        });
         this.appUser = this.localStorageHelper.getUserInfo();
         this.setFormInitValue();
         this.getDoctorList();
@@ -153,7 +150,7 @@ export class PatientPrescriptionListComponent implements OnInit {
     // -----------------------------------------------------------------------------------------------------
 
     edit(model: PatientPrescriptionMaster): void {
-        const url = 'patient-prescription/add';
+        const url = 'patient-prescription-add';
         this.modelService.getMasterDetails(model).subscribe(res => {
             if (res.data){
                 this.router.navigateByUrl(this.prefixUrl + url,

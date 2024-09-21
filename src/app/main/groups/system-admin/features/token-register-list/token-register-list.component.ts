@@ -145,7 +145,7 @@ export class TokenRegisterListComponent implements OnInit {
     // -----------------------------------------------------------------------------------------------------
 
     edit(res: TokenRegister): void {
-        const url = 'token-register/add';
+        const url = 'token-register-add';
         this.router.navigateByUrl(this.prefixUrl + url,
             {state: res}
         );

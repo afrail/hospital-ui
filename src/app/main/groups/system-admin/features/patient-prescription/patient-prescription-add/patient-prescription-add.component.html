@@ -17,10 +17,10 @@
                 <div fxFlex="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
                     <!--add button-->
                     <div class="flex items-center justify-self-start m-1" fxLayout="row">
-                        <button [routerLink]="this.prefixUrl + 'patient-prescription'" color="primary" mat-raised-button>
+                        <!--<button [routerLink]="this.prefixUrl + 'patient-prescription'" color="primary" mat-raised-button>
                             <mat-icon class="mr-1" style="color: white;">arrow_back</mat-icon>
                             {{'viewList' | translate}}
-                        </button> &nbsp;
+                        </button> &nbsp;-->
                     </div>
                     <!-- // add button-->
                 </div>
@@ -325,7 +325,7 @@
                          fxFlex.xs="100%">
 
                         <!--middle right 1-->
-                        <div class="row">
+                        <div class="row sm:overflow-y-auto mt-2">
 
                             <!-- middle right left 1-->
                             <div fxFlex="35%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
@@ -334,7 +334,7 @@
                                            mat-table>
                                         <!-- Row definitions -->
                                         <tr *matHeaderRowDef="ccDisplayColumnsDetails" class="table-row smallFont"
-                                            mat-header-row></tr>
+                                            mat-header-row (click)="ccAddRow()"></tr>
                                         <tr *matRowDef="let row; let i = index; columns: ccDisplayColumnsDetails;"
                                             class="table-row smallFont"
                                             mat-row></tr>
@@ -347,7 +347,7 @@
                                                           (click)="openAllAddDialog(ehmUtils.ccDialog)"> add
                                                 </mat-icon>-->
                                             </th>
-                                            <td *matCellDef="let row; let index = index" [formGroupName]="index"
+                                            <td  *matCellDef="let row; let index = index" [formGroupName]="index"
                                                 mat-cell>
                                                 <div style="display: flex; align-items: center">
                                                     <mat-form-field-1 class="flex-auto gt-xs:pr-3"
@@ -371,7 +371,7 @@
                                         <!--duration-->
                                         <ng-container matColumnDef="duration">
                                             <th *matHeaderCellDef>{{'duration' | translate}}</th>
-                                            <td *matCellDef="let row; let index = index" [formGroupName]="index"
+                                            <td  *matCellDef="let row; let index = index" [formGroupName]="index"
                                                 mat-cell style="width: 15%">
                                                 <div style="display: flow-root;">
                                                     <mat-form-field-1 style="width: 100% ;">
@@ -405,7 +405,7 @@
                                         <ng-container matColumnDef="action">
                                             <th *matHeaderCellDef
                                                 style="width: 10% !important;">{{'action' | translate}}</th>
-                                            <td *matCellDef="let row; let index = index" [formGroupName]="index"
+                                            <td  *matCellDef="let row; let index = index" [formGroupName]="index"
                                                 mat-cell>
                                                 <div class="buttons text-alignment">
                                                     <mat-icon (click)="ccAddRow()" *ngIf="ccRows.length === index+1"
@@ -422,19 +422,13 @@
 
                                     </table>
                                 </form>
-                            </div>
-                            <!--// middle right left 1-->
-
-                            <div fxFlex="30%" fxFlex.md="100%" fxFlex.sm="100%"
-                                 fxFlex.xs="100%">
-
                                 <form [formGroup]="onExaminationFrmGroupDetails">
                                     <table [dataSource]="onExaminationDataSourceDetails" class="mat-elevation-z8"
                                            formArrayName="scope"
                                            mat-table>
                                         <!-- Row definitions -->
                                         <tr *matHeaderRowDef="onExaminationDisplayColumnsDetails" class="table-row smallFont"
-                                            mat-header-row></tr>
+                                            mat-header-row (click)="onExaminationAddRow()"></tr>
                                         <tr *matRowDef="let row; let i = index; columns: onExaminationDisplayColumnsDetails;"
                                             class="table-row smallFont"
                                             mat-row></tr>
@@ -488,20 +482,13 @@
 
                                     </table>
                                 </form>
-
-                            </div>
-
-                            <!-- oldInvestigation -->
-                            <div fxFlex="35%" fxFlex.md="100%" fxFlex.sm="100%"
-                                 fxFlex.xs="100%">
-
                                 <form [formGroup]="investigationFindFrmGroupDetails">
                                     <table [dataSource]="investigationFindDataSourceDetails" class="mat-elevation-z8"
                                            formArrayName="scope"
                                            mat-table>
                                         <!-- Row definitions -->
                                         <tr *matHeaderRowDef="investigationFindDisplayColumnsDetails" class="table-row smallFont"
-                                            mat-header-row></tr>
+                                            mat-header-row (click)="investigationFindAddRow()"></tr>
                                         <tr *matRowDef="let row; let i = index; columns: investigationFindDisplayColumnsDetails;"
                                             class="table-row smallFont"
                                             mat-row></tr>
@@ -560,25 +547,12 @@
 
                                     </table>
                                 </form>
-
-                            </div>
-                            <!--// oldInvestigation-->
-
-
-                        </div>
-                        <!-- // middle right 1-->
-
-                        <!--middle right 2-->
-                        <div class="row mt-2">
-
-                            <!-- investigation -->
-                            <div fxFlex="35%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
                                 <form [formGroup]="investigationFrmGroupDetails">
                                     <table [dataSource]="investigationDataSourceDetails" class="mat-elevation-z8"
                                            formArrayName="scope" mat-table>
                                         <!-- Row definitions -->
                                         <tr *matHeaderRowDef="investigationDisplayColumnsDetails" class="table-row smallFont"
-                                            mat-header-row></tr>
+                                            mat-header-row (click)="investigationAddRow()"></tr>
                                         <tr *matRowDef="let row; let i = index; columns: investigationDisplayColumnsDetails;"
                                             class="table-row smallFont"
                                             mat-row></tr>
@@ -626,17 +600,12 @@
                                         </ng-container>
                                     </table>
                                 </form>
-                            </div>
-                            <!--// investigation-->
-
-                            <!--past illness-->
-                            <div fxFlex="35%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
                                 <form [formGroup]="pastIllFrmGroupDetails">
                                     <table [dataSource]="pastIllDataSourceDetails" class="mat-elevation-z8" formArrayName="scope"
                                            mat-table>
                                         &lt;!&ndash; Row definitions &ndash;&gt;
                                         <tr *matHeaderRowDef="pastIllDisplayColumnsDetails" class="table-row smallFont"
-                                            mat-header-row></tr>
+                                            mat-header-row (click)="pastIllAddRow()"></tr>
                                         <tr *matRowDef="let row; let i = index; columns: pastIllDisplayColumnsDetails;"
                                             class="table-row smallFont"
                                             mat-row></tr>
@@ -698,17 +667,11 @@
 
                                     </table>
                                 </form>
-
-                            </div>
-                            <!-- // past illness-->
-
-                            <!-- middle right left 2-->
-                            <div fxFlex="30%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
                                 <form [formGroup]="diseaseFrmGroupDetails">
                                     <table [dataSource]="diseaseDataSourceDetails" class="mat-elevation-z8" formArrayName="scope"
                                            mat-table>
                                         <!-- Row definitions -->
-                                        <tr *matHeaderRowDef="diseaseDisplayColumnsDetails" class="table-row smallFont"
+                                        <tr (click)="diseaseAddRow()" *matHeaderRowDef="diseaseDisplayColumnsDetails" class="table-row smallFont"
                                             mat-header-row></tr>
                                         <tr *matRowDef="let row; let i = index; columns: diseaseDisplayColumnsDetails;"
                                             class="table-row smallFont"
@@ -769,203 +732,607 @@
                                         </ng-container>
                                     </table>
                                 </form>
+                                <form [formGroup]="adviceFrmGroupDetails">
+                                    <table [dataSource]="adviceDataSourceDetails" class="mat-elevation-z8"
+                                           formArrayName="scope" mat-table>
+                                        <!-- Row definitions -->
+                                        <tr (click)="adviceAddRow()" *matHeaderRowDef="adviceDisplayColumnsDetails" class="table-row smallFont"
+                                            mat-header-row></tr>
+                                        <tr *matRowDef="let row; let i = index; columns: adviceDisplayColumnsDetails;"
+                                            class="table-row smallFont"
+                                            mat-row></tr>
+
+                                        <!--advice-->
+                                        <ng-container matColumnDef="advice">
+                                            <th *matHeaderCellDef>
+                                                {{'advice' | translate}}
+                                            </th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index"
+                                                mat-cell>
+                                                <div style="display: flow-root;">
+                                                    <mat-select-search-small
+                                                        (callBackForAddData)="setCommonLookupAddValue($event)"
+                                                        (selectionChange)="checkAdvice(row)"
+                                                        [commonLookupId]="adviceId"
+                                                        [controlName]="'advice'"
+                                                        [data]="adviceDropdownList"
+                                                        [formGroup]="row"
+                                                        [isDental]="isDental"
+                                                        [searchType]="ehmUtils.adviceDialog">
+                                                    </mat-select-search-small>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+
+                                        <!--action-->
+                                        <ng-container matColumnDef="action">
+                                            <th *matHeaderCellDef>{{'action' | translate}}</th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index"
+                                                mat-cell>
+                                                <div class="buttons">
+                                                    <button class="toggle-sidebar-folded" fxHide.lt-lg mat-icon-button>
+                                                        <mat-icon (click)="adviceAddRow()"
+                                                                  *ngIf="adviceRows.length === index+1"
+                                                                  color="primary" matTooltip="{{'addNew' | translate}}"> add
+                                                        </mat-icon>
+                                                    </button>
+
+                                                    <button class="toggle-sidebar-folded" fxHide.lt-lg mat-icon-button>
+                                                        <mat-icon (click)="adviceDeleteRow(index)"
+                                                                  color="warn" matTooltip=" {{'delete' | translate}}">
+                                                            delete
+                                                        </mat-icon>
+                                                    </button>
+
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+                                    </table>
+                                </form>
                             </div>
+
+                            <div fxFlex="65%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+
+                                <form [formGroup]="medicineFrmGroupDetails">
+                                    <table [dataSource]="medicineDataSourceDetails" class="mat-elevation-z8 y" formArrayName="scope"
+                                           mat-table>
+                                        <!-- Row definitions -->
+                                        <tr *matHeaderRowDef="medicineDisplayColumnsDetails" class="table-row smallFont"
+                                            mat-header-row></tr>
+                                        <tr *matRowDef="let row; let i = index; columns: medicineDisplayColumnsDetails;"
+                                            class="table-row smallFont"
+                                            mat-row></tr>
+
+                                        <!--qty-->
+                                        <ng-container matColumnDef="serialNo">
+                                            <th *matHeaderCellDef>{{'sl' | translate}}</th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell
+                                                style="width: 5%">
+                                                <div style="display: flow-root">
+                                                    <mat-form-field-1 style="width: 100% ;">
+                                                        <input class="input" formControlName="serialNo" matInput min="0"
+                                                               oninput="validity.valid||(value='.');" type="number">
+                                                    </mat-form-field-1>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+                                        <!--medicineMaster-->
+                                        <ng-container matColumnDef="medicineMaster">
+                                            <th *matHeaderCellDef>
+                                                {{'medicineMaster' | translate}}
+                                                <!--<mat-icon class="hand-cursor white-icon" matTooltip="{{'addNew' | translate}}"
+                                                          (click)="openAllAddDialog(ehmUtils.medicineDialog)"> add
+                                                </mat-icon>-->
+                                            </th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell
+                                                style="width: 40%">
+                                                <div style="display: flow-root">
+                                                    <mat-select-search-small
+                                                        [isSearch]="true"
+                                                        (callBackForAddData)="setCommonLookupAddValue($event)"
+                                                        [formGroup]="row"
+                                                        [controlName]="'medicineMaster'"
+                                                        [data]="globalMedicineList"
+                                                        [commonLookupId]="ehmUtils.medicineDialog"
+
+                                                        (selectionChange)="checkMedicineMaster(row)"
+                                                        [searchType]="ehmUtils.medicineDialog">
+                                                    </mat-select-search-small>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+                                        <!--stock-->
+                                        <ng-container matColumnDef="stock">
+                                            <th *matHeaderCellDef>{{'stock' | translate}}</th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell
+                                                style="width: 5%">
+                                                <div style="display: flow-root;">
+                                                    <span>{{ row.value.medicineMaster ? this.ehmUtils.getFullMedicineStock(row.value.medicineMaster, this.menuType) : ''}}</span>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+                                        <!--dose-->
+                                        <ng-container matColumnDef="dose">
+                                            <th *matHeaderCellDef>
+                                                {{'dose' | translate}}
+                                            </th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell
+                                                style="width: 15%">
+                                                <div style="display: flow-root;">
+                                                    <mat-select-search-small
+                                                        (callBackForAddData)="setCommonLookupAddValue($event)"
+                                                        (selectionChange)="calculateQty(row)"
+                                                        [commonLookupId]="doseId"
+                                                        [controlName]="'dose'"
+                                                        [data]="doseDropdownList"
+                                                        [formGroup]="row"
+                                                        [searchType]="ehmUtils.doseDialog">
+                                                    </mat-select-search-small>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+                                        <!--duration-->
+                                        <ng-container matColumnDef="duration">
+                                            <th *matHeaderCellDef>{{'duration' | translate}}</th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell
+                                                style="width: 15%">
+                                                <div style="display: flow-root;">
+                                                    <mat-form-field-1 style="width: 100% ;">
+                                                        <input (blur)="calculateQty(row)" [readonly]="row.value.continueIs" class="input" formControlName="duration"
+                                                               matInput min="0"
+                                                               oninput="validity.valid||(value='.');" type="number">
+                                                    </mat-form-field-1>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+                                        <!--dwmy-->
+                                        <ng-container matColumnDef="dwmy">
+                                            <th *matHeaderCellDef>
+                                                {{'dwmy' | translate}}
+                                            </th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell
+                                                style="width: 15%">
+                                                <div style="display: flow-root;">
+                                                    <mat-select-search-small
+                                                        (selectionChange)="calculateQty(row)"
+                                                        [controlName]="'dwmy'"
+                                                        [data]="dwmyDropdownList"
+                                                        [formGroup]="row">
+                                                    </mat-select-search-small>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+                                        <!--qty-->
+                                        <ng-container matColumnDef="qty">
+                                            <th *matHeaderCellDef>{{'qty' | translate}}</th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell
+                                                style="width: 10%">
+                                                <div style="display: flow-root">
+                                                    <mat-form-field-1 style="width: 100% ;">
+                                                        <input class="input" formControlName="qty" matInput min="0"
+                                                               oninput="validity.valid||(value='.');" type="number">
+                                                    </mat-form-field-1>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+                                        <!--instruction-->
+                                        <ng-container matColumnDef="instruction">
+                                            <th *matHeaderCellDef>
+                                                {{'instruction' | translate}}
+                                            </th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell
+                                                style="width: 20%">
+                                                <div style="display: flow-root;">
+                                                    <mat-select-search-small
+                                                        (callBackForAddData)="setCommonLookupAddValue($event)"
+                                                        [commonLookupId]="instructionId"
+                                                        [controlName]="'instruction'"
+                                                        [data]="instructionDropdownList"
+                                                        [formGroup]="row"
+                                                        [searchType]="ehmUtils.instructionDialog">
+                                                    </mat-select-search-small>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+                                        <!--continueIs-->
+                                        <ng-container matColumnDef="continueIs">
+                                            <th *matHeaderCellDef>{{'continueIs' | translate}}</th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index" class="text-alignment"
+                                                mat-cell>
+                                                <div>
+                                                    <mat-checkbox formControlName="continueIs">
+                                                    </mat-checkbox>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+
+                                        <!--action-->
+                                        <ng-container matColumnDef="action">
+                                            <th *matHeaderCellDef>{{'action' | translate}}</th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell>
+                                                <div class="buttons text-alignment">
+                                                    <mat-icon (click)="medicineAddRow(null, null, true)" *ngIf="medicineRows.length === index+1"
+                                                              class="hand-cursor"
+                                                              color="primary" matTooltip="{{'addNew' | translate}}">
+                                                        add
+                                                    </mat-icon>
+
+                                                    <mat-icon (click)="medicineDeleteRow(index)" class="hand-cursor"
+                                                              color="warn" matTooltip=" {{'delete' | translate}}">delete
+                                                    </mat-icon>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+                                    </table>
+                                </form>
+
+                            </div>
+                            <!--// middle right left 1-->
+
+                            <!--<div fxFlex="30%" fxFlex.md="100%" fxFlex.sm="100%"
+                                 fxFlex.xs="100%">
+
+                                <form [formGroup]="onExaminationFrmGroupDetails">
+                                    <table [dataSource]="onExaminationDataSourceDetails" class="mat-elevation-z8"
+                                           formArrayName="scope"
+                                           mat-table>
+                                        &lt;!&ndash; Row definitions &ndash;&gt;
+                                        <tr *matHeaderRowDef="onExaminationDisplayColumnsDetails" class="table-row smallFont"
+                                            mat-header-row></tr>
+                                        <tr *matRowDef="let row; let i = index; columns: onExaminationDisplayColumnsDetails;"
+                                            class="table-row smallFont"
+                                            mat-row></tr>
+
+                                        &lt;!&ndash;on examination&ndash;&gt;
+                                        <ng-container matColumnDef="onExamination">
+                                            <th *matHeaderCellDef="let row; let index = index">
+                                                {{'onExamination2' | translate}}
+                                            </th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index"
+                                                mat-cell>
+
+                                                <mat-form-field-1 class="flex-auto gt-xs:pr-3"
+                                                                  style="width: 90%; margin-top: 5px;">
+                                                    <input [matAutocomplete]="auto" class="border"
+                                                           formControlName="onExamination" matInput type="text">
+                                                    <mat-autocomplete #auto="matAutocomplete">
+                                                        <mat-option *ngFor="let item of onExaminationDropdownList | customNameFilter: row.value.onExamination"
+                                                                    [value]="item.name"
+                                                                    name="storage_condition">{{ item.name }}</mat-option>
+                                                    </mat-autocomplete>
+                                                    <button  aria-hidden="true" class="close" ngxMatSelectSearchClear mat-icon-button *ngIf="(onExaminationDropdownList | customNameFilter: row.value.onExamination).length < 1"
+                                                             (click)="addItem(this.onExamId, row.value.onExamination)">
+                                                        <mat-icon>add</mat-icon>
+                                                    </button>
+                                                </mat-form-field-1>
+
+                                            </td>
+                                        </ng-container>
+
+
+                                        &lt;!&ndash;action&ndash;&gt;
+                                        <ng-container matColumnDef="action">
+                                            <th *matHeaderCellDef
+                                                style="width: 20% !important;">{{'action' | translate}}</th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index"
+                                                mat-cell>
+                                                <div class="buttons text-alignment">
+                                                    <mat-icon (click)="onExaminationAddRow()"
+                                                              *ngIf="onExaminationRows.length === index+1" class="hand-cursor"
+                                                              color="primary" matTooltip="{{'addNew' | translate}}"> add
+                                                    </mat-icon>
+
+                                                    <mat-icon (click)="onExamDeleteRow(index)" class="hand-cursor"
+                                                              color="warn" matTooltip=" {{'delete' | translate}}">
+                                                        delete
+                                                    </mat-icon>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+                                    </table>
+                                </form>
+
+                            </div>-->
+
+                            <!-- oldInvestigation -->
+                            <!--<div fxFlex="35%" fxFlex.md="100%" fxFlex.sm="100%"
+                                 fxFlex.xs="100%">
+
+                                <form [formGroup]="investigationFindFrmGroupDetails">
+                                    <table [dataSource]="investigationFindDataSourceDetails" class="mat-elevation-z8"
+                                           formArrayName="scope"
+                                           mat-table>
+                                        &lt;!&ndash; Row definitions &ndash;&gt;
+                                        <tr *matHeaderRowDef="investigationFindDisplayColumnsDetails" class="table-row smallFont"
+                                            mat-header-row></tr>
+                                        <tr *matRowDef="let row; let i = index; columns: investigationFindDisplayColumnsDetails;"
+                                            class="table-row smallFont"
+                                            mat-row></tr>
+
+                                        &lt;!&ndash;investigation&ndash;&gt;
+                                        <ng-container matColumnDef="investigation">
+                                            <th *matHeaderCellDef="let row; let index = index">
+                                                {{'oldInvestigation' | translate}}
+                                            </th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index"
+                                                mat-cell>
+                                                <div>
+                                                    <mat-select-search-small
+                                                        (callBackForAddData)="setCommonLookupAddValue($event)"
+                                                        [commonLookupId]="investigationId"
+                                                        [controlName]="'investigation'"
+                                                        [data]="investigationDropdownList"
+                                                        [formGroup]="row"
+                                                        [searchType]="ehmUtils.investigationDialog">
+                                                    </mat-select-search-small>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+                                        &lt;!&ndash;finding&ndash;&gt;
+                                        <ng-container matColumnDef="finding">
+                                            <th *matHeaderCellDef
+                                                style="width: 30% !important;">{{'finding' | translate}}</th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index"
+                                                mat-cell>
+                                                <mat-form-field-1>
+                                                    <input class="input" formControlName="finding" matInput type="text">
+                                                </mat-form-field-1>
+                                            </td>
+                                        </ng-container>
+
+                                        &lt;!&ndash;action&ndash;&gt;
+                                        <ng-container matColumnDef="action">
+                                            <th *matHeaderCellDef
+                                                style="width: 20% !important;">{{'action' | translate}}</th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index"
+                                                mat-cell>
+                                                <div class="buttons text-alignment">
+                                                    <mat-icon (click)="investigationFindAddRow()"
+                                                              *ngIf="investigationFindRows.length === index+1" class="hand-cursor"
+                                                              color="primary" matTooltip="{{'addNew' | translate}}"> add
+                                                    </mat-icon>
+
+                                                    <mat-icon (click)="investigationFindDeleteRow(index)" class="hand-cursor"
+                                                              color="warn" matTooltip=" {{'delete' | translate}}">
+                                                        delete
+                                                    </mat-icon>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+                                    </table>
+                                </form>
+
+                            </div>-->
+                            <!--// oldInvestigation-->
+
+
+                        </div>
+                        <!-- // middle right 1-->
+
+                        <!--middle right 2-->
+                        <div class="row mt-2">
+
+                            <!-- investigation -->
+                            <!--<div fxFlex="35%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <form [formGroup]="investigationFrmGroupDetails">
+                                    <table [dataSource]="investigationDataSourceDetails" class="mat-elevation-z8"
+                                           formArrayName="scope" mat-table>
+                                        &lt;!&ndash; Row definitions &ndash;&gt;
+                                        <tr *matHeaderRowDef="investigationDisplayColumnsDetails" class="table-row smallFont"
+                                            mat-header-row></tr>
+                                        <tr *matRowDef="let row; let i = index; columns: investigationDisplayColumnsDetails;"
+                                            class="table-row smallFont"
+                                            mat-row></tr>
+
+                                        &lt;!&ndash;investigation&ndash;&gt;
+                                        <ng-container matColumnDef="investigation">
+                                            <th *matHeaderCellDef>
+                                                {{'investigation' | translate}}
+                                            </th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index"
+                                                mat-cell>
+                                                <div style="display: flow-root;">
+                                                    <mat-select-search-small
+                                                        (callBackForAddData)="setCommonLookupAddValue($event)"
+                                                        (selectionChange)="checkInvestigation(row)"
+                                                        [commonLookupId]="investigationId"
+                                                        [controlName]="'investigation'"
+                                                        [data]="investigationDropdownList"
+                                                        [formGroup]="row"
+                                                        [searchType]="ehmUtils.investigationDialog">
+                                                    </mat-select-search-small>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+
+                                        &lt;!&ndash;action&ndash;&gt;
+                                        <ng-container matColumnDef="action">
+                                            <th *matHeaderCellDef
+                                                style="width: 20% !important;">{{'action' | translate}}</th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index"
+                                                mat-cell>
+                                                <div class="buttons text-alignment">
+                                                    <mat-icon (click)="investigationAddRow()"
+                                                              *ngIf="investigationRows.length === index+1" class="hand-cursor"
+                                                              color="primary" matTooltip="{{'addNew' | translate}}"> add
+                                                    </mat-icon>
+
+                                                    <mat-icon (click)="investigationDeleteRow(index)" class="hand-cursor"
+                                                              color="warn" matTooltip=" {{'delete' | translate}}">
+                                                        delete
+                                                    </mat-icon>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+                                    </table>
+                                </form>
+                            </div>-->
+                            <!--// investigation-->
+
+                            <!--past illness-->
+                            <!--<div fxFlex="35%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <form [formGroup]="pastIllFrmGroupDetails">
+                                    <table [dataSource]="pastIllDataSourceDetails" class="mat-elevation-z8" formArrayName="scope"
+                                           mat-table>
+                                        &lt;!&ndash; Row definitions &ndash;&gt;
+                                        <tr *matHeaderRowDef="pastIllDisplayColumnsDetails" class="table-row smallFont"
+                                            mat-header-row></tr>
+                                        <tr *matRowDef="let row; let i = index; columns: pastIllDisplayColumnsDetails;"
+                                            class="table-row smallFont"
+                                            mat-row></tr>
+
+                                        &lt;!&ndash;pastIll&ndash;&gt;
+                                        <ng-container matColumnDef="illnessName">
+                                            <th *matHeaderCellDef style="width: 60% !important;">
+                                                {{'illnessName' | translate}}
+                                            </th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index"
+                                                mat-cell>
+                                                <div style="display: flow-root;">
+                                                    <mat-select-search-small
+                                                        (callBackForAddData)="setCommonLookupAddValue($event)"
+                                                        (selectionChange)="checkPastIll(row)"
+                                                        [commonLookupId]="diseaseId"
+                                                        [controlName]="'illnessName'"
+                                                        [data]="diseaseDropdownList"
+                                                        [formGroup]="row"
+                                                        [isDental]="isDental"
+                                                        [searchType]="ehmUtils.illnessDialog">
+                                                    </mat-select-search-small>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+                                        &lt;!&ndash;finding&ndash;&gt;
+                                        <ng-container matColumnDef="disposal">
+                                            <th *matHeaderCellDef
+                                                style="width: 20% !important;">{{'disposal' | translate}}</th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index"
+                                                mat-cell>
+                                                <mat-form-field-1>
+                                                    <input class="input" formControlName="disposal" matInput
+                                                           type="text">
+                                                </mat-form-field-1>
+                                            </td>
+                                        </ng-container>
+
+
+                                        &lt;!&ndash;action&ndash;&gt;
+                                        <ng-container matColumnDef="action">
+                                            <th *matHeaderCellDef
+                                                style="width: 20% !important;">{{'action' | translate}}</th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index"
+                                                mat-cell>
+                                                <div class="buttons text-alignment">
+                                                    <mat-icon (click)="pastIllAddRow()" *ngIf="pastIllRows.length === index+1"
+                                                              class="hand-cursor"
+                                                              color="primary" matTooltip="{{'addNew' | translate}}"> add
+                                                    </mat-icon>
+
+                                                    <mat-icon (click)="pastIllDeleteRow(index)" class="hand-cursor"
+                                                              color="warn" matTooltip=" {{'delete' | translate}}">delete
+                                                    </mat-icon>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+                                    </table>
+                                </form>
+
+                            </div>-->
+                            <!-- // past illness-->
+
+                            <!-- middle right left 2-->
+                            <!--<div fxFlex="30%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                                <form [formGroup]="diseaseFrmGroupDetails">
+                                    <table [dataSource]="diseaseDataSourceDetails" class="mat-elevation-z8" formArrayName="scope"
+                                           mat-table>
+                                        &lt;!&ndash; Row definitions &ndash;&gt;
+                                        <tr *matHeaderRowDef="diseaseDisplayColumnsDetails" class="table-row smallFont"
+                                            mat-header-row></tr>
+                                        <tr *matRowDef="let row; let i = index; columns: diseaseDisplayColumnsDetails;"
+                                            class="table-row smallFont"
+                                            mat-row></tr>
+
+                                        &lt;!&ndash;disease&ndash;&gt;
+                                        <ng-container matColumnDef="disease">
+                                            <th *matHeaderCellDef>
+                                                {{'disease' | translate}}
+                                            </th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index"
+                                                mat-cell>
+                                                <div style="display: flow-root;">
+                                                    <mat-select-search-small
+                                                        (callBackForAddData)="setCommonLookupAddValue($event)"
+                                                        (selectionChange)="checkDisease(row)"
+                                                        [commonLookupId]="diseaseId"
+                                                        [controlName]="'disease'"
+                                                        [data]="diseaseDropdownList"
+                                                        [formGroup]="row"
+                                                        [isDental]="isDental"
+                                                        [searchType]="ehmUtils.diseaseDialog">
+                                                    </mat-select-search-small>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+
+                                        &lt;!&ndash;onExamination &ndash;&gt;
+                                        <ng-container matColumnDef="onExamination">
+                                            <th *matHeaderCellDef
+                                                style="width: 10% !important;">{{'onExamination' | translate}}</th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index"
+                                                mat-cell>
+                                                <mat-form-field-1>
+                                                    <input class="input" formControlName="onExamination" matInput
+                                                           type="text">
+                                                </mat-form-field-1>
+                                            </td>
+                                        </ng-container>
+
+                                        &lt;!&ndash;action&ndash;&gt;
+                                        <ng-container matColumnDef="action">
+                                            <th *matHeaderCellDef
+                                                style="width: 20% !important;">{{'action' | translate}}</th>
+                                            <td *matCellDef="let row; let index = index" [formGroupName]="index"
+                                                mat-cell>
+                                                <div class="buttons text-alignment">
+                                                    <mat-icon (click)="diseaseAddRow()" *ngIf="diseaseRows.length === index+1"
+                                                              class="hand-cursor"
+                                                              color="primary" matTooltip="{{'addNew' | translate}}"> add
+                                                    </mat-icon>
+
+                                                    <mat-icon (click)="diseaseDeleteRow(index)" class="hand-cursor"
+                                                              color="warn" matTooltip=" {{'delete' | translate}}">delete
+                                                    </mat-icon>
+                                                </div>
+                                            </td>
+                                        </ng-container>
+                                    </table>
+                                </form>
+                            </div>-->
                             <!--// middle right left 2-->
 
                         </div>
-                        <!-- // middle right 2-->
-
-
-                        <!--medicine part-->
-                        <div class="row sm:overflow-y-auto mt-2">
-
-                            <form [formGroup]="medicineFrmGroupDetails">
-                                <table [dataSource]="medicineDataSourceDetails" class="mat-elevation-z8 y" formArrayName="scope"
-                                       mat-table>
-                                    <!-- Row definitions -->
-                                    <tr *matHeaderRowDef="medicineDisplayColumnsDetails" class="table-row smallFont"
-                                        mat-header-row></tr>
-                                    <tr *matRowDef="let row; let i = index; columns: medicineDisplayColumnsDetails;"
-                                        class="table-row smallFont"
-                                        mat-row></tr>
-
-                                    <!--qty-->
-                                    <ng-container matColumnDef="serialNo">
-                                        <th *matHeaderCellDef>{{'sl' | translate}}</th>
-                                        <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell
-                                            style="width: 5%">
-                                            <div style="display: flow-root">
-                                                <mat-form-field-1 style="width: 100% ;">
-                                                    <input class="input" formControlName="serialNo" matInput min="0"
-                                                           oninput="validity.valid||(value='.');" type="number">
-                                                </mat-form-field-1>
-                                            </div>
-                                        </td>
-                                    </ng-container>
-
-                                    <!--medicineMaster-->
-                                    <ng-container matColumnDef="medicineMaster">
-                                        <th *matHeaderCellDef>
-                                            {{'medicineMaster' | translate}}
-                                            <!--<mat-icon class="hand-cursor white-icon" matTooltip="{{'addNew' | translate}}"
-                                                      (click)="openAllAddDialog(ehmUtils.medicineDialog)"> add
-                                            </mat-icon>-->
-                                        </th>
-                                        <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell
-                                            style="width: 40%">
-                                            <div style="display: flow-root">
-                                                <mat-select-search-small
-                                                    [isSearch]="true"
-                                                    (callBackForAddData)="setCommonLookupAddValue($event)"
-                                                    [formGroup]="row"
-                                                    [controlName]="'medicineMaster'"
-                                                    [data]="globalMedicineList"
-                                                    [commonLookupId]="ehmUtils.medicineDialog"
-
-                                                    (selectionChange)="checkMedicineMaster(row)"
-                                                    [searchType]="ehmUtils.medicineDialog">
-                                                </mat-select-search-small>
-                                            </div>
-                                        </td>
-                                    </ng-container>
-
-                                    <!--stock-->
-                                    <ng-container matColumnDef="stock">
-                                        <th *matHeaderCellDef>{{'stock' | translate}}</th>
-                                        <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell
-                                            style="width: 5%">
-                                            <div style="display: flow-root;">
-                                                <span>{{ row.value.medicineMaster ? this.ehmUtils.getFullMedicineStock(row.value.medicineMaster, this.menuType) : ''}}</span>
-                                            </div>
-                                        </td>
-                                    </ng-container>
-
-                                    <!--dose-->
-                                    <ng-container matColumnDef="dose">
-                                        <th *matHeaderCellDef>
-                                            {{'dose' | translate}}
-                                        </th>
-                                        <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell
-                                            style="width: 15%">
-                                            <div style="display: flow-root;">
-                                                <mat-select-search-small
-                                                    (callBackForAddData)="setCommonLookupAddValue($event)"
-                                                    (selectionChange)="calculateQty(row)"
-                                                    [commonLookupId]="doseId"
-                                                    [controlName]="'dose'"
-                                                    [data]="doseDropdownList"
-                                                    [formGroup]="row"
-                                                    [searchType]="ehmUtils.doseDialog">
-                                                </mat-select-search-small>
-                                            </div>
-                                        </td>
-                                    </ng-container>
-
-                                    <!--duration-->
-                                    <ng-container matColumnDef="duration">
-                                        <th *matHeaderCellDef>{{'duration' | translate}}</th>
-                                        <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell
-                                            style="width: 15%">
-                                            <div style="display: flow-root;">
-                                                <mat-form-field-1 style="width: 100% ;">
-                                                    <input (blur)="calculateQty(row)" [readonly]="row.value.continueIs" class="input" formControlName="duration"
-                                                           matInput min="0"
-                                                           oninput="validity.valid||(value='.');" type="number">
-                                                </mat-form-field-1>
-                                            </div>
-                                        </td>
-                                    </ng-container>
-
-                                    <!--dwmy-->
-                                    <ng-container matColumnDef="dwmy">
-                                        <th *matHeaderCellDef>
-                                            {{'dwmy' | translate}}
-                                        </th>
-                                        <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell
-                                            style="width: 15%">
-                                            <div style="display: flow-root;">
-                                                <mat-select-search-small
-                                                    (selectionChange)="calculateQty(row)"
-                                                    [controlName]="'dwmy'"
-                                                    [data]="dwmyDropdownList"
-                                                    [formGroup]="row">
-                                                </mat-select-search-small>
-                                            </div>
-                                        </td>
-                                    </ng-container>
-
-                                    <!--qty-->
-                                    <ng-container matColumnDef="qty">
-                                        <th *matHeaderCellDef>{{'qty' | translate}}</th>
-                                        <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell
-                                            style="width: 10%">
-                                            <div style="display: flow-root">
-                                                <mat-form-field-1 style="width: 100% ;">
-                                                    <input class="input" formControlName="qty" matInput min="0"
-                                                           oninput="validity.valid||(value='.');" type="number">
-                                                </mat-form-field-1>
-                                            </div>
-                                        </td>
-                                    </ng-container>
-
-                                    <!--instruction-->
-                                    <ng-container matColumnDef="instruction">
-                                        <th *matHeaderCellDef>
-                                            {{'instruction' | translate}}
-                                        </th>
-                                        <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell
-                                            style="width: 20%">
-                                            <div style="display: flow-root;">
-                                                <mat-select-search-small
-                                                    (callBackForAddData)="setCommonLookupAddValue($event)"
-                                                    [commonLookupId]="instructionId"
-                                                    [controlName]="'instruction'"
-                                                    [data]="instructionDropdownList"
-                                                    [formGroup]="row"
-                                                    [searchType]="ehmUtils.instructionDialog">
-                                                </mat-select-search-small>
-                                            </div>
-                                        </td>
-                                    </ng-container>
-
-                                    <!--continueIs-->
-                                    <ng-container matColumnDef="continueIs">
-                                        <th *matHeaderCellDef>{{'continueIs' | translate}}</th>
-                                        <td *matCellDef="let row; let index = index" [formGroupName]="index" class="text-alignment"
-                                            mat-cell>
-                                            <div>
-                                                <mat-checkbox formControlName="continueIs">
-                                                </mat-checkbox>
-                                            </div>
-                                        </td>
-                                    </ng-container>
-
-
-                                    <!--action-->
-                                    <ng-container matColumnDef="action">
-                                        <th *matHeaderCellDef>{{'action' | translate}}</th>
-                                        <td *matCellDef="let row; let index = index" [formGroupName]="index" mat-cell>
-                                            <div class="buttons text-alignment">
-                                                <mat-icon (click)="medicineAddRow(null, null, true)" *ngIf="medicineRows.length === index+1"
-                                                          class="hand-cursor"
-                                                          color="primary" matTooltip="{{'addNew' | translate}}">
-                                                    add
-                                                </mat-icon>
-
-                                                <mat-icon (click)="medicineDeleteRow(index)" class="hand-cursor"
-                                                          color="warn" matTooltip=" {{'delete' | translate}}">delete
-                                                </mat-icon>
-                                            </div>
-                                        </td>
-                                    </ng-container>
-
-                                </table>
-                            </form>
-
-                        </div>
-                        <!-- // medicine part-->
 
                     </div>
+
+
                     <!-- // middle right-->
 
                 </div>
@@ -979,18 +1346,18 @@
                     <div fxLayout="row wrap" fxLayoutAlign="space-between center">
 
                         <!--advice-->
-                        <div fxFlex="49%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+                        <!--<div fxFlex="49%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
                             <form [formGroup]="adviceFrmGroupDetails">
                                 <table [dataSource]="adviceDataSourceDetails" class="mat-elevation-z8"
                                        formArrayName="scope" mat-table>
-                                    <!-- Row definitions -->
+                                    &lt;!&ndash; Row definitions &ndash;&gt;
                                     <tr *matHeaderRowDef="adviceDisplayColumnsDetails" class="table-row smallFont"
                                         mat-header-row></tr>
                                     <tr *matRowDef="let row; let i = index; columns: adviceDisplayColumnsDetails;"
                                         class="table-row smallFont"
                                         mat-row></tr>
 
-                                    <!--advice-->
+                                    &lt;!&ndash;advice&ndash;&gt;
                                     <ng-container matColumnDef="advice">
                                         <th *matHeaderCellDef>
                                             {{'advice' | translate}}
@@ -1013,7 +1380,7 @@
                                     </ng-container>
 
 
-                                    <!--action-->
+                                    &lt;!&ndash;action&ndash;&gt;
                                     <ng-container matColumnDef="action">
                                         <th *matHeaderCellDef>{{'action' | translate}}</th>
                                         <td *matCellDef="let row; let index = index" [formGroupName]="index"
@@ -1039,7 +1406,7 @@
 
                                 </table>
                             </form>
-                        </div>
+                        </div>-->
                         <!-- // advice-->
 
 
